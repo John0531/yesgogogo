@@ -1,6 +1,0 @@
-VUE_APP_API = $Host/emall
-VUE_APP_PRODUCT = web-api
-VUE_APP_AuthToken = yesGoAuth
-VUE_APP_GunGao = 2021/12/15 00:00:00
-VUE_APP_WEBVIEW = $Host/yesgoApp
-VUE_APP_STATIC = https://yesgoimages.s3.ap-northeast-1.amazonaws.com
