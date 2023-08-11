@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>yesgogogo-logo-ico-02.ico">
+    <link rel="canonical" href="https://www.yesgogogo.com">
+    <title>yesgogogo 即食購</title>
+    <meta name="keywords" content="食譜, 料理+飯, 媽媽+育兒, 簡單+食譜, 湯+食譜, 麵+食譜, 懶人料理, 快速+食譜, 免運, 團購部落客, 美食, 美食+食記, 即時料理, 家常菜, 鍋物, 湯品, 火鍋料, 水餃, 包子, 麵點, 滷味, 涼拌, 泡菜, 燒烤, 炸物, 海鮮, 肉品, 蔬果, 蛋糕, 甜點, 愛上新鮮, 勝崎生鮮, 左邊口袋, 好神, 謝謝堅果, 統一生機, Olitalia 奧利塔, illy, 大眼蝦, Candy Poppy, 三叔公, 可夫萊堅果之家, 樂米工坊, 第二顆鈕扣, KEOLA, 品麵包, 赤豪私廚, 佐佐鮮, 海底撈, 紅豆食府, 天香樓, 逸湘齋, 一品花雕雞, 太和殿, 海瑞貢丸, 桃城雞排, 府中弄湯, 朱記, 麻膳堂, 樂雅樂, 麻妃火鍋, 東河包子, 阿聰師, 亞典果子, 三叔公, 品麵包, 漢典食品, 野人野食, 大廚在家, 大眼蝦, 第二顆鈕扣JC, 統一生機, 福源, 鮮一杯, 佐佐鮮, 左邊口袋, 赤豪私廚, 小川漁屋, 先拼鮮, 約克街肉舖, 名廚美饌, 黑貓包">
+    <meta name="description" content="食譜、料理+飯、媽媽+育兒、簡單+食譜、湯+食譜、麵+食譜、懶人料理、快速+食譜、免運、團購部落客、美食、美食+食記、即時料理、家常菜、鍋物、湯品、火鍋料、水餃、包子、麵點、滷味、涼拌、泡菜、燒烤、炸物、海鮮、肉品、蔬果、蛋糕、甜點、愛上新鮮、勝崎生鮮、左邊口袋、好神、謝謝堅果、統一生機、Olitalia 奧利塔、illy、大眼蝦、Candy Poppy、三叔公、可夫萊堅果之家、樂米工坊、第二顆鈕扣、KEOLA、品麵包、赤豪私廚、佐佐鮮、海底撈、紅豆食府、天香樓、逸湘齋、一品花雕雞、太和殿、海瑞貢丸、桃城雞排、府中弄湯、朱記、麻膳堂、樂雅樂、麻妃火鍋、東河包子、阿聰師、亞典果子、三叔公、品麵包、漢典食品、野人野食、大廚在家、大眼蝦、第二顆鈕扣JC、統一生機、福源、鮮一杯、佐佐鮮、左邊口袋、赤豪私廚、小川漁屋、先拼鮮、約克街肉舖、名廚美饌、黑貓包">
+    <meta property="og:type" content="shopping" />
+    <meta property="og:title" content="yesgogogo 即食購" />
+    <meta property="og:description" content="最棒的即享美食購物網，方便年菜、即食料理、鍋物湯品、水餃麵點、炸物燒烤、蛋糕甜點、生鮮蔬果、休閒零食、咖啡茶飲" />
+    <meta property="og:image" content="<%= BASE_URL %>yesgo_logo.jpg" />
+    <meta property="og:image:width" content="144" />
+    <meta property="og:image:height" content="144" />
+    <meta name="google-site-verification" content="cd3abNA2Scq6K_XCC-VOodYISHzTL9uuMjuevr1e65w" />
+    <!-- Facebook Pixel Code -->
+    <script>
+      !function (f, b, e, v, n, t, s) {
+          if (f.fbq) return; n = f.fbq = function () {
+            n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          };
+          if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+          n.queue = []; t = b.createElement(e); t.async = !0;
+          t.src = v; s = b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t, s)
+      }(window, document, 'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '635052241208494');
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=635052241208494&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Facebook Pixel Code -->
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

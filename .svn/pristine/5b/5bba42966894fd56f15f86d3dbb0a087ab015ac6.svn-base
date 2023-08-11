@@ -1,0 +1,1922 @@
+<template>
+  <header>
+    <div class="space"></div>
+    <div class="position-fixed w-100" style="z-index: 1000; top: 0;">
+      <Announce></Announce>
+      <nav class="headerNavbar navbar navbar-expand-lg navbar-light position-relative width: 100%; bg-white">
+        <div class="container w-100">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <router-link to="/" class="navbar-brand">
+              <img v-if="isNotExpired"
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo.png"
+                alt="yesgo logo"
+                class="yesgoLogo"
+              />
+              <img v-else
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo_ny.gif"
+                alt="yesgo logo"
+                class="yesgoLogo"
+              />
+            </router-link>
+            <!-- 網頁版 search bar -->
+            <div
+              class="searchBar input-group position-relative d-none d-md-flex w-45"
+            >
+              <input
+                type="text"
+                class="form-control border border-primary rounded-1"
+                v-model="keyword"
+                @keyup.enter="goToSearch"
+              />
+              <a
+                href="#"
+                class="btn border-0 position-absolute end-0 py-1"
+                @click.prevent="goToSearch"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24.502 24.497" style="overflow: visible;">
+                  <g id="yesgo_icon元件_工作區域_1" data-name="yesgo_icon元件_工作區域 1" transform="translate(-0.355 -0.36)">
+                    <line id="Line_29" data-name="Line 29" x2="6.82" y2="6.82" transform="translate(17.33 17.33)" fill="none" stroke="#f8412e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+                    <path id="Path_140" data-name="Path 140" d="M17.33,3.68a9.65,9.65,0,1,1-13.65,0,9.65,9.65,0,0,1,13.65,0Z" fill="none" stroke="#f8412e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <div class="memberList d-flex align-items-center ms-auto ms-md-0">
+              <!-- 行動版 search icon -->
+              <button
+                class="navbar-toggler border-0 d-md-none p-0 me-2"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#searchContent"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24.502 24.497" style="overflow: visible;">
+                  <g id="yesgo_icon元件_工作區域_1" data-name="yesgo_icon元件_工作區域 1" transform="translate(-0.355 -0.36)">
+                    <line id="Line_29" data-name="Line 29" x2="6.82" y2="6.82" transform="translate(17.33 17.33)" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+                    <path id="Path_140" data-name="Path 140" d="M17.33,3.68a9.65,9.65,0,1,1-13.65,0,9.65,9.65,0,0,1,13.65,0Z" fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+                  </g>
+                </svg>
+              </button>
+              <!-- 行動版 登入/註冊連結 icon -->
+              <div class="loginandout">
+                <div v-if="this.$store.state.isLogOut" class="d-flex align-items-center">
+                  <a href="#" @click.prevent="mobileLogin"
+                    ><img
+                      class="d-sm-none"
+                      src="../assets/img/yesgo_icon02.svg"
+                      alt="user login"
+                  /></a>
+                  <!-- 網頁/平板 登入/註冊連結 -->
+                  <img
+                    class="d-none d-sm-inline"
+                    src="../assets/img/yesgo_icon02.svg"
+                    alt="user login"
+                  />
+                  <ul
+                    class="list-unstyled d-none d-sm-flex flex-nowrap mb-0 mb-lg-0"
+                  >
+                    <li class="nav-item">
+                      <router-link
+                        to="/register"
+                        class="forgot-password nav-link text-secondary fs-6 fs-xl-5 lh-1 py-0 px-2"
+                      >
+                        註冊
+                      </router-link>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="#"
+                        class="nav-link text-secondary fs-6 fs-xl-5 lh-1 py-0 px-2"
+                        @click.prevent="getRandomNum();this.myOldModal.show()"
+                        >登入</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+                <div v-else class="d-flex align-items-center">
+                  <a href="#" @click.prevent="mobileLogin"
+                    ><img
+                      class="d-sm-none"
+                      src="../assets/img/yesgo_icon34.svg"
+                      alt="user login"
+                  /></a>
+                  <!-- 網頁/平板 登入/註冊連結 -->
+                  <img
+                    class="d-none d-sm-inline"
+                    src="../assets/img/yesgo_icon34.svg"
+                    alt="user login"
+                  />
+                  <ul
+                    class="list-unstyled d-none d-sm-flex flex-nowrap mb-0 mb-lg-0"
+                  >
+                    <li class="nav-item">
+                      <a
+                        class="forgot-password nav-link text-secondary fs-6 fs-xl-5 lh-1 py-0 px-2"
+                        @click.prevent="logOut"
+                        style="cursor: pointer"
+                      >
+                        登出
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <router-link
+                        to="/memberboard/memberinfoupdate"
+                        class="nav-link text-secondary fs-6 fs-xl-5 lh-1 py-0 px-2"
+                      >
+                        會員中心
+                      </router-link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <a href="#" class="collectBtn" @click.prevent="toMemberCollection"
+                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20.808" height="18.918" viewBox="0 0 19.808 17.918">
+                <path id="yesgo_icon元件-28" d="M19.44,6a4.8,4.8,0,0,0-9.19-1.9A4.8,4.8,0,1,0,2.51,9.47l7.74,8.29L18,9.47A4.8,4.8,0,0,0,19.44,6Z" transform="translate(-0.307 -0.517)" fill="none" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35"/>
+                </svg>
+              </a>
+              <a href="#" class="cartBtn" @click.prevent="toCheckoutCartList">
+                <img src="../assets/img/yesgo_icon03.svg" alt="cart" />
+                <div class="cartNumber">{{this.$store.state.cartIconNum}}</div>
+              </a>
+            </div>
+            <!-- Button trigger modal -->
+            <!-- 行動版 漢堡選單 icon -->
+            <button
+              class="navbar-toggler border-0 d-block d-md-none ms-2 ms-lg-0"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarContent"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+        <!-- menu 下拉選單-->
+        <div
+          ref="menuCollapse"
+          class="collapse menu-collapse position-absolute top-0 start-0 w-100 z-index-11"
+          id="navbarContent"
+        >
+          <div
+            class="container d-flex justify-content-between bg-white py-2 px-md-1"
+          >
+            <a class="d-block py-1" href="#">
+              <img v-if="isNotExpired"
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo.png"
+                alt="yesgo logo"
+                class="yesgoLogo"
+              />
+              <img v-else
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo_ny.gif"
+                alt="yesgo logo"
+                class="yesgoLogo"
+              />
+            </a>
+            <button
+              type="button"
+              class="navbar-toggler border-0"
+              @click.prevent="closeMenu"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+          <h2 class="h6 bg-primary text-white py-3 ps-3 ps-xl-5 mb-0">
+            全站商品分類
+          </h2>
+          <div class="accordion mobileCategoryAccordion" id="mobileCategoryList">
+            <!-- 滿額出貨區 -->
+            <div class="accordion-item" v-if="this.$store.state.menuFreeList.length !== 0">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold py-0 ps-3 ps-xl-4 pe-3"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#categoryFree"
+                  aria-expanded="true"
+                  aria-controls="menuListOne"
+                  :class="{ collapsed: !(!this.$store.state.subCategoryId.match('S') && this.$store.state.subCategoryId)  }"
+                >
+                  <span class="d-block w-100 ps-xl-2 py-3 pe-3">滿額出貨區</span>
+                </button>
+              </h2>
+              <div
+                id="categoryFree"
+                class="accordion-collapse collapse"
+                data-bs-parent="#categoryList"
+                :class="{ show: !this.$store.state.subCategoryId.match('S') && this.$store.state.subCategoryId }"
+              >
+                <div class="accordion-body p-0">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item list-group-menu ps-3 ps-xl-4 py-0"
+                      v-for="item in this.$store.state.menuFreeList"
+                      :key="item.code + '1'"
+                      :class="{ active: isActive === item.code }"
+                    >
+                      <router-link
+                        :to="{
+                          path: `/productboard/productlistfullshipment/${item.code}`
+                        }"
+                        @click.prevent="addActive(`${item.code}`); this.$store.commit('getCategory', ''); this.$store.commit('getCategoryId', ''); this.$store.commit('getSubCategoryId', item.code); this.$store.commit('getSubCategory', '');"
+                        class="list-group-item-link text-secondary d-block ps-lg-2 py-2"
+                        >{{ item.name }}</router-link
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- 一般館別 -->
+            <div class="accordion-item" v-for="menu in menuList" :key="menu.id">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button fw-bold py-0 ps-3 ps-xl-4 pe-3"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="`#nav${menu.categoryCode}`"
+                  aria-expanded="true"
+                  aria-controls="menuListOne"
+                  :class="{
+                    collapsed: !this.$store.state.subCategoryId.match(
+                      menu.categoryCode
+                    ) && this.$store.state.categoryId !== menu.categoryCode
+                  }"
+                  @click.prevent="this.$store.commit('getCategoryId', menu.categoryCode);"
+                >
+                  <span class="d-block w-100 ps-xl-2 py-3 pe-3">{{ menu.name }}</span>
+                </button>
+              </h2>
+              <div
+                :id="`nav${menu.categoryCode}`"
+                class="accordion-collapse collapse"
+                data-bs-parent="#mobileCategoryList"
+                :class="{
+                  show: this.$store.state.subCategoryId.match(menu.categoryCode) || this.$store.state.categoryId === menu.categoryCode
+                }"
+              >
+                <div class="accordion-body p-0">
+                  <ul class="menu-m-list-group list-group list-group-flush">
+                    <li
+                      class="list-group-item list-group-menu ps-3 ps-xl-4 py-0"
+                      :class="{ active: isActive === `${item.categoryCode}` }"
+                      v-for="item in menu.subCategories"
+                      :key="item.categoryCode"
+                    >
+                      <router-link
+                        :to="{
+                          path: `/productboard/productList/${item.categoryCode}`
+                        }"
+                        @click.prevent="
+                          addActive(`${item.id}`)
+                          this.$store.commit(
+                            'getSubCategoryId',
+                            item.categoryCode
+                          );
+                        "
+                        class="list-group-item-link text-secondary d-block ps-lg-2 py-2"
+                      >
+                        {{ item.name }}
+                      </router-link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 下拉選單搜尋列 -->
+        <div
+          ref="searchbar"
+          class="collapse search-collapse bg-white position-absolute top-100 start-0 p-2 w-100"
+          id="searchContent"
+        >
+          <div class="d-flex">
+            <button
+              type="button"
+              class="bg-white border-0 ps-0 pe-2"
+              @click.prevent="closeMenu"
+            >
+              <i class="bi bi-x-lg"></i>
+            </button>
+            <div class="searchBar input-group">
+              <input
+                type="text"
+                class="form-control border border-primary rounded-1"
+                v-model="keyword"
+              />
+              <a
+                href="#"
+                class="btn border-0 position-absolute end-0"
+                @click.prevent="goToSearch()"
+              >
+                <img src="../assets/img/yesgo_icon01.svg" alt="search button" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <HotCategory class="bg-white"></HotCategory>
+    </div>
+    <!-- 會員登入 Modal-->
+    <!-- <div
+      class="modal"
+      aria-hidden="true"
+      aria-labelledby="exampleModalToggleLabel"
+      ref="loginDom"
+      id="exampleModalToggle"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header align-items-end">
+            <button
+              type="button"
+              class="btn-close"
+              @click.prevent="closeModal"
+            ></button>
+          </div>
+          <div class="modal-body px-3 px-lg-6">
+            <div class="container-fluid">
+              <div class="row py-4 align-items-center mb-5 mt-3">
+                <div class="col-lg-6">
+                  <Form
+                    class="form_registration pe-lg-4 pe-md-3"
+                    method="POST"
+                    v-slot="{ errors }"
+                    @submit="login"
+                  >
+                    <div class="form_detail">
+                      <div class="text-center">
+                        <img
+                          src="../assets/img/yesgo_icon02.svg"
+                          alt=""
+                          id="logInImage"
+                          class="d-block mx-auto"
+                        />
+                        <span class="registraion">會員登入</span>
+                      </div>
+                      <div class="row phone">
+                        <div class="col-md-12">
+                          <label class="form-label">帳號</label>
+                          <Field
+                            name="新帳號"
+                            type="tel"
+                            class="form-control"
+                            placeholder="請輸入手機號碼，如:0987654352"
+                            autoCompleteType="disabled"
+                            :rules="isPhone"
+                            :class="{ 'is-invalid': errors['新帳號'] }"
+                            v-model="newLogin.Account"
+                            autocomplete="off"
+                            tabindex="1"
+                          />
+                          <ErrorMessage
+                            name="新帳號"
+                            class="invalid-feedback"
+                          ></ErrorMessage>
+                        </div>
+                      </div>
+                      <div class="row password">
+                        <div class="col-md-12">
+                          <label class="form-label">密碼</label>
+                          <div id="f">
+                            <Field
+                              name="登入密碼"
+                              type="password"
+                              :rules="checkPwdRule"
+                              class="form-control form_password"
+                              placeholder="請輸入密碼"
+                              :class="{
+                                'is-invalid': errors['登入密碼']
+                              }"
+                              v-model.trim="newLogin.SecretCode"
+                              tabindex="2"
+                            />
+                            <ErrorMessage
+                              name="登入密碼"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                            <a
+                              href="#"
+                              @click.prevent="
+                                isShow = !isShow;
+                                pwdCheck(isShow, $event)
+                              "
+                              class="passwordImage position-absolute d-block"
+                            >
+                              <img
+                                v-if="isShow"
+                                src="../assets/img/yesgo_icon26.svg"
+                              />
+                              <img
+                                v-else
+                                src="../assets/img/yesgo_icon25.svg"
+                              />
+                            </a>
+                          </div>
+                          <div class="d-flex justify-content-between">
+                            <div class="form-check" v-if="showRememberMe">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="rememberAccount"
+                                v-model="newLogin.RememberMe"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="rememberAccount"
+                              >
+                                記住帳號
+                              </label>
+                            </div>
+                            <a
+                              href="#"
+                              @click.prevent="toForgetPassword"
+                              class="forgot-password"
+                            >
+                              忘記密碼
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row verification">
+                        <div class="col-md-12">
+                          <label for="inputState" class="form-label"
+                            >驗證碼</label
+                          >
+                          <div class="input-group">
+                            <Field
+                              name="驗證碼"
+                              :class="{ 'is-invalid': errors['驗證碼'] }"
+                              autocomplete="off"
+                              type="text"
+                              class="form-control z-index-10"
+                              maxlength="4"
+                              tabindex="3"
+                              rules="required"
+                              v-model="newLogin.Captcha"
+                            />
+                            <button
+                              class="verifyBtn btn border px-3"
+                              type="button"
+                              @click.prevent="getRandomNum"
+                            >
+                              <img
+                                src=""
+                                id="imgInitNewValidCode"
+                                style="width: 100px; height: 30px; margin-right: 8px;"
+                              />
+                              <img
+                                src="../assets/img/yesgo_icon27.svg"
+                              />
+                            </button>
+                            <ErrorMessage name="驗證碼" class="invalid-feedback"></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end text-muted fs-7 mb-2">
+                        驗證碼不須區分大小寫
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button
+                            type="submit"
+                            class="btn btn-primary col-md-12 text-white"
+                          >
+                            登入
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Form>
+                </div>
+                <div class="col-lg-6 mt-3 mt-lg-0 ps-lg-4 ps-md-3">
+                  <div class="member_discount">
+                    <a
+                      href="#"
+                      data-bs-target="#exampleModalToggle2"
+                      data-bs-toggle="modal"
+                      data-bs-dismiss="modal"
+                      @click.prevent="getRandomNum(), toOldLoginModal()"
+                    >
+                      <div v-if="memberImg[0]">
+                        <img :src="`${memberImg[0].image}?${getRandomString(3)}`" class="img-fluid"/>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- 會員登入(新舊結合) Modal -->
+    <div
+      class="modal"
+      id="exampleModalToggle2"
+      ref="oldLoginDom"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              @click.prevent="closeModal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row justify-content-center my-5">
+                <div class="col-lg-6">
+                  <Form
+                    class="form_registration"
+                    method="POST"
+                    v-slot="{ errors }"
+                    @submit="memberLogin"
+                  >
+                    <div class="form_detail">
+                      <div class="text-center">
+                        <img
+                          src="../assets/img/yesgo_icon02.svg"
+                          alt=""
+                          id="logInImage"
+                          class="d-block mx-auto"
+                        />
+                        <span class="registraion">會員登入</span>
+                      </div>
+                      <div class="row phone">
+                        <div class="col-md-12">
+                          <label class="form-label">帳號</label>
+                          <Field
+                            type="text"
+                            v-model="login.Account"
+                            class="form-control"
+                            :rules="isaccount"
+                            :class="{ 'is-invalid': errors['舊帳號'] }"
+                            placeholder="請輸入手機號碼/身分證字號/Email"
+                            name="舊帳號"
+                            autocomplete="off"
+                            tabindex="1"
+                          ></Field>
+                          <ErrorMessage
+                            name="舊帳號"
+                            class="invalid-feedback"
+                          ></ErrorMessage>
+                        </div>
+                      </div>
+                      <div class="row password">
+                        <div class="col-md-12">
+                          <label class="form-label">密碼</label>
+                          <div id="f">
+                            <Field
+                              name="舊會員登入密碼"
+                              type="password"
+                              :rules="checkPwdRule"
+                              class="form-control form_password"
+                              placeholder="請輸入密碼"
+                              :class="{
+                                'is-invalid': errors['舊會員登入密碼']
+                              }"
+                              v-model.trim="login.SecretCode"
+                              autocomplete="off"
+                              tabindex="2"
+                            ></Field>
+                            <ErrorMessage
+                              name="舊會員登入密碼"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                            <a
+                              href="#"
+                              @click.prevent="
+                                isOldShow = !isOldShow;
+                                pwdCheck(isOldShow, $event)
+                              "
+                              class="passwordImage position-absolute d-block"
+                            >
+                              <img
+                                v-if="isOldShow"
+                                src="../assets/img/yesgo_icon26.svg"
+                              />
+                              <img
+                                v-else
+                                src="../assets/img/yesgo_icon25.svg"
+                              />
+                            </a>
+                          </div>
+                          <div class="d-flex justify-content-between">
+                            <div class="form-check" v-if="showRememberMe">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="rememberOldAccount"
+                                v-model="login.RememberMe"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="rememberOldAccount"
+                              >
+                                記住帳號
+                              </label>
+                            </div>
+                            <a
+                              class="forgot-password"
+                              href="#"
+                              @click.prevent="toForgetPassword"
+                            >
+                              忘記密碼
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row verification">
+                        <div class="col-md-12">
+                          <label for="inputState" class="form-label"
+                            >驗證碼</label
+                          >
+                          <div class="input-group">
+                            <Field
+                              type="text"
+                              class="form-control z-index-10"
+                              v-model="login.Captcha"
+                              maxlength="4"
+                              tabindex="3"
+                              autocomplete="off"
+                              rules="required"
+                              name="驗證碼"
+                              :class="{ 'is-invalid': errors['驗證碼'] }"
+                            />
+                            <button
+                              class="verifyBtn btn border"
+                              type="button"
+                              @click.prevent="getRandomNum"
+                            >
+                              <span></span>
+                              <img
+                                src=""
+                                id="imgInitOldValidCode"
+                                style="width: 100px; height: 30px; margin-right: 8px;"
+                              />
+                              <img
+                                src="../assets/img/yesgo_icon27.svg"
+                              />
+                            </button>
+                            <ErrorMessage
+                              name="驗證碼"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end text-muted fs-7 mb-2">
+                        驗證碼不須區分大小寫
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button
+                            type="submit"
+                            class="btn btn-primary col-md-12 text-white"
+                          >
+                            登入
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="d-flex justify-content-between">
+                            <!-- 企業會員登入 -->
+                            <!-- <div class="col-md-6 ms-auto">
+                              <a
+                              data-bs-target="#exampleModalToggle3"
+                              data-bs-toggle="modal"
+                              data-bs-dismiss="modal"
+                              class="staffLoginButton text-primary d-flex justify-content-start text-nowrap mt-3"
+                              href="#"
+                              @click.prevent="getRandomNum();toStaffLoginModal()"
+                              >
+                                企業會員登入
+                              </a>
+                            </div> -->
+                            <div class="col-md-6 ms-auto">
+                              <a
+                              class="register text-secondary d-flex justify-content-end text-nowrap mt-3"
+                              href="#"
+                              @click.prevent="toRegister"
+                              >
+                                註冊
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 企業會員登入 Modal -->
+    <!-- <div
+      class="modal"
+      id="exampleModalToggle3"
+      ref="staffLoginDom"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              @click.prevent="closeModal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row justify-content-center my-5">
+                <div class="col-lg-6">
+                  <Form
+                    class="form_registration"
+                    method="POST"
+                    v-slot="{ errors }"
+                    @submit="staffMemberLogin"
+                  >
+                    <div class="form_detail">
+                      <div class="text-center">
+                        <img
+                          src="../assets/img/yesgo_icon02.svg"
+                          alt=""
+                          id="logInImage"
+                          class="d-block mx-auto"
+                        />
+                        <span class="stafflogin">企業會員登入</span>
+                      </div>
+                      <div class="row phone">
+                        <div class="col-md-12">
+                          <label class="form-label">帳號</label>
+                          <Field
+                            type="text"
+                            v-model="staffLogin.Account"
+                            class="form-control"
+                            :rules="checkStaffPwd"
+                            :class="{ 'is-invalid': errors['企業員工'] }"
+                            placeholder="請輸入企業員工編號"
+                            name="企業員工"
+                            autocomplete="off"
+                            tabindex="1"
+                          ></Field>
+                          <ErrorMessage
+                            name="企業員工"
+                            class="invalid-feedback"
+                          ></ErrorMessage>
+                        </div>
+                      </div>
+                      <div class="row password">
+                        <div class="col-md-12">
+                          <label class="form-label">密碼</label>
+                          <div id="f">
+                            <Field
+                              name="企業員工登入密碼"
+                              type="password"
+                              :rules="checkPwdRule"
+                              class="form-control form_password"
+                              placeholder="請輸入密碼"
+                              :class="{
+                                'is-invalid': errors['企業員工登入密碼']
+                              }"
+                              v-model.trim="staffLogin.SecretCode"
+                              autocomplete="off"
+                              tabindex="2"
+                            ></Field>
+                            <ErrorMessage
+                              name="企業員工登入密碼"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                            <a
+                              href="#"
+                              @click.prevent="
+                                isOldShow = !isOldShow;
+                                pwdCheck(isOldShow, $event)
+                              "
+                              class="passwordImage position-absolute d-block"
+                            >
+                              <img
+                                v-if="isOldShow"
+                                src="../assets/img/yesgo_icon26.svg"
+                              />
+                              <img
+                                v-else
+                                src="../assets/img/yesgo_icon25.svg"
+                              />
+                            </a>
+                          </div>
+                          <div class="d-flex justify-content-between">
+                            <div class="form-check" v-if="showRememberMe">
+                              <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="rememberStaffAccount"
+                                v-model="staffLogin.RememberMe"
+                              />
+                              <label
+                                class="form-check-label"
+                                for="rememberStaffAccount"
+                              >
+                                記住帳號
+                              </label>
+                            </div>
+                            <a
+                              class="forgot-password"
+                              href="#"
+                              @click.prevent="toForgetPassword"
+                            >
+                              忘記密碼
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row verification">
+                        <div class="col-md-12">
+                          <label for="inputState" class="form-label"
+                            >驗證碼</label
+                          >
+                          <div class="input-group">
+                            <Field
+                              type="text"
+                              class="form-control z-index-10"
+                              v-model="staffLogin.Captcha"
+                              maxlength="4"
+                              tabindex="3"
+                              autocomplete="off"
+                              rules="required"
+                              name="驗證碼"
+                              :class="{ 'is-invalid': errors['驗證碼'] }"
+                            />
+                            <button
+                              class="verifyBtn btn border"
+                              type="button"
+                              @click.prevent="getRandomNum"
+                            >
+                              <span></span>
+                              <img
+                                src=""
+                                id="imgInitStaffValidCode"
+                                style="width: 100px; height: 30px; margin-right: 8px;"
+                              />
+                              <img
+                                src="../assets/img/yesgo_icon27.svg"
+                              />
+                            </button>
+                            <ErrorMessage
+                              name="驗證碼"
+                              class="invalid-feedback"
+                            ></ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end text-muted fs-7 mb-2">
+                        驗證碼不須區分大小寫
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button
+                            type="submit"
+                            class="btn btn-primary col-md-12 text-white"
+                          >
+                            登入
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- 強制加入手機號碼設定 Modal -->
+    <!-- <div ref="phoneNum" class="modal" tabindex="-1" id="phoneNumOld">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              @click.prevent="closeModal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row justify-content-center my-5">
+                <div class="col-lg-6">
+                  <Form
+                    class="form_registration"
+                    method="POST"
+                    v-slot="{ errors }"
+                    @submit="enforcePhoneNum"
+                  >
+                    <div class="form_detail">
+                      <div class="text-center">
+                        <span class="registraion fs-5 flex-nowrap">您尚未填寫過手機號碼，請依照頁面指示完成填寫流程</span>
+                      </div>
+                      <div class="row phone mt-4">
+                        <div class="col-md-12">
+                          <label class="form-label">手機</label>
+                          <span class="text-primary">*</span>
+                          <Field
+                            name="手機"
+                            type="tel"
+                            class="form-control py-2"
+                            placeholder="請輸入手機號碼"
+                            autoCompleteType="disabled"
+                            :rules="isPhone"
+                            :class="{ 'is-invalid': errors['手機'] }"
+                            v-model="enforce.PhoneNum"
+                            autocomplete="off"
+                          ></Field>
+                          <ErrorMessage
+                            name="手機"
+                            class="invalid-feedback"
+                          ></ErrorMessage>
+                          <span id="uidt" class="text-primary"></span>
+                        </div>
+                      </div>
+                      <div class="row verification mt-2">
+                        <div class="col-md-9 col-lg-9 mb-1">
+                          <Field
+                            name="手機驗證碼"
+                            type="number"
+                            rules="required"
+                            class="form-control py-2"
+                            placeholder="請輸入驗證碼(每日限定傳送3次)"
+                            autoCompleteType="disabled"
+                            autocomplete="off"
+                            :class="{ 'is-invalid': errors['手機驗證碼'] }"
+                            v-model="enforce.OtpCode"
+                          ></Field>
+                          <ErrorMessage
+                            name="手機驗證碼"
+                            class="invalid-feedback"
+                          ></ErrorMessage>
+                        </div>
+                        <div class="col-md-3 col-lg-3 mb-3">
+                          <button
+                            type="submit"
+                            class="btn btn-primary text-white"
+                            @click.prevent="getMsgCode"
+                            :disabled="!show"
+                          >
+                            <span v-show="show">獲取驗證碼</span>
+                            <span v-show="!show" class="count"
+                              >{{ count }} 秒後 重新發送</span
+                            >
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <button
+                            type="submit"
+                            class="btn btn-primary col-md-12 text-white"
+                          >
+                            確認
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </Form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </header>
+</template>
+
+<script>
+import moment from 'moment'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js'
+import getGiftEvent from '@/assets/js/giftevent.js'
+import checkToken from '@/assets/js/checkToken.js'
+import HotCategory from '@/components/HotCategory.vue'
+import Announce from '@/components/Announce.vue'
+import member from '../assets/js/member'
+import { getRandomString } from '@/assets/js/randomString.js'
+
+export default {
+  data () {
+    return {
+      // isLogOut: true,
+      userToken: '',
+      isActive: '',
+      menuList: [],
+      menuFreeList: [],
+      isOldShow: true,
+      isShow: true,
+      verifyCode: '',
+      keyword: '',
+      oldMemberAccount: '',
+      account: '',
+      password: '',
+      oldPassword: '',
+      myModal: '',
+      transactionId: '',
+      showRememberMe: true,
+      memberId: '',
+      //* 新會員登入
+      // newLogin: {
+      //   Account: '',
+      //   SecretCode: '',
+      //   Captcha: '',
+      //   ValidTransactionId: '',
+      //   RememberMe: false
+      // },
+      //* 舊會員登入
+      // oldLogin: {
+      //   Account: '',
+      //   SecretCode: '',
+      //   Captcha: '',
+      //   ValidTransactionId: '',
+      //   RememberMe: false
+      // },
+      // *新舊會員登入
+      login: {
+        Account: '',
+        SecretCode: '',
+        Captcha: '',
+        ValidTransactionId: '',
+        RememberMe: false
+      },
+      //* 企業會員登入
+      // staffLogin: {
+      //   Account: '',
+      //   SecretCode: '',
+      //   Captcha: '',
+      //   ValidTransactionId: '',
+      //   RememberMe: false
+      // },
+      cartIconNum: 0,
+      cookieToken: {},
+      clickValidCode: 0,
+      transactionInfo: {},
+      isClickCart: false,
+      isNotExpired: true, // *LOGO 時間設定
+      // phoneNumOld: '',
+      form: {
+        PhoneNum: ''
+      },
+      //* 手機驗證碼倒數
+      timer: 0,
+      show: true,
+      count: 0,
+      memberImg: '' //* 舊會員登入圖片
+      //* 強制填入手機號碼
+      // enforce: {
+      //   PhoneNum: '',
+      //   memberId: '',
+      //   TransactionId: '',
+      //   OtpCode: '',
+      //   RememberMe: ''
+      // },
+      //* 強制填入手機號碼簡訊驗證碼
+      // msgPhone: {
+      //   phoneNumber: '',
+      //   otpType: '7'
+      // }
+    }
+  },
+  created () {
+    this.$store.commit('refreshIsLogOut', !this.checkCookie())
+  },
+  components: {
+    HotCategory,
+    Announce
+  },
+  methods: {
+    getRandomString, //* 產生亂數
+    closeMenu () {
+      this.$refs.menuCollapse.classList.remove('show')
+      this.$refs.searchbar.classList.remove('show')
+    },
+    addActive (id) {
+      this.isActive = id
+      this.$refs.menuCollapse.classList.remove('show')
+    },
+    getMenu () {
+      // 商品種類(館別)清單 get
+      const url = `${process.env.VUE_APP_API}/api/widgets/category`
+      this.$http.get(url).then(res => {
+        if (res.data.rtnCode === 0) {
+          this.menuList = res.data.info
+        }
+      })
+      // TODO滿額出貨清單(測試環境)
+      if (!window.location.href.includes('www.yesgogogo.com')) {
+        const urlFree = `${process.env.VUE_APP_API}/api/widgets/freedelivery`
+        this.$http.get(urlFree)
+          .then((res) => {
+            if (res.data.rtnCode === 0) {
+              this.menuFreeList = res.data.info
+            }
+          })
+      }
+    },
+    mobileLogin () {
+      /* 1. 判斷是否登入 */
+      /* 2. 有登入 -> 到 會員專區 */
+      /* 3. 未登入 -> 登入頁(彈跳視窗)  */
+      // 將前次路由記錄為會員專區，登入後導到專區
+      // 先記錄 session 的路由，若無則記錄會員中心的會員資料修改
+      if (sessionStorage.getItem('path')) {
+        this.$store.commit('refreshCartPath', sessionStorage.getItem('path'))
+      } else {
+        this.$store.commit('refreshCartPath', '/memberboard/memberinfoupdate')
+      }
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (AccessToken || RefreshToken) {
+        this.$router.push('/memberboard/memberinfoupdate')
+      } else {
+        this.$router.push('/membermobilelogin')
+        this.getRandomNum()
+      }
+    },
+    //* 密碼切換
+    pwdCheck (status, $event) {
+      if (status) {
+        // 上上個DOM元素
+        $event.currentTarget.previousSibling.previousSibling.setAttribute(
+          'type',
+          'password'
+        )
+      } else {
+        $event.currentTarget.previousSibling.previousSibling.setAttribute(
+          'type',
+          'text'
+        )
+      }
+    },
+    //* 取得隨機4位數驗證碼
+    getRandomNum () {
+      const url = `${process.env.VUE_APP_API}/api/members/ValidateCode`
+      this.axios.get(url).then(res => {
+        // 會員登入
+        this.transactionInfo = res.data.info
+        // const transactionId = this.transactionInfo.validTransactionId
+        // this.newLogin.ValidTransactionId = transactionId
+        // 舊會員登入
+        const transactionIdOld = this.transactionInfo.validTransactionId
+        this.login.ValidTransactionId = transactionIdOld
+        // 企業會員登入
+        // const transactionIdStaff = this.transactionInfo.validTransactionId
+        // this.staffLogin.ValidTransactionId = transactionIdStaff
+
+        // 圖形驗證碼的圖
+        // 會員登入傳入src
+        // var pictureContentCode = this.transactionInfo.captcha
+        // document.getElementById('imgInitNewValidCode').src = pictureContentCode
+        // 舊會員登入傳入src
+        var pictureContentCode2 = this.transactionInfo.captcha
+        document.getElementById('imgInitOldValidCode').src = pictureContentCode2
+        // 企業員工登入傳入src
+        // var pictureContentCode3 = this.transactionInfo.captcha
+        // document.getElementById('imgInitStaffValidCode').src = pictureContentCode3
+      })
+    },
+    //* 會員登入
+    newLogin () {
+      window.fbq('track', 'Lead')
+      const url = `${process.env.VUE_APP_API}/api/members/LogIn`
+      this.axios.post(url, this.login).then(res => {
+        this.login.Captcha = ''
+        this.getRandomNum()
+        if (res.data.rtnCode !== 0) {
+          this.$swal.fire({
+            title: `${res.data.rtnMsg}`,
+            allowOutsideClick: true,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        // * 取得購物車商品數量
+        this.$store.dispatch('getCartNum')
+        this.cookieToken = res.data.info
+        this.$store.dispatch('loginSetCookie', res.data.info)
+        // this.myModal.hide()
+        this.$swal.fire({
+          title: '歡迎登入',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (this.$store.state.isClickCart === true) {
+              this.$router.push('/checkoutboard/checkoutcartlist')
+            } else if (this.$store.state.isClickCollection === true) {
+              this.$router.push('/memberboard/membercollection')
+            } else if (sessionStorage.getItem('path')) {
+              // ? LINE 兩活動事件
+              this.eventGift()
+            } else if (this.$route.params.event === 'fromEvent' || localStorage.getItem('fromEvent') === 'event') {
+              // ?從活動頁點擊登入，要導回活動頁
+              localStorage.removeItem('fromEvent')
+              this.$router.go(-1)
+            } else if (sessionStorage.getItem('cardEvent')) {
+              // ? [卡友修改密碼事件]
+              this.$router.go()
+            } else if (sessionStorage.getItem('putuEvent')) {
+              // ? [普渡事件]
+              sessionStorage.removeItem('putuEvent', 'putu')
+              this.$router.push('/memberboard/membercoupon')
+            } else {
+              if (this.$store.state.BirthdayData.fromBirthday !== true) {
+                this.$router.go()
+              } else {
+                this.$store.commit('refreshLoginFromBirthday', true)
+              }
+            }
+          }
+        })
+      })
+    },
+    //* 舊會員登入
+    // oldMemberLogin () {
+    //   window.fbq('track', 'Lead')
+    //   const id = /^[a-z](1|2)\d{8}$/i
+    //   if (id.test(this.oldLogin.Account)) {
+    //     this.oldLogin.Account = this.oldLogin.Account.toUpperCase()
+    //   }
+    //   const url = `${process.env.VUE_APP_API}/api/members/LogIn`
+    //   this.axios.post(url, this.oldLogin).then(res => {
+    //     this.oldLogin.Captcha = ''
+    //     this.getRandomNum()
+    //     if (res.data.rtnCode !== 0) {
+    //       if (res.data.rtnCode === 1111) {
+    //         this.enforce.memberId = res.data.info.memberId
+    //         this.enforce.RememberMe = this.oldLogin.RememberMe
+    //         this.myOldModal.hide()
+    //         // this.phoneNumOld.show()
+    //         return
+    //       }
+    //       this.$swal.fire({
+    //         title: `${res.data.rtnMsg}`,
+    //         allowOutsideClick: true,
+    //         confirmButtonColor: '#F8412E',
+    //         confirmButtonText: '確認',
+    //         width: 400,
+    //         customClass: {
+    //           title: 'text-class',
+    //           confirmButton: 'confirm-btn-class'
+    //         }
+    //       })
+    //       return
+    //     }
+    //     // * 取得購物車商品數量
+    //     this.$store.dispatch('getCartNum')
+    //     this.cookieToken = res.data.info
+    //     this.$store.dispatch('loginSetCookie', res.data.info)
+    //     this.myOldModal.hide()
+    //     this.$swal.fire({
+    //       title: '歡迎登入',
+    //       allowOutsideClick: true,
+    //       confirmButtonColor: '#F8412E',
+    //       confirmButtonText: '確認',
+    //       width: 400,
+    //       customClass: {
+    //         title: 'text-class',
+    //         confirmButton: 'confirm-btn-class'
+    //       }
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         if (this.$store.state.isClickCart === true) {
+    //           this.$router.push('/checkoutboard/checkoutcartlist')
+    //         } else if (this.$store.state.isClickCollection === true) {
+    //           this.$router.push('/memberboard/membercollection')
+    //         } else if (sessionStorage.getItem('path')) {
+    //           this.eventGift()
+    //         } else if (this.$route.params.event === 'fromEvent' || localStorage.getItem('fromEvent') === 'event') {
+    //           // ?從活動頁點擊登入，要導回活動頁
+    //           this.$router.go(-1)
+    //           localStorage.removeItem('fromEvent')
+    //         } else {
+    //           if (this.$store.state.BirthdayData.fromBirthday !== true) {
+    //             this.$router.go()
+    //           } else {
+    //             this.$store.commit('refreshLoginFromBirthday', true)
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    // },
+
+    //* 會員登入(新舊結合)
+    memberLogin () {
+      window.fbq('track', 'Lead')
+      const id = /^[a-z](1|2)\d{8}$/i
+      if (id.test(this.login.Account)) {
+        this.login.Account = this.login.Account.toUpperCase()
+      }
+      const url = `${process.env.VUE_APP_API}/api/members/LogIn`
+      this.axios.post(url, this.login).then(res => {
+        this.login.Captcha = ''
+        this.getRandomNum()
+        if (res.data.rtnCode !== 0) {
+          if (res.data.rtnCode === 1111) {
+            this.enforce.memberId = res.data.info.memberId
+            this.enforce.RememberMe = this.login.RememberMe
+            this.myOldModal.hide()
+            // this.phoneNumOld.show()
+            return
+          }
+          this.$swal.fire({
+            title: `${res.data.rtnMsg}`,
+            allowOutsideClick: true,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        // * 取得購物車商品數量
+        this.$store.dispatch('getCartNum')
+        this.cookieToken = res.data.info
+        this.$store.dispatch('loginSetCookie', res.data.info)
+        this.myOldModal.hide()
+        this.$swal.fire({
+          title: '歡迎登入',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (this.$store.state.isClickCart === true) {
+              this.$router.push('/checkoutboard/checkoutcartlist')
+            } else if (this.$store.state.isClickCollection === true) {
+              this.$router.push('/memberboard/membercollection')
+            } else if (sessionStorage.getItem('path')) {
+              this.eventGift()
+            } else if (this.$route.params.event === 'fromEvent' || localStorage.getItem('fromEvent') === 'event') {
+              // ?從活動頁點擊登入，要導回活動頁
+              this.$router.go(-1)
+              localStorage.removeItem('fromEvent')
+            } else {
+              if (this.$store.state.BirthdayData.fromBirthday !== true) {
+                this.$router.go()
+              } else {
+                this.$store.commit('refreshLoginFromBirthday', true)
+              }
+            }
+          }
+        })
+      })
+    },
+    //* 企業會員登入
+    // staffMemberLogin () {
+    //   const url = `${process.env.VUE_APP_API}/api/members/LogIn`
+    //   this.axios.post(url, this.staffLogin).then(res => {
+    //     this.staffLogin.Captcha = ''
+    //     this.getRandomNum()
+    //     if (res.data.rtnCode !== 0) {
+    //       this.$swal.fire({
+    //         title: `${res.data.rtnMsg}`,
+    //         allowOutsideClick: true,
+    //         confirmButtonColor: '#F8412E',
+    //         confirmButtonText: '確認',
+    //         width: 400,
+    //         customClass: {
+    //           title: 'text-class',
+    //           confirmButton: 'confirm-btn-class'
+    //         }
+    //       })
+    //       return
+    //     }
+    //     // * 取得購物車商品數量
+    //     this.$store.dispatch('getCartNum')
+    //     this.cookieToken = res.data.info
+    //     this.$store.dispatch('loginSetCookie', res.data.info)
+    //     this.myOldModal.hide()
+    //     this.myStaffModal.hide()
+    //     this.$swal.fire({
+    //       title: '歡迎登入',
+    //       allowOutsideClick: true,
+    //       confirmButtonColor: '#F8412E',
+    //       confirmButtonText: '確認',
+    //       width: 400,
+    //       customClass: {
+    //         title: 'text-class',
+    //         confirmButton: 'confirm-btn-class'
+    //       }
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         if (res.data.info.type === '1') {
+    //           this.$router.push('/memberboard/memberupdatepwd')
+    //           this.myStaffModal.hide()
+    //           return
+    //         }
+    //         if (this.$store.state.isClickCart === true) {
+    //           this.$router.push('/checkoutboard/checkoutcartlist')
+    //         } else if (this.$store.state.isClickCollection === true) {
+    //           this.$router.push('/memberboard/membercollection')
+    //         } else if (sessionStorage.getItem('path')) {
+    //           this.eventGift()
+    //         } else if (this.$route.params.event === 'fromEvent' || localStorage.getItem('fromEvent') === 'event') {
+    //           // ?從活動頁點擊登入，要導回活動頁
+    //           this.$router.go(-1)
+    //           localStorage.removeItem('fromEvent')
+    //         } else {
+    //           if (this.$store.state.BirthdayData.fromBirthday !== true) {
+    //             this.$router.go()
+    //           } else {
+    //             this.$store.commit('refreshLoginFromBirthday', true)
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    // },
+    //* 強制填入手機號碼
+    // enforcePhoneNum () {
+    //   const url = `${process.env.VUE_APP_API}/api/members/InsertCellPhone`
+    //   this.axios.post(url, this.enforce).then(res => {
+    //     if (res.data.rtnCode !== 0) {
+    //       this.$swal.fire({
+    //         title: `${res.data.rtnMsg}`,
+    //         allowOutsideClick: true,
+    //         confirmButtonColor: '#F8412E',
+    //         confirmButtonText: '確認',
+    //         width: 400,
+    //         customClass: {
+    //           title: 'text-class',
+    //           confirmButton: 'confirm-btn-class'
+    //         }
+    //       })
+    //     } else {
+    //       if (res.data.rtnCode === 1001) {
+    //         this.myModal.show()
+    //       }
+    //       return
+    //     }
+    //     // * 取得購物車商品數量
+    //     this.$store.dispatch('getCartNum')
+    //     this.cookieToken = res.data.info
+    //     this.$store.dispatch('loginSetCookie', res.data.info)
+    //     // this.phoneNumOld.hide()
+    //     this.$swal.fire({
+    //       title: '歡迎登入',
+    //       allowOutsideClick: true,
+    //       confirmButtonColor: '#F8412E',
+    //       confirmButtonText: '確認',
+    //       width: 400,
+    //       customClass: {
+    //         title: 'text-class',
+    //         confirmButton: 'confirm-btn-class'
+    //       }
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         if (this.$store.state.isClickCart === true) {
+    //           this.$router.push('/checkoutboard/checkoutcart')
+    //         } else if (this.$store.state.isClickCollection === true) {
+    //           this.$router.push('/memberboard/membercollection')
+    //         } else {
+    //           if (this.$store.state.BirthdayData.fromBirthday !== true) {
+    //             this.$router.go()
+    //           } else {
+    //             this.$store.commit('refreshLoginFromBirthday', true)
+    //           }
+    //         }
+    //       }
+    //     })
+    //   })
+    // },
+    //* 檢查是否有cookie
+    checkCookie () {
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (AccessToken || RefreshToken) {
+        return true
+      } else {
+        return false
+      }
+    },
+    //* 會員登出
+    async logOut () {
+      if (await member.logout('Logout')) {
+        if (this.$route.fullPath === '/') {
+          this.$router.go()
+        } else {
+          this.$router.push('/')
+        }
+      }
+    },
+    //* 登入帳號(手機)
+    isPhone (value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    },
+    //* 登入密碼
+    checkPwdRule (password) {
+      const passw = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/
+      return passw.test(password)
+        ? true
+        : '至少6碼且要英數字混合'
+    },
+    //* 企業會員第一次登入
+    // checkStaffPwd (password) {
+    //   const staffpwd = /^\d{6,7}$/
+    //   return staffpwd.test(password) ? true : '請輸入員工編號'
+    // },
+    //* 舊帳號驗證
+    isaccount (value) {
+      /* 手機驗證 */
+      const phoneNumber = /^(09)[0-9]{8}$/
+      /* 身分證驗證 */
+      const id = /^[a-z](1|2)\d{8}$/i
+      /* Email驗證 */
+      const emailRule = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
+      /* 三個驗證判斷 */
+      if (phoneNumber.test(value)) {
+        return true
+      } else {
+        if (id.test(value)) {
+          return true
+        } else {
+          if (emailRule.test(value)) {
+            return true
+          }
+          return '請輸入正確的帳號'
+        }
+      }
+    },
+    goToSearch () {
+      if (this.keyword !== '') {
+        this.$router.push(`/productboard/productsearch/${this.keyword}`)
+        this.$store.commit('getSubCategoryId', '')
+        this.closeMenu()
+      }
+    },
+    // 前往註冊頁
+    toRegister () {
+      this.myOldModal.hide()
+      this.$router.push('/register')
+    },
+    toOldLoginModal () {
+      this.myOldModal.show()
+    },
+    // toStaffLoginModal () {
+    //   this.myOldModal.hide()
+    //   this.myStaffModal.show()
+    // },
+    toForgetPassword () {
+      // this.myModal.hide()
+      this.myOldModal.hide()
+      // this.myStaffModal.hide()
+      this.$router.push('/forgetpassword')
+    },
+    // 購物車icon
+    toCheckoutCartList () {
+      // 將前次路由記錄為購物車，登入後導到購物車
+      this.$store.commit('refreshCartPath', '/checkoutboard/checkoutcartlist')
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (AccessToken || RefreshToken) {
+        this.$router.push('/checkoutboard/checkoutcartlist')
+      } else {
+        this.$store.commit('refreshIsLogOut', true)
+        this.$swal.fire({
+          title: '請先登入',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            if (document.body.clientWidth < 576) {
+              this.$router.push('/membermobilelogin')
+            } else {
+              // this.getRandomNum()
+              this.$store.commit('refreshClickCart', true)
+              this.myOldModal.show()
+            }
+          }
+        })
+      }
+    },
+    // 追蹤清單 icon
+    toMemberCollection () {
+      // 將前次路由記錄為追蹤清單，登入後導到追蹤清單
+      this.$store.commit('refreshCollectionPath', '/memberboard/membercollection')
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (AccessToken || RefreshToken) {
+        this.$router.push('/memberboard/membercollection')
+      } else {
+        this.$swal.fire({
+          title: '請先登入',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$store.commit('refreshClickCollection', true)
+            if (document.body.clientWidth < 576) {
+              this.$router.push('/membermobilelogin')
+            } else {
+              // this.getRandomNum()
+              this.myOldModal.show()
+            }
+          }
+        })
+      }
+    },
+    // *關閉modal close按鈕
+    closeModal () {
+      // * 關閉新會員、舊會員登入視窗
+      this.$store.state.loginModal.hide()
+      this.myOldModal.hide()
+      // this.myStaffModal.hide()
+      // this.phoneNumOld.hide()
+      this.$store.commit('refreshClickCart', false)
+      // * 關閉後若無 token 且在會員專區，導到首頁
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (localStorage.getItem('fromEvent') === 'event') {
+        localStorage.removeItem('fromEvent')
+        this.$router.go(-1)
+        // ?清除session紀錄
+        sessionStorage.removeItem('cardCode')
+        localStorage.removeItem('cardEvent')
+      } else if (sessionStorage.getItem('cardEvent')) {
+        // ?[卡友修改密碼事件][卡友LINE事件]導入，但拒絕登入，回到卡處活動頁瀏覽
+        this.$router.push('/activity/cardMemberGift')
+      } else if (sessionStorage.getItem('putuEvent')) {
+        // ?[中元普渡事件]導入，但拒絕登入，回到中元普渡活動頁瀏覽
+        sessionStorage.removeItem('putuEvent')
+        this.$router.push('/activity/ChungyuanPuTuBizCard')
+      } else if (this.$route.fullPath.match('/memberboard/') || this.$route.fullPath.match('/checkoutboard/checkoutcart') || this.$route.fullPath.match('/checkoutboard/checkoutinfo') || this.$route.fullPath.match('/checkoutboard/checkoutcartlist')) {
+        if (!AccessToken && !RefreshToken) {
+          this.$router.push('/')
+        }
+      }
+    },
+    // ? 檢查是否是 webview
+    checkFromApp () {
+      const appId = checkToken.getAppId()
+      if (appId === 'ipasspay') {
+        this.showRememberMe = false
+        this.newLogin.RememberMe = true
+        this.oldLogin.RememberMe = true
+      }
+    },
+    //* 贈點或贈折價券的活動
+    eventGift () {
+      getGiftEvent().then((data) => {
+        if (!data.isSuccess) {
+          this.$swal.fire({
+            title: `${data.message}(${data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+        } else {
+          this.$swal.fire({
+            title: `${data.message}`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+        }
+        this.$router.push(sessionStorage.getItem('path'))
+        sessionStorage.removeItem('path')
+      })
+    },
+    expiredEvent () {
+      const now = moment().format('YYYY/MM/DD HH:mm:ss')
+      if (moment(now, 'YYYY/MM/DD HH:mm:ss').isAfter('2022/12/01 00:00:00') && moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023/01/29 23:59:59')) {
+        this.isNotExpired = false
+      }
+    },
+    //* 手機驗證碼
+    getMsgCode () {
+      //* 點擊驗證碼，一天內不得超過三次限制
+      const time = new Date()
+      const getTimer = time.getTime()
+      //* 一天的時間(86400)
+      time.setTime(getTimer + 1000 * (86400 - 100))
+      const utc = time.toUTCString()
+      document.cookie = `vaildToken=${this.clickValidCode}; expires=${utc}`
+      const vaildCodeToken = document.cookie.replace(
+        /(?:(?:^|.*;\s*)vaildToken\s*=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      )
+
+      //* 點擊三次驗證碼送出
+      if (vaildCodeToken === 3) {
+        this.$swal.fire({
+          title: '您今日已超過手機驗證碼傳送次數，請明天再試。',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+        return
+      }
+      //* 確認手機是否有填寫
+      this.msgPhone.phoneNumber = this.enforce.PhoneNum
+      var reg = /^(09)[0-9]{8}$/
+      if (this.msgPhone.phoneNumber === '') {
+        this.$swal.fire({
+          title: '請輸入手機號碼',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+        //* 確認手機是否有正確的格式
+      } else if (!reg.test(this.msgPhone.phoneNumber)) {
+        this.$swal.fire({
+          title: '手機格式不正確',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+      } else {
+        const url = `${process.env.VUE_APP_API}/api/members/CallNewsletter`
+        this.axios
+          .get(url, {
+            // get params用法
+            params: this.msgPhone
+          })
+          .then(res => {
+            if (res.data.rtnCode !== 0) {
+              this.$swal.fire({
+                title: `${res.data.rtnMsg}`,
+                allowOutsideClick: true,
+                confirmButtonColor: '#F8412E',
+                confirmButtonText: '確認',
+                width: 400,
+                customClass: {
+                  title: 'text-class',
+                  confirmButton: 'confirm-btn-class'
+                }
+              })
+            } else {
+              //* 有成功打入API才算
+              this.clickValidCode++
+              this.enforce.TransactionId = res.data.info.transactionId
+              this.$swal.fire({
+                title: 'yesgogogo即食購商城驗證碼發送成功！！',
+                allowOutsideClick: true,
+                confirmButtonColor: '#F8412E',
+                confirmButtonText: '確認',
+                width: 400,
+                customClass: {
+                  title: 'text-class',
+                  confirmButton: 'confirm-btn-class'
+                }
+              })
+              //* 驗證碼倒數計時
+              this.count = 300
+              this.show = false
+              this.timer = setInterval(() => {
+                if (this.count > 0 && this.count <= 300) {
+                  this.count--
+                } else {
+                  this.show = true
+                  clearInterval(this.timer)
+                  this.timer = null
+                }
+              }, 1000)
+            }
+          })
+      }
+    },
+    //* 舊會員登入圖片
+    getMemberImg () {
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=oldMemeberLogin`
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            this.memberImg = res.data.info
+          }
+        })
+    }
+  },
+  mounted () {
+    this.expiredEvent() //* LOGO 圖片時間切換判斷
+    this.getMemberImg() //* 舊會員登入圖片
+    if (this.checkCookie()) {
+      // * 取得購物車商品數量
+      this.$store.dispatch('getCartNum')
+    }
+    if (!this.$store.state.subCategoryId) {
+      this.isActive = ''
+    }
+    if (this.$route.params.categoryId) {
+      this.isActive = this.$route.params.categoryId
+    }
+    this.getMenu()
+    // 畫面載入
+    this.getRandomNum()
+    this.checkFromApp()
+    /* this.encryption() */
+    this.$store.commit('getLoginModalDom', this.$refs.oldLoginDom)
+    // this.myModal = new bootstrap.Modal(this.$refs.oldLoginDom, { backdrop: 'static' })
+    this.myOldModal = new bootstrap.Modal(this.$refs.oldLoginDom, { backdrop: 'static' })
+    // this.myStaffModal = new bootstrap.Modal(this.$refs.staffLoginDom, { backdrop: 'static' })
+    // this.phoneNumOld = new bootstrap.Modal(this.$refs.phoneNum, { backdrop: 'static' })
+    this.$store.commit('getLoginModal', this.myOldModal)
+    // this.$store.commit('getoldLoginModal', this.myOldModal)
+
+    // ?如果登入Modal為跳出狀態(shown.bs.modal)，在DOM元素中加入屬性data-shown="shown"
+    this.$refs.oldLoginDom.addEventListener('shown.bs.modal', function () {
+      this.setAttribute('data-shown', 'shown')
+    })
+    // ?如果登入Modal為關閉狀態(hidden.bs.modal)，在DOM元素中加入屬性data-shown="hidden"
+    this.$refs.oldLoginDom.addEventListener('hidden.bs.modal', function () {
+      this.setAttribute('data-shown', 'hidden')
+    })
+  },
+  watch: {
+    // *監聽路由變化，重渲染館別頁面
+    $route (to, from) {
+      if (!this.$store.state.subCategoryId) {
+        this.isActive = ''
+      }
+      if (to.fullPath.match('/productboard/productList/')) {
+        this.$store.dispatch('getSubCategoryWord')
+        this.addActive(this.$store.state.subCategoryId)
+      }
+      //* 若到活動頁(回饋10%及生日禮、2022生日禮)，重新整理頁面
+      if (to.fullPath.match('/activity/memberbonus') || to.fullPath.match('/event/2021/0101ibank') || to.fullPath.match('/activity/2022_birthday')) {
+        this.$router.go()
+      }
+    },
+    '$store.state.updateRandomNum': {
+      handler: function (n) {
+        if (n === true) {
+          this.getRandomNum()
+        }
+      }
+    }
+  }
+}
+</script>

@@ -1,0 +1,7 @@
+@font-face {
+    font-family: "DSEG7CR";
+    src: url("~@/assets/scss/activity/font/DSEG7Classic-Regular.eot");
+    src: url("~@/assets/scss/activity/font/DSEG7Classic-Regular.eot?#iefix") format("embedded-opentype"), url("~@/assets/scss/activity/font/DSEG7Classic-Regular.otf") format("opentype"), url("~@/assets/scss/activity/font/DSEG7Classic-Regular.svg") format("svg"), url("~@/assets/scss/activity/font/DSEG7Classic-Regular.ttf") format("truetype"), url("~@/assets/scss/activity/font/DSEG7Classic-Regular.woff") format("woff"), url("~@/assets/scss/activity/font/DSEG7Classic-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,0 +1,311 @@
+.item{
+  width: 35%;
+  position: absolute;
+  top: 17%;
+  z-index: 3;
+  @media (min-width: 992px) {
+    top: 20%;
+    width: 20%;
+  }
+}
+
+.foodmove1{
+  animation: bannermove1 16s infinite;
+}
+
+@keyframes bannermove1 {
+  0% { left: -5%; transform: translateY(10rem); }
+  17% { left: -25%; transform: translateY(18rem); }
+  33% { left: -50%; transform: translateY(26rem); }
+  50% { left: -75%; transform: translateY(34rem); }
+  67% { left: -100%; transform: translateY(42rem); }
+  83% { left: -125%; transform: translateY(50rem); }
+  100% { left: -150%; transform: translateY(58rem); }
+}
+
+.foodmove2{
+  animation: bannermove2 16s infinite;
+}
+
+@keyframes bannermove2 {
+  0% { left: 15%; transform: translateY(0rem); }
+  17% { left: -5%; transform: translateY(10rem); }
+  33% { left: -25%; transform: translateY(18rem); }
+  50% { left: -50%; transform: translateY(26rem); }
+  67% { left: -75%; transform: translateY(34rem); }
+  83% { left: -100%; transform: translateY(42rem); }
+  100% { left: -125%; transform: translateY(50rem); }
+}
+
+.foodmove3{
+  animation: bannermove3 16s infinite;
+}
+
+@keyframes bannermove3 {
+  0% { left: 40%; transform: translateY(-2rem); }
+  17% { left: 15%; transform: translateY(0rem); }
+  33% { left: -5%; transform: translateY(10rem); }
+  50% { left: -25%; transform: translateY(18rem); }
+  67% { left: -50%; transform: translateY(26rem); }
+  83% { left: -75%; transform: translateY(34rem); }
+  100% { left: -100%; transform: translateY(42rem); }
+}
+
+.foodmove4{
+  animation: bannermove4 16s infinite;
+}
+
+@keyframes bannermove4 {
+  0% { left: 65%; transform: translateY(0rem); }
+  17% { left: 40%; transform: translateY(-2rem); }
+  33% { left: 15%; transform: translateY(0rem); }
+  50% { left: -5%; transform: translateY(10rem); }
+  67% { left: -25%; transform: translateY(18rem); }
+  83% { left: -50%; transform: translateY(26rem); }
+  100% { left: -75%; transform: translateY(34rem); }
+}
+
+.foodmove5{
+  animation: bannermove5 16s infinite;
+}
+
+@keyframes bannermove5 {
+  0% { left: 85%; transform: translateY(10rem); }
+  17% { left: 65%; transform: translateY(0rem); }
+  33% { left: 40%; transform: translateY(-2rem); }
+  50% { left: 15%; transform: translateY(0rem); }
+  67% { left: -5%; transform: translateY(10rem); }
+  83% { left: -25%; transform: translateY(18rem); }
+  100% { left: -50%; transform: translateY(26rem); }
+}
+
+.foodmove6{
+  animation: bannermove6 16s infinite;
+}
+
+@keyframes bannermove6 {
+  0% { left: 105%; transform: translateY(18rem); }
+  17% { left: 85%; transform: translateY(10rem); }
+  33% { left: 65%; transform: translateY(0rem); }
+  50% { left: 40%; transform: translateY(-2rem); }
+  67% { left: 15%; transform: translateY(0rem); }
+  83% { left: -5%; transform: translateY(10rem); }
+  100% { left: -25%; transform: translateY(18rem); }
+}
+
+.foodmove7{
+  animation: bannermove7 16s infinite;
+}
+
+@keyframes bannermove7 {
+  0% { left: 125%; transform: translateY(26rem); }
+  17% { left: 105%; transform: translateY(18rem); }
+  33% { left: 85%; transform: translateY(10rem); }
+  50% { left: 65%; transform: translateY(0rem); }
+  67% { left: 40%; transform: translateY(-2rem); }
+  83% { left: 15%; transform: translateY(0rem); }
+  100% { left: -5%; transform: translateY(10rem); }
+}
+
+.foodmove8{
+  animation: bannermove8 16s infinite;
+}
+
+@keyframes bannermove8 {
+  0% { left: 145%; transform: translateY(34rem); }
+  17% { left: 125%; transform: translateY(26rem); }
+  33% { left: 105%; transform: translateY(18rem); }
+  50% { left: 85%; transform: translateY(10rem); }
+  67% { left: 65%; transform: translateY(0rem); }
+  83% { left: 40%; transform: translateY(-2rem); }
+  100% { left: 15%; transform: translateY(0rem); }
+}
+
+.foodmove9{
+  animation: bannermove9 16s infinite;
+}
+
+@keyframes bannermove9 {
+  0% { left: 165%; transform: translateY(42rem); }
+  17% { left: 145%; transform: translateY(34rem); }
+  33% { left: 125%; transform: translateY(26rem); }
+  50% { left: 105%; transform: translateY(18rem); }
+  67% { left: 85%; transform: translateY(10rem); }
+  83% { left: 65%; transform: translateY(0rem); }
+  100% { left: 40%; transform: translateY(-2rem); }
+}
+
+.foodmove10{
+  animation: bannermove10 16s infinite;
+}
+
+@keyframes bannermove10 {
+  0% { left: 185%; transform: translateY(50rem); }
+  17% { left: 165%; transform: translateY(42rem); }
+  33% { left: 145%; transform: translateY(34rem); }
+  50% { left: 125%; transform: translateY(26rem); }
+  67% { left: 105%; transform: translateY(18rem); }
+  83% { left: 85%; transform: translateY(10rem); }
+  100% { left: 65%; transform: translateY(0rem); }
+}
+
+.foodmove11{
+  animation: bannermove11 16s infinite;
+}
+
+@keyframes bannermove11 {
+  0% { left: 205%; transform: translateY(58rem); }
+  17% { left: 185%; transform: translateY(50rem); }
+  33% { left: 165%; transform: translateY(42rem); }
+  50% { left: 145%; transform: translateY(34rem); }
+  67% { left: 125%; transform: translateY(26rem); }
+  83% { left: 105%; transform: translateY(18rem); }
+  100% { left: 85%; transform: translateY(10rem); }
+}
+
+
+
+
+
+
+
+/* moblie */
+.foodmove1_m{
+  animation: bannermove1_m 16s linear infinite;
+}
+
+@keyframes bannermove1_m {
+  0% { left: -5%; transform: translateY(3rem); }
+  17% { left: -45%; transform: translateY(12rem); }
+  33% { left: -75%; transform: translateY(18rem); }
+  50% { left: -105%; transform: translateY(24rem); }
+  67% { left: -140%; transform: translateY(30rem); }
+  83% { left: -175%; transform: translateY(36rem); }
+  100% { left: -210%; transform: translateY(42rem); }
+}
+
+.foodmove2_m{
+  animation: bannermove2_m 16s infinite;
+}
+
+@keyframes bannermove2_m {
+  0% { left: 38%; transform: translateY(-2rem); }
+  17% { left: -5%; transform: translateY(3rem); }
+  33% { left: -40%; transform: translateY(12rem); }
+  50% { left: -75%; transform: translateY(18rem); }
+  67% { left: -105%; transform: translateY(24rem); }
+  83% { left: -140%; transform: translateY(30rem); }
+  100% { left: -175%; transform: translateY(36rem); }
+}
+
+.foodmove3_m{
+  animation: bannermove3_m 16s infinite;
+}
+
+@keyframes bannermove3_m {
+  0% { left: 70%; transform: translateY(3rem); }
+  17% { left: 38%; transform: translateY(-2rem); }
+  33% { left: -5%; transform: translateY(3rem); }
+  50% { left: -40%; transform: translateY(12rem); }
+  67% { left: -75%; transform: translateY(18rem); }
+  83% { left: -105%; transform: translateY(24rem); }
+  100% { left: -140%; transform: translateY(30rem); }
+}
+
+.foodmove4_m{
+  animation: bannermove4_m 16s infinite;
+}
+
+@keyframes bannermove4_m {
+  0% { left: 105%; transform: translateY(12rem); }
+  17% { left: 70%; transform: translateY(3rem); }
+  33% { left: 38%; transform: translateY(-2rem); }
+  50% { left: -5%; transform: translateY(3rem); }
+  67% { left: -40%; transform: translateY(12rem); }
+  83% { left: -75%; transform: translateY(18rem); }
+  100% { left: -105%; transform: translateY(24rem); }
+}
+
+.foodmove5_m{
+  animation: bannermove5_m 16s infinite;
+}
+
+@keyframes bannermove5_m {
+  0% { left: 140%; transform: translateY(18rem); }
+  17% { left: 105%; transform: translateY(12rem); }
+  33% { left: 70%; transform: translateY(3rem); }
+  50% { left: 38%; transform: translateY(-2rem); }
+  67% { left: -5%; transform: translateY(3rem); }
+  83% { left: -40%; transform: translateY(12rem); }
+  100% { left: -75%; transform: translateY(18rem); }
+}
+
+.foodmove6_m{
+  animation: bannermove6_m 16s infinite;
+}
+
+@keyframes bannermove6_m {
+  0% { left: 175%; transform: translateY(24rem); }
+  17% { left: 140%; transform: translateY(18rem); }
+  33% { left: 105%; transform: translateY(12rem); }
+  50% { left: 70%; transform: translateY(3rem); }
+  67% { left: 38%; transform: translateY(-2rem); }
+  83% { left: -5%; transform: translateY(3rem); }
+  100% { left: -40%; transform: translateY(12rem); }
+}
+
+.foodmove7_m{
+  animation: bannermove7_m 16s infinite;
+}
+
+@keyframes bannermove7_m {
+  0% { left: 210%; transform: translateY(30rem); }
+  17% { left: 175%; transform: translateY(24rem); }
+  33% { left: 140%; transform: translateY(18rem); }
+  50% { left: 105%; transform: translateY(12rem); }
+  67% { left: 70%; transform: translateY(3rem); }
+  83% { left: 38%; transform: translateY(-2rem); }
+  100% { left: -5%; transform: translateY(3rem); }
+}
+
+.foodmove8_m{
+  animation: bannermove8_m 16s infinite;
+}
+
+@keyframes bannermove8_m {
+  0% { left: 245%; transform: translateY(36rem); }
+  17% { left: 210%; transform: translateY(30rem); }
+  33% { left: 170%; transform: translateY(24rem); }
+  50% { left: 140%; transform: translateY(18rem); }
+  67% { left: 105%; transform: translateY(12rem); }
+  83% { left: 70%; transform: translateY(3rem); }
+  100% { left: 38%; transform: translateY(-2rem); }
+}
+
+.foodmove9_m{
+  animation: bannermove9_m 16s infinite;
+}
+
+@keyframes bannermove9_m {
+  0% { left: 280%; transform: translateY(42rem); }
+  17% { left: 245%; transform: translateY(36rem); }
+  33% { left: 210%; transform: translateY(30rem); }
+  50% { left: 175%; transform: translateY(24rem); }
+  67% { left: 140%; transform: translateY(18rem); }
+  83% { left: 105%; transform: translateY(12rem); }
+  100% { left: 70%; transform: translateY(3rem); }
+}
+
+.foodmove10_m{
+  animation: bannermove10_m 16s infinite;
+}
+
+@keyframes bannermove10_m {
+  0% { left: 315%; transform: translateY(48rem); }
+  17% { left: 280%; transform: translateY(42rem); }
+  33% { left: 245%; transform: translateY(36rem); }
+  50% { left: 210%; transform: translateY(30rem); }
+  67% { left: 175%; transform: translateY(24rem); }
+  83% { left: 140%; transform: translateY(18rem); }
+  100% { left: 105%; transform: translateY(12rem); }
+}

@@ -1,0 +1,1196 @@
+<template>
+  <div class="body" style="overflow:hidden;">
+    <!-- <%-- 視覺 --%> -->
+    <div id="point_00" >
+      <!-- 桌機板背景圖 -->
+      <div class="d-none d-lg-block position-relative bg-kv">
+        <img
+          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/KV.jpg"
+          class="img-center"
+          alt="桌機背景"
+        />
+        <div
+          class="d-flex position-absolute start-50 translate-middle justify-content-between"
+          style="top:10%;height:72px"
+        >
+          <a
+            class="w-auto h-100 m-1"
+            @click.prevent="goUpdatePwd()"
+            href="#"
+          >
+            <img
+              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/change password_button.png"
+              class="img-fluid"
+              style="max-height:72px"
+              alt="聯邦卡友點此更換密碼"
+            />
+          </a>
+          <router-link class="w-auto h-100 m-1" to="/registercreditcard">
+            <img
+              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/sign up_button.png"
+              class="img-fluid"
+              style="max-height:72px"
+              alt="聯邦卡新註冊"
+            />
+          </router-link>
+        </div>
+      </div>
+      <!-- 手機板背景圖 -->
+      <div class="d-block d-lg-none position-relative">
+        <img
+          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/KV_mb.jpg"
+          class="img-fluid"
+          style="width:100%"
+          alt="手機背景"
+        />
+        <div
+          class="d-flex position-absolute start-50 translate-middle justify-content-between w-100"
+          style="top:10%;height:72px"
+        >
+          <a
+            class="w-auto h-100 m-2"
+            @click.prevent="goUpdatePwd()"
+            href="#"
+          >
+            <img
+              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/change password_button.png"
+              class="img-fluid"
+              style="max-height:72px"
+              alt="聯邦卡友點此更換密碼"
+            />
+          </a>
+          <router-link class="w-auto h-100 m-2" to="/registercreditcard">
+            <img
+              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/sign up_button.png"
+              class="img-fluid"
+              style="max-height:72px"
+              alt="聯邦卡新註冊"
+            />
+          </router-link>
+        </div>
+      </div>
+      <!-- <%--桌機板活動--%> -->
+      <div class=" d-none d-lg-block bg-bottom " >
+        <div class="position-relative bg-bottom-deco bg-height-web" >
+          <div
+            class="position-absolute translate-middle start-50 w-100 activity-height-web"
+          >
+            <div class="container ">
+              <div class="row justify-content-center pb-3 px-0">
+                <!-- 活動頁 col-10模板 -->
+                <div class="col-md-10 col-lg-12 col-xxl-10 p-0">
+                  <!-- 第一層活動 -->
+                  <div class="row justify-content-between pb-2">
+                    <div class="col-4  pt-md-1 pt-3 ps-6 text-start hvr-bob">
+                      <a @click.prevent="goHyperText($refs.coupon)">
+                        <img
+                          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_1.png"
+                          alt="1000元電子折價券"
+                          style="max-width:100%"
+                        />
+                      </a>
+                    </div>
+                    <div class="col-4  pt-md-1 pt-2 text-center hvr-bob ">
+                      <a @click.prevent="goHyperText($refs.feedback)">
+                        <img
+                          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_2.png"
+                          alt="首購50%回饋購物金"
+                          style="max-width:100%"
+                        />
+                      </a>
+                    </div>
+                    <div class="col-4  pt-md-1 pt-2 pe-6 text-end hvr-bob ">
+                      <a
+                        v-if="card[0]"
+                        :href="card[0].targetUrl"
+                        target="_self"
+                      >
+                        <img
+                          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_3.png"
+                          alt="週二聯邦日"
+                          style="max-width:100%"
+                        />
+                      </a>
+                    </div>
+                  </div>
+                  <!-- 第二排活動 -->
+                  <div class="row justify-content-between" ref="appointmentWeb" id="appointmentWeb">
+                    <div class="col-6 hvr-bob">
+                      <!-- 輪播活動圖 -->
+                      <swiper
+                        :initialSlide="1"
+                        :spaceBetween="30"
+                        :grabCursor="true"
+                        :effect="'fade'"
+                        :loop="true"
+                        :autoplay="{
+                          delay: 3500,
+                          disableOnInteraction: false
+                        }"
+                        :pagination="{
+                          dynamicBullets: true
+                        }"
+                        class=" h-100 m-0 pt-lg-1"
+                      >
+                        <!-- Slides -->
+                        <swiper-slide
+                          class="swiper-slide w-100 py-0"
+                          v-for="card in carousel"
+                          :key="card + '1'"
+                        >
+                          <a :href="card.targetUrl" target="_self">
+                            <img
+                              class="img-fluid"
+                              :src="card.image"
+                              alt="當月最新活動Web"
+                              style="min-width:100%"
+                              v-if="card"
+                            />
+                          </a>
+                        </swiper-slide>
+                      </swiper>
+                    </div>
+                    <div class="col-6 hvr-bob ">
+                      <div
+                        class="d-flex justify-content-center h-100 m-0 pt-lg-1"
+                        style="padding-bottom: 40px;"
+                      >
+                        <div class="bg-brown  w-100 m-0 ">
+                          <div class="d-flex w-100 spc-padding">
+                            <img
+                              class="w-20"
+                              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/deco_coffee.png"
+                              alt="LINE好友月月抽百杯CITY CAFE文字"
+                            />
+                            <div class="w-70 d-flex align-items-center">
+                              <img
+                                class="img-d-block img-fluid mt-3"
+                                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_word.png"
+                                alt="LINE好友月月抽百杯CITY CAFE文字"
+                              />
+                            </div>
+                            <div class="w-10"
+                              ></div>
+                          </div>
+                          <div class="d-flex w-100 spc-padding" >
+                            <div class="w-20"
+                              ></div>
+                            <div class="w-70 d-flex">
+                              <a
+                                class="w-50  d-flex justify-content-start hrv-inner-btm "
+                                @click.prevent="goHyperText($refs.coffee)"
+                                href="#"
+                              >
+                                <img
+                                  class="img-fluid"
+                                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_button_1.png"
+                                  alt="活動說明WEB"
+                                />
+                              </a>
+                              <a
+                                class="w-50  d-flex justify-content-end hrv-inner-btm "
+                                href="http://line.me/ti/p/@yesgogogo"
+                              >
+                                <img
+                                  class="img-fluid"
+                                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_button_2.png"
+                                  alt="立即登記(Line活動)WEB"
+                                />
+                              </a>
+                            </div>
+                            <div class="w-10"
+                              ></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%--手機板活動--%> -->
+    <div class="d-block d-lg-none  bg-bottom">
+      <div class="position-relative bg-height-mb" >
+        <div
+          class="position-absolute translate-middle start-50 w-100 activity-height-mb"
+        >
+          <div class="container">
+            <!-- 第一排活動 -->
+            <div class="row pb-2 pb-md-3 pb-xl-5 pt-0 g-3">
+              <div class="col-4 pt-3  text-start hvr-bob">
+                <a @click.prevent="goHyperText($refs.coupon)">
+                  <img
+                    class="img-fluid"
+                    src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_1.png"
+                    alt="1000元電子折價券"
+                    style="max-width:100%;"
+                  />
+                </a>
+              </div>
+              <div class="col-4 pt-3  text-center hvr-bob">
+                <a @click.prevent="goHyperText($refs.feedback)">
+                  <img
+                    class="img-fluid"
+                    src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_2.png"
+                    alt="首購50%購物金mb"
+                    style="max-width:100%;"
+                  />
+                </a>
+              </div>
+              <div class="col-4 pt-3  text-end hvr-bob">
+                <a v-if="card[0]" :href="card[0].targetUrl" target="_self">
+                  <img
+                    class="img-fluid"
+                    src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/Activity_button_3.png"
+                    alt="週二聯邦日mb"
+                    style="max-width:100%;"
+                  />
+                </a>
+              </div>
+            </div>
+            <!-- 第二排活動 -->
+            <div class="row pb-3 pb-md-4 pt-0 g-3" ref="appointmentMb"
+                        id="appointmentMb">
+              <div class="col-6 hvr-bob">
+                <!-- 輪播活動圖 -->
+                <swiper
+                  :initialSlide="1"
+                  :spaceBetween="30"
+                  :grabCursor="true"
+                  :effect="'fade'"
+                  :loop="true"
+                  :autoplay="{
+                    delay: 3500,
+                    disableOnInteraction: false
+                  }"
+                  :pagination="{
+                    dynamicBullets: true
+                  }"
+                >
+                  <!-- Slides -->
+                  <swiper-slide
+                    class="swiper-slide w-100 p-1"
+                    v-for="card_mb in carousel_mb"
+                    :key="card_mb + '1'"
+                  >
+                    <a :href="card_mb.targetUrl" target="_self">
+                      <img
+                        class="img-fluid"
+                        :src="card_mb.image"
+                        alt="當月最新活動Web"
+                        style="min-width:100%"
+                        v-if="card_mb"
+                      />
+                    </a>
+                  </swiper-slide>
+                </swiper>
+              </div>
+              <div class="col-6 hvr-bob ">
+                <div class="d-flex  justify-content-center px-1 pt-1 spc-padding-bottom" >
+                  <div class="bg-brown-mb h-100 w-100 spc-padding-y-mb">
+                    <div class="d-flex justify-content-center">
+                      <div class="w-5"></div>
+                      <img
+                        class="w-90"
+                        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_word_mb.png"
+                        alt="LINE好友月月抽百杯CITY CAFE文字"
+                      />
+                      <div class="w-5"></div>
+                    </div>
+                    <div class="d-flex justify-content-center px-2" >
+                      <!-- <div class="w-5"></div> -->
+                      <a
+                        class="w-50 pe-1 pe-md-2 pt-1 pt-md-2 pb-2 d-flex justify-content-center hrv-inner-btm"
+                        @click.prevent="goHyperText($refs.coffee)"
+                        href="#"
+                      >
+                        <img
+                          class="img-fluid"
+                          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_button_mb_1.png"
+                          alt="活動說明MB"
+                        />
+                      </a>
+                      <!-- <div class="w-10"></div> -->
+                      <a
+                        class="w-50 ps-1 ps-md-2 pt-1 pt-md-2 pb-2 d-flex justify-content-center hrv-inner-btm"
+                        href="http://line.me/ti/p/@yesgogogo"
+                      >
+                        <img
+                          class="img-fluid"
+                          src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/lottery_coffee_button_mb_2.png"
+                          alt="立即登記(Line活動)MB"
+                        />
+                      </a>
+                      <!-- <div class="w-5"></div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 1商品 Step1 --%> -->
+    <div class="step-1 position-relative pt-3 px-2 ">
+      <figure class="position-absolute left-position d-none d-lg-block">
+        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/deco_3.png"
+        alt="左側裝飾"
+        class="img-fluid">
+      </figure>
+      <figure class="position-absolute right-position d-none d-lg-block">
+        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/deco_4.png"
+        alt="右側裝飾"
+        class="img-fluid">
+      </figure>
+      <figure class="position-absolute top-position d-block d-lg-none">
+        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/deco_mb.png"
+        alt="裝飾Mb"
+        class="img-fluid">
+      </figure>
+      <div class="container">
+        <div class="row justify-content-center gx-3">
+          <div class="col-12 col-xxl-10  roundBorder " style="z-index:5;">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S072613 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/limited_time_tittle.png"
+                  class="img-fluid"
+                  alt="閃購專區Web"
+                  style="width: 45%;"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S072613 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/limited_time_tittle.png"
+                  class="img-fluid"
+                  alt="閃購專區Mb"
+                  style="width: 70%;"
+                />
+              </router-link>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-3 pt-md-5 ">
+              <div id="20210901UB-A" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3 "
+                  v-for="(item, productId) in A"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <!-- <span class="d-block prd-img mb-2"
+                        ><img :src="item.productImage" class="img-fluid"
+                      /></span>
+                      <span class="d-block prd-name">{{
+                        item.productName
+                      }}</span>
+                      <span class="d-block prd-sale"
+                        >特價<span
+                          class="prd-sale-price"
+                          >{{ item.price &lt; 0 ? 'xxx':item.price }}</span
+                        ></span
+                      >
+                      <span class="d-block prd-price mb-2"
+                        >原價
+                        <span
+                          class="prd-msrp"
+                          >{{ item.oldPrice &lt; 0 ? 'xxx': item.oldPrice }}</span
+                        ></span
+                      > -->
+                        <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 2商品 Step2 --%> -->
+    <div class="step-2 pt-md-5 pt-3 px-2">
+      <div class="container ">
+        <div class="row justify-content-center gx-3">
+          <div class="col-12 col-xxl-10 roundBorder ">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S0712 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_1_home_cooking.jpg"
+                  class="img-fluid"
+                  alt="即時料理-家常菜Web"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S0712 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_1_home_cooking_mb.jpg"
+                  class="img-fluid"
+                  alt="即時料理-家常菜Mb"
+                />
+              </router-link>
+            </div>
+            <!-- 看更多按鈕 -->
+            <div class="d-flex justify-content-end my-2 ">
+              <a
+                href="https://www.yesgogogo.com/productboard/productList/S0712"
+                class="d-block w-20 text-end"
+                target="_blank"
+              >
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/see_more_button_1.png"
+                  alt="看更多按鈕"
+                  class="img-fluid btn-fluid"
+                />
+              </a>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-1 pt-md-3">
+              <div id="20210901UB-B" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3"
+                  v-for="(item, productId) in B"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 3商品 Step3 --%> -->
+    <div class="step-3 pt-md-5 pt-3 px-2">
+      <div class="container ">
+        <div class="row justify-content-center">
+          <div class="col-12 col-xxl-10  roundBorder">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S071301 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_2_noddles.jpg"
+                  class="img-fluid"
+                  alt="水餃麵點Web"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S071301 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_2_noddles_mb.jpg"
+                  class="img-fluid"
+                  alt="水餃麵點Mb"
+                />
+              </router-link>
+            </div>
+            <!-- 看更多按鈕 -->
+            <div class="d-flex justify-content-end my-2 ">
+              <a
+                href="https://www.yesgogogo.com/productboard/productList/S071301"
+                class="d-block w-20 text-end"
+                target="_blank"
+              >
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/see_more_button_1.png"
+                  alt="看更多按鈕"
+                  class="img-fluid btn-fluid"
+                />
+              </a>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-1 pt-md-3">
+              <div id="20210901UB-C" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3"
+                  v-for="(item, productId) in C"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 4商品 Step4 --%> -->
+    <div class="step-4 pt-md-5 pt-3 px-2">
+      <div class="container ">
+        <div class="row justify-content-center">
+          <div class="col-12 col-xxl-10 roundBorder ">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S071701 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_3_meat.jpg"
+                  class="img-fluid"
+                  alt="生鮮肉品-小農蔬果Web"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S071701 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_3_meat_mb.jpg"
+                  class="img-fluid"
+                  alt="生鮮肉品-小農蔬果Mb"
+                />
+              </router-link>
+            </div>
+            <!-- 看更多按鈕 -->
+            <div class="d-flex justify-content-end my-2">
+              <a
+                href="https://www.yesgogogo.com/productboard/productList/S071701"
+                class="d-block w-20 text-end"
+                target="_blank"
+              >
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/see_more_button_1.png"
+                  alt="看更多按鈕"
+                  class="img-fluid btn-fluid"
+                />
+              </a>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-1 pt-md-3">
+              <div id="20210901UB-D" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3"
+                  v-for="(item, productId) in D"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 5商品 Step5 --%> -->
+    <div class="step-5 pt-md-5 pt-3 px-2">
+      <div class="container ">
+        <div class="row justify-content-center">
+          <div class="col-12 col-xxl-10 roundBorder ">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S0720 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_4_snacks.jpg"
+                  class="img-fluid"
+                  alt="休閒零食-飲品Web"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S0720 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_4_snacks_mb.jpg"
+                  class="img-fluid"
+                  alt="休閒零食-飲品Mb"
+                />
+              </router-link>
+            </div>
+            <!-- 看更多按鈕 -->
+            <div class="d-flex justify-content-end my-2 my-md-4">
+              <a
+                href="https://www.yesgogogo.com/productboard/productList/S0720"
+                class="d-block w-20 text-end"
+                target="_blank"
+              >
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/see_more_button_1.png"
+                  alt="看更多按鈕"
+                  class="img-fluid btn-fluid"
+                />
+              </a>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-1 pt-md-3">
+              <div id="20210901UB-E" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3"
+                  v-for="(item, productId) in E"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <%-- 6商品 Step6 --%> -->
+    <div class="step-6 pt-md-5 pt-3 px-2">
+      <div class="container ">
+        <div class="row justify-content-center">
+          <div class="col-12 col-xxl-10 roundBorder linerbg">
+            <div class="text-center d-none d-md-block pt-4">
+              <router-link to="/productboard/productList/S0722 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_5_daily_food.jpg"
+                  class="img-fluid"
+                  alt="民生食材-南北貨Web"
+                />
+              </router-link>
+            </div>
+            <div class="text-center d-md-none pt-3">
+              <router-link to="/productboard/productList/S0722 ">
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/bg_5_daily_food_mb.jpg"
+                  class="img-fluid"
+                  alt="民生食材-南北貨Mb"
+                />
+              </router-link>
+            </div>
+            <!-- 看更多按鈕 -->
+            <div class="d-flex justify-content-end my-2">
+              <a
+                href="https://www.yesgogogo.com/productboard/productList/S0722"
+                class="d-block w-20 text-end"
+                target="_blank"
+              >
+                <img
+                  src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardPromotion/see_more_button_1.png"
+                  alt="看更多按鈕"
+                  class="img-fluid btn-fluid"
+                />
+              </a>
+            </div>
+            <!-- 商品列 -->
+            <div class="product-list pt-1 pt-md-3">
+              <div id="20210901UB-F" class="row gx-2 gx-md-5">
+                <div
+                  class="col-6 col-lg-3 col-xxl-3 mb-3"
+                  v-for="(item, productId) in F"
+                  :key="productId + 1"
+                >
+                  <div
+                    class="prd-item hvr-bob"
+                    :class="{ 'sold-out': item.stock === 0 }"
+                  >
+                    <router-link
+                      :to="`/productboard/product/${item.productId}`"
+                      class="text-secondary text-decoration-none"
+                    >
+                      <div class="border-0 card rounded-0 px-0 px-sm-1 px-md-1 px-xl-0 pt-1 pt-md-2 pt-xl-2" >
+                          <img :src="item.productImage" class="card-img-top" alt="product image">
+                          <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                            <h5 class="card-title fs-7 fs-sm-6 mb-2 mb-lg-3 text-justify" >{{ item.productName }}</h5>
+                            <p class="d-inline text-nowrap fs-7 fs-md-5 fs-xl-6 prd-sale-price"><del class="prd-msrp me-1 me-xl-2 prd-sale-price">${{ item.oldPrice &lt; 0 ? 'xxx': $currency.currency(item.oldPrice) }}</del><span class="price-color fs-7 fs-md-4 fs-xl-5 fs-lg-8 fw-bolder">特價$<span class="fs-4 fs-md-2 fs-lg-3 fs-xl-2">{{ item.price &lt; 0 ? 'xxx': $currency.currency(item.price) }}</span></span></p>
+                          </div>
+                        </div>
+                      <span class="d-block prd-limited p-spc">立即搶購</span>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="btn-6-2 d-none d-lg-block" style="margin-top: -410px"></div>
+    <div class="btn-6-2 d-lg-none d-lg-none" style="margin-top: -430px"></div> -->
+    <!-- <%-- 活動說明 --%> -->
+    <div id="point_01 " class="step-7 py-3">
+      <div class="container">
+        <hr color="#fff" />
+        <div class="col-sm-auto mb-2">
+          <div class="dtl-details  py-1 text-center d-inline-block">
+            注意事項
+          </div>
+        </div>
+        <div class="dtl-notes py-2">活動期間：111/07/01~12/31</div>
+        <ol class="dtl-notes">
+          <li class="text-justify">
+            本活動適用自聯邦信用卡官網(含優先體驗專區)開卡者，並於開卡頁面點選「立即成為會員/已為會員」註冊成yesgogogo會員(下稱會員)之卡友，或由此活動頁面點選「聯邦卡友註冊領特神券」至聯邦卡友專屬註冊頁完成註冊，方符合活動領取資格。活動不適用於聯邦銀行App、語音或撥打客服等開卡方式。
+          </li>
+          <li>
+            【yesgogogo即食購之聯邦卡友活動好禮說明】
+            <ol type="A" style="text-align:justify;">
+              <li ref="coupon" id="coupon" class="p-1 break">
+                <span class="fw-bold" style="color:#aa2832;">聯邦卡友新會員禮$1000之電子折價券：</span>
+                聯邦卡友於聯邦開卡頁同意註冊成為yesgogogo新會員後，總值$1000元之電子折價券將歸戶送達至yesgogogo會員帳戶內，使用效期自獲得日起2個月內使用有效。每個會員帳號限領一次，總計折價券面額包含$50兩張(消費滿$51可使用)、$100一張(消費滿$101可使用)、$100一張(消費滿$1,000可使用)、$200一張(消費滿$2,500可使用)、$500一張(消費滿$3,300可使用)，折價券使用期限及規範可至yesgogogo即食購登入「會員中心」 → 「我的優惠券」→「折價券」內查看所領取到的折價券。
+              </li>
+              <li ref="feedback" id="feedback" class="p-1">
+                <span class="fw-bold" style="color:#aa2832;"
+                  >首購消費享50%回饋購物金無上限、後續筆筆消費再享10%回饋購物金：</span
+                >聯邦卡友於開卡註冊成為yesgogogo新會員並完成首購(自加入會員的30天內，以付款完成且無取消訂單與退貨為準)，可享首購單筆訂單之50%回饋購物金(以該訂單扣除折價券折抵後之「購買時實際支付的金額」來計算)， 後續筆筆消費再享10%回饋購物金， 每1購物金等同於新台幣1元可於下次消費時使用、折抵最高上限為結帳總金額25%，回饋購物金將於訂單完成(即訂單內所有商品出貨)起算15日後發送至會員帳戶內，使用效期自獲得日起2個月內使用有效(領取日後2個月內)，待有效期間屆滿，尚未使用之購物金將於到期日23:59:59自動失效不另行通知，每筆訂單購物金折抵不可與折價券合併使用，回饋購物金可至yesgogogo會員中心的「我的優惠券」→「購物金回饋」內查詢明細。回饋之購物金為活動贈品，屬無償取得，故購物金回饋折抵部分不計入發票開立金額。
+              </li>
+              <li ref="tuesday" id="tuesday" class="p-1">
+                <span class="fw-bold break" style="color:#aa2832;"
+                  >週二聯邦日每筆再享30點LINE Points：</span>
+                活動期間每周二會員使用聯邦信用卡於yesgogogo消費，每筆訂單即贈30點LINE Points，訂單不限消費金額、回饋次數無上限。詳情請見
+                <a
+                  v-if="card[0]"
+                  :href="card[0].targetUrl"
+                  target="_self"
+                  class="fw-bolder text-decoration-underline"
+                  style="color:#01579B;"
+                >
+                週二聯邦日活動說明
+                </a>
+                。
+              </li>
+              <li class="p-1">
+                折價券及購物金於結帳時僅能擇一使用，恕無法併用。
+              </li>
+              <li class="p-1">
+                若訂單取消、退貨或任何不可歸咎於yesgogogo即食購之因素導致訂單未成立，恕不補發。
+              </li>
+              <li class="p-1">
+                折價券與購物金不得轉贈他人、要求變換現金或商品。
+              </li>
+              <li class="p-1">折價券與購物金不適用於促銷商品與票券商品。</li>
+              <li class="p-1">
+                以上優惠活動使用期限及規範請於yesgogogo即食購會員中心查詢。
+              </li>
+              <!-- <li class="p-1">
+                購物金回饋為活動贈品，屬無償取得，故購物金回饋折抵部分不計入發票開立金額。開立發票之金額是以該訂單「購買時實際支付的金額」來計算。
+              </li>
+              <li class="p-1">
+                以上優惠活動使用期限及規範請於yesgogogo即食購會員中心查詢。
+              </li> -->
+              <li ref="coffee" id="coffee" class="p-1 break">
+                <span class="fw-bold" style="color:#aa2832;"
+                  >加入LINE好友月月抽百杯CITY CAFÉ:</span>聯邦卡友會員點選
+                <a class="fw-bold text-decoration-underline d-none d-md-inline" style="color:#01579B;"  href="#appointmentWeb"
+                  >「立即登記」</a
+                >
+                <a class="fw-bold text-decoration-underline d-inline d-md-none" style="color:#01579B;" @click.prevent="goHyperText($refs.appointmentMb)" href="#"
+                  >「立即登記」</a
+                >
+                加入yesgogogo的LINE官方帳號好友，除了可領取好友專屬優惠、掌握好康資訊以外，yesgogogo將月月抽出一百名聯邦卡友會員贈送CITY CAFE虛擬提貨卡(每月100位、活動期間總共600位)，可憑兌換簡訊於全台7-11超商兌換中杯美式咖啡或四季春青茶或經典紅茶，冰/熱不限、即換即用，全台7-11超商通用、無兌換效期限制。活動登記報名方式需先<a
+                  class="fw-bold text-decoration-underline px-1"
+                  style="color:#01579B"
+                  href="http://line.me/ti/p/@yesgogogo"
+                  target="_self"
+                  >加入LINE好友</a
+                >點選LINE選單「聯邦卡友月月抽百杯咖啡」活動登記連結並登入會員即可完成報名，yesgogogo將於次月10日前抽出得獎者並於FB官方粉絲團公佈得獎名單，次月30日前發送CITY CAFE虛擬提貨卡兌換簡訊至中獎之聯邦卡友於yesgogogo會員帳戶登錄之手機號碼，活動期間每聯邦卡友會員凡登記一次即可享月月參加抽獎、不需重複登記。
+              </li>
+            </ol>
+          </li>
+          <li class="p-1 text-justify">
+            凡於活動期間至購物金回饋前，持卡人之聯邦銀行信用卡正、附卡有遭強制停用、申請停用、掛失不補發、逾期繳款、參加前置協商、聲請更生清算或破產、信用卡到期不續卡、取消交易或其他聯邦銀行依信用卡約定條款停止持卡人使用之情形，聯邦銀行得撤銷其兌獎或回饋資格。
+          </li>
+          <li class="p-1">
+            本活動以實際交易計算，若因付款失敗、交易取消、退貨，該筆交易將不列入計算範圍。如有其他未盡事宜，聯邦銀行及yesgogogo即食購購物網保留隨時修改、變更、取消本活動之權利，亦有權對本活動之所有事宜做出解釋或決定。
+          </li>
+          <li class="p-1">
+            活動事項載明於活動網頁中，參加本活動者，視為同意接受本活動注意事項之規範，參加人不符合或違反本活動規定事項者，本公司保有取消其參加資格之權利，並對於任何破壞本活動之行為保留相關權利。
+          </li>
+          <li class="p-1 break">
+            其他問題請於上班時間(周一至周五 8:30~12:00、13:30~18:00，國定假日除外)，洽line客服人員(ID：@yesgogogo)。
+          </li>
+          <li class="p-1 text-justify">
+            任何經由正確帳號與密碼登入網站使用回饋購物金點數之行為，均視為該會員之行為，因不可歸責於yesgogogo即食購購物網或因不可抗力之因素導致購物金資料流失時，yesgogogo即食購購物網不負賠償或補償之責。
+          </li>
+          <li class="p-1">
+            本公司保留隨時變更、修改、暫停或終止及解釋本活動相關事項及約定條款之權利，若有其他未盡事宜，悉依本公司相關規定或決定辦理。
+          </li>
+          <li class="p-1">
+            本活動若有異動，修改後的活動內容及約定條款將公佈在yesgogogo即食購本站上，若您於任何修改或變更後繼續使用本服務時，視為您已閱讀、瞭解並同意接受該等修改或變更。
+          </li>
+        </ol>
+      </div>
+    </div>
+    <!-- 商品 html template (勿移除) -->
+    <!-- <div class="d-block">
+      <div id="tmpl-item" class="col-6 col-lg-3 mb-4">
+        <div class="prd-item hvr-bob">
+          <a class="text-secondary text-decoration-none">
+            <span class="d-block prd-img mb-2"><img src="" class="img-fluid" /></span>
+            <span class="d-block prd-name"></span>
+            <span class="d-block prd-sale">特價<span class="prd-sale-price">$</span></span>
+            <span class="d-block prd-price mb-2">原價 <span class="prd-msrp"></span></span>
+            <span class="d-block prd-limited p-2">立即搶購</span>
+          </a>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</template>
+
+<script>
+// import moment from 'moment'
+// !引入Line活動比對function
+import getGiftEvent from '@/assets/js/giftevent.js'
+// !引入Token確認function
+import checkToken from '@/assets/js/checkToken.js'
+
+export default {
+  data () {
+    return {
+      giftList: [],
+      A: [],
+      B: [],
+      C: [],
+      D: [],
+      E: [],
+      F: [],
+      card: [] /* 週二聯邦日 */,
+      carousel: [] /* 按鈕連結 */,
+      carousel_mb: [] /* 按鈕連結 */
+    }
+  },
+  methods: {
+    getGiftList () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=20220101`
+      this.axios.get(url).then(res => {
+        if (res.data.rtnCode !== 0) {
+          this.$swal.fire({
+            title: `20220101${res.data.rtnMsg}(${res.data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        this.giftList = res.data.info
+        this.giftList.forEach(item => {
+          if (item.code === '20220101_A') {
+            this.A = item.products /* 期間限定閃購專區 20220101_A  */
+          } else if (item.code === '20220101_B') {
+            this.B = item.products /* 即時料理，家常菜 20220101_B */
+          } else if (item.code === '20220101_C') {
+            this.C = item.products /* 鍋物湯品 20220101_C */
+          } else if (item.code === '20220101_D') {
+            this.D = item.products /* 水餃麵點 20220101_D */
+          } else if (item.code === '20220101_E') {
+            this.E = item.products /* 蛋糕甜點 20220101_E  */
+          } else if (item.code === '20220101_F') {
+            this.F = item.products /* 生鮮肉品，小農蔬果 20220101_F  */
+          }
+        })
+      })
+    },
+    getCardDiscount () {
+      // ?card_A 週二聯邦日活動代碼
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=card_A`
+      this.$http.get(url).then(res => {
+        if (res.data.rtnCode !== 0) {
+          this.$swal.fire({
+            title: `card_A${res.data.rtnMsg}(${res.data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        if (res.data.rtnCode === 0) {
+          this.card = res.data.info
+        }
+      })
+    },
+    goLatestAct () {
+      // ?card_B 當月最新優惠活動按鈕WEb
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=card_C`
+      this.$http.get(url).then(res => {
+        if (res.data.rtnCode !== 0) {
+          this.$swal.fire({
+            title: `card_C${res.data.rtnMsg}(${res.data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        if (res.data.rtnCode === 0) {
+          this.carousel = res.data.info
+        }
+      })
+      const urlM = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=card_m_C`
+      this.$http.get(urlM).then(res => {
+        if (res.data.rtnCode !== 0) {
+          this.$swal.fire({
+            title: `card_m_C${res.data.rtnMsg}(${res.data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          return
+        }
+        if (res.data.rtnCode === 0) {
+          this.carousel_mb = res.data.info
+        }
+      })
+    },
+    goHyperText (DOM) {
+      // ?前往茅點
+      const domHeight = DOM.offsetTop
+      setTimeout(() => {
+        window.scrollTo(0, domHeight)
+      }, 500)
+    },
+    getToken () {
+      // ?呼叫checkToken.js
+      // ?判斷是否有登入(token取得)
+      const accessToken = checkToken.getAccessToken()
+      const freshToken = checkToken.getFreshToken()
+      if (accessToken || freshToken) {
+        return true
+      } else {
+        return false
+      }
+    },
+    goEventGiftPath () {
+      // ?呼叫 event.js確認活動碼
+      getGiftEvent().then(data => {
+        if (!data.isSuccess) {
+          this.$swal.fire({
+            title: `${data.message}(${data.rtnCode})`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+        } else {
+          this.$swal.fire({
+            title: `${data.message}`,
+            allowOutsideClick: false,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+        }
+        // this.$router.push(sessionStorage.getItem('path'))
+        // 活動結束，清除所有sessionStorage
+        sessionStorage.removeItem('cardEvent')
+        sessionStorage.removeItem('cardCode')
+        sessionStorage.removeItem('path')
+      })
+    },
+    goUpdatePwd () {
+      sessionStorage.setItem('cardEvent', 'card')
+      if (this.getToken()) {
+        this.$router.push('/memberboard/memberupdatepwd')
+      } else {
+        if (document.body.clientWidth < 576) {
+          // ?手機板
+          this.$router.push('/membermobilelogin')
+        } else {
+          // ? web 版
+          this.$router.push('/memberboard/memberupdatepwd/?cardEvent=card')
+        }
+      }
+    }
+  },
+  watch: {
+    $route (to, from) {
+      if (
+        to.fullPath.match('/productboard/product/') ||
+        to.fullPath.match('/productboard/productList/')
+      ) {
+        const recordHeight = window.scrollY
+        this.$store.commit('getEventRecordHeight', recordHeight)
+      } else {
+        this.$store.commit('getEventRecordHeight', '')
+      }
+    }
+  },
+  mounted () {
+    this.getGiftList()
+    this.goLatestAct()
+    this.getCardDiscount()
+    // ? 若有點擊產品紀錄，則記錄高度供上一頁返回
+    if (this.$store.state.recordEventReadHeight) {
+      setTimeout(
+        () => [
+          // ?資料高度生成需要時間，利用setTimeOut讓視窗滑動不同步，才能順利執行
+          window.scrollTo(0, this.$store.state.recordEventReadHeight)
+        ],
+        500
+      )
+    }
+    // ? 從Line進入yesgo紀錄query參數
+    if (
+      Object.keys(this.$route.query).length !== 0 &&
+      this.$route.query.path &&
+      this.$route.query.cardCode
+    ) {
+      Object.keys(this.$route.query).forEach(item => {
+        sessionStorage.setItem(`${item}`, this.$route.query[item])
+      })
+      if (this.getToken()) {
+        this.goEventGiftPath()
+      } else {
+        this.$swal.fire({
+          title: '聯邦卡友會員您好~<br>請登入參加月月抽百杯CITY CAFE活動',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          backdrop: true,
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+        if (document.body.clientWidth < 576) {
+          // ? 手機版
+          sessionStorage.setItem('cardEvent', 'card')
+          this.$router.push('/membermobilelogin')
+        } else {
+          // ? web 版
+          sessionStorage.setItem('cardEvent', 'card')
+          // 因首頁判斷過多，多塞一個cardEvent供活動判斷
+          this.$router.push('/?cardEvent=card')
+        }
+      }
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/all.scss';
+@import '@/assets/scss/activity/_animate.min.scss';
+@import '@/assets/scss/activity/_hover.min.scss';
+@import '@/assets/scss/activity/_ygg-comp.scss';
+@import '@/assets/scss/activity/cardpromotion/_site2022_SecondHalf.scss';
+@import '@/assets/scss/activity/_font.scss';
+
+:deep(.swiper-wrapper) {
+  padding-bottom: 40px;
+  @media (max-width: 768px) {
+    padding-bottom: 15px;
+   }
+}
+
+:deep(.swiper-pagination-bullets){
+  // bottom: 3px;
+  bottom: 10%;
+  @media (max-width: 768px) {
+    bottom: 1%;
+  }
+  @media (max-width: 576px) {
+    bottom: 2%;
+  }
+}
+
+:deep( .swiper-pagination-bullet) {
+  margin: 0 3px;
+}
+
+:deep( .swiper-pagination-bullet-active){
+  position: relative;
+  z-index: 10;
+}
+
+</style>

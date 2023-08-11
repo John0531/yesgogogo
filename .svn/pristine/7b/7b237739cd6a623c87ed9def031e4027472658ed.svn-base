@@ -1,0 +1,40 @@
+.background-top {
+  background-color: #b1876e;
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/hotspringticket/Index_xl_blank.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  @media (max-width: 1140px) {
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/hotspringticket/Index_xl_blankbg_ticket_1140.jpg');
+    background-size: 100%;
+  }
+  @media (max-width: 991px) {
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/hotspringticket/Index_m_blank.jpg');
+    background-size: 100%;
+  }
+}
+
+.background-down {
+  background-color: #d7c7b6;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+.master-container {
+  max-width: 1140px;
+  padding-left: 15px;
+  padding-right: 15px;  
+  @media (max-width: 991px) {
+    padding-left: 0px;
+    padding-right: 0px;  
+  }
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.master-container-down {
+  max-width: 1140px;
+  padding-left: 15px;
+  padding-right: 15px;  
+  margin-left: auto;
+  margin-right: auto;
+}

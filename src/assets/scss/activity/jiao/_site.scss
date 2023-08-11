@@ -1,0 +1,475 @@
+@charset "utf-8";
+
+/****************** 基本 ******************/
+
+* {
+    font-family: "微軟正黑體", "Microsoft JhengHei", Arial, Geneva, sans-serif;
+}
+
+body {
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container{
+    padding-right: 20px;
+    padding-left: 20px;
+}
+h2{
+    margin-top: 80px;
+    color: #d8ba95
+}
+@media screen and (max-width: 576px) {
+    h5{
+        font-size: 16px;
+        text-align: left;
+    }
+}
+img{
+    max-width: 100%;
+}
+
+.btn-primary{
+    background-color: #d8ba95;
+    border: #d8ba95 1px solid;
+    border-radius: 0;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.btn:hover{
+    background-color: #e4cbad;
+    border: #e4cbad 1px solid;
+}
+.btn-check:active+.btn, .btn-check:checked+.btn, .btn.active, .btn.show, .btn:active{
+    background-color: #e4cbad;
+    border: #e4cbad 1px solid;
+}
+.btn-check:focus+.btn, .btn:focus{
+    box-shadow: none;
+}
+.btn-check:active+.btn:focus, .btn-check:checked+.btn:focus, .btn.active:focus, .btn.show:focus, .btn:active:focus{
+    box-shadow: none;
+}
+
+
+/* ---------- 彈出視窗 ---------- */
+.modal{
+    color: #fff;
+    --bs-modal-width: 750px;
+    max-width: 100%;
+    
+}
+.modal-content{
+    font-size: 20px;
+    border-radius: 0;
+    background-color: #e83828;
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/cooking_bg.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    border: 5px #d8ba95 solid;
+}
+
+.modal-title{
+    color: #d8ba95;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    padding-top: 20px;
+}
+.modal-header{
+    border-bottom: 0;
+}
+.modal-body{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+.modal-footer{
+    border-top: 0;
+    justify-content: center;
+}
+
+
+
+.smoky_left{
+    position: absolute;
+    top: 1690px;
+    left: -260px;
+    z-index: 2;
+    overflow: hidden;
+}
+.smoky_right{
+    position: absolute;
+    top: 1200px;
+    right: -260px;
+    z-index: 2;
+    overflow: hidden;
+}
+@media screen and (max-width: 1400px) {
+    .smokyArea{
+        display: none;
+    }
+}
+
+/*------------- 主視覺 -------------*/
+// 最大的banner
+.topimg {
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/top.jpg') !important;
+}
+.topTitle{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+}
+
+@media screen and (max-width: 576px) {
+    .topimg {
+        background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/top_m.jpg') !important;
+    }
+    .topTitle{
+        display: none;
+    }
+}
+
+/*------------- 主要內容區塊 -------------*/
+.introCtn{
+    display: flex;
+    align-items: center;
+}
+.introCtn p{
+    position: relative;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+
+.flower{
+    position: absolute;
+    width: 64px;
+    height: 65px;
+    right: 72px;
+    top: 205px;
+}
+.flowerPlat{
+    display: block;
+}
+
+/* 各別設置--背景 */
+.brandIntro, .produstSpecial{
+    background-color: #111111;
+}
+.productIntro{
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/productIntro_bg.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+.cooking{
+    background-color: #e83828;
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/cooking_bg.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain;
+    padding-bottom: 60px;
+}
+.howToEat{
+    background-color: #eb5648;
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+.quality{
+    background-color: #d8ba95;
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/quality_bg.png');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: contain;
+    background-attachment: fixed;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+.buy{
+    background-color: #eb5648;
+    padding-bottom: 50px;
+}
+
+/* 各別設置--各區塊設置 */
+.brandIntro .titlePhone{
+    display: none;
+}
+.productIntro .introCtn{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.productIntro .introCtn p{
+    max-width: 950px;
+    width: 100%;
+}
+.cookingBox img{
+    margin: auto;
+}
+
+.cooking .btnBox{
+    margin: 40px auto;
+    text-align: center;
+}
+.cooking .btn-primary{
+    background-color: transparent;
+    border: 0;
+    width: 277px;
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/button.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    padding: 20px 30px;
+    color: #d8ba95;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.cooking .btnClose{
+    border: #fff solid 1px;
+    color: #fff;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .produstSpecial_pic{
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .introCtn{
+        flex-wrap: wrap;
+    }
+    .flowerBox{
+        text-align: center;
+        order: -1;
+        margin-bottom: 10px;
+    }
+    .flowerPlat{
+        width: 20%;
+        display: inline-block;
+    }
+    .brandIntro .title{
+        display: none;
+    }
+    .brandIntro .titlePhone{
+        display: block;
+        background-color: #e83828;
+        text-align: center;
+        color: #fff;
+        font-size: 28px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .flower{
+        display: none;
+    }
+    .produstSpecial_pic{
+        width: 100%;
+    }
+}
+
+/* 主要內容窄版 */
+@media screen and (max-width: 992px) {
+    body {
+        font-size: 17px;
+    }
+    /* 各別設置--背景 */
+    .productIntro{
+        background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/productIntro_bg.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-attachment: scroll;
+    }
+
+    /* 各別設置 */
+    .brandIntro .introCtn{
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+    .produstSpecial .introCtn{
+        padding-bottom: 20px;
+    }
+    .howToEat .btn-primary{
+        font-size: 17px;
+    }
+    .quality .paper{
+        width: 40%;
+    }
+    .productPic{
+        width: 30%;
+    }
+    
+}
+
+footer{
+    background-color: #262626;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #FFFFFF;
+}
+
+/* 右側button 立即購買*/
+    
+#applyBtn {
+    color: #FFFFFF;
+    display: inline;
+    position: fixed;
+    top: 65%;
+    right: 20px;
+    text-align: center;
+    z-index: 9;
+    display: none;
+}
+
+#applyBtn.active{
+    display: block;
+}
+
+#applyBtn a{
+    color: transparent;
+    padding: 8px 10px;
+    font-size: 20px;
+    font-weight: 600;
+    display: inline-block;
+    text-decoration: none;
+}
+
+#applyBtn a::before{
+	content: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/goShop_2.png');
+	display: block;
+}
+
+@media screen and (max-width: 576px) {		
+	#applyBtn{
+			top: 70%;
+			right: 0%;
+	}
+	#applyBtn a::before{
+			content: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/jiao/goShop_m.png');
+			display: block;
+	}
+}
+
+html 
+	{
+	    height: 100%;
+	    /*宣告高支援100%*/
+	}
+
+.carousel {
+    height: 100%;
+}
+
+.item,
+.active,
+.carousel-inner {
+    height: 100%;
+}
+
+
+/* 
+寬度固定 */
+
+.fixed-width-carousel .carousel {
+    height: 755px;
+}
+
+.fixed-width {
+    /* 寬度固定 */
+    max-width: 1140px;
+    max-height: 755px;
+    margin: 0 auto;
+}
+
+@media (max-width:1200px) {
+    .fixed-width-carousel .carousel {
+        height: 600px;
+    }
+}
+
+
+/* 
+寬度滿版 */
+
+.fill {
+	width: 100%;
+	height: 100vh;
+	background-position: center center;
+	background-size: cover;
+	@media (max-width:1200px) {
+		height: 100%;
+	}
+}
+
+#carousel1 .left.carousel-control img,
+#carousel1 .right.carousel-control img {
+    position: absolute;
+    top: 45%;
+}
+
+#carousel1 .left.carousel-control img {
+    right: 50%;
+}
+
+#carousel1 .right.carousel-control img {
+    left: 50%;
+}
+
+@media (max-width:1400px) {
+    .carousel {
+        height: 600px;
+        /*margin-top: 70px;*/
+    }
+}
+
+@media (max-width:992px) {
+    .carousel,
+    .fixed-width-carousel .carousel {
+        height: 550px;
+    }
+    #carousel1 .left.carousel-control img,
+    #carousel1 .right.carousel-control img {
+        transform: scale(0.8);
+    }
+    #carousel1 .left.carousel-control img {
+        right: 30%;
+    }
+    #carousel1 .right.carousel-control img {
+        left: 30%;
+    }
+}
+
+@media (max-width:768px) {
+    .carousel,
+    .fixed-width-carousel .carousel {
+        height: 450px;
+    }
+    #carousel1 .left.carousel-control img,
+    #carousel1 .right.carousel-control img {
+        transform: scale(0.6);
+    }
+    #carousel1 .left.carousel-control img {
+        right: 20%;
+    }
+    #carousel1 .right.carousel-control img {
+        left: 20%;
+    }
+}

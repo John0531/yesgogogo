@@ -1,0 +1,176 @@
+<template>
+  <div class="bg-white">
+    <div class="container">
+      <!-- 熱門館別列表 menu -->
+      <ul
+        class="header-list-group list-group list-group-horizontal d-none d-sm-flex flex-nowrap"
+      >
+        <li class="list-group-item flex-fill text-center border-top-0">
+          <router-link
+            to="/productboard/productList/S0726"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0726')"
+          >
+            <img
+              src="../assets/img/event_icon.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/event_hover_icon.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            活動專區
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0712"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0712')"
+          >
+            <img
+              src="../assets/img/yesgo_icon06.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon14.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            即食料理
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0714"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0714')"
+          >
+            <img
+              src="../assets/img/yesgo_icon07.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon15.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            鍋物湯品
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0716"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0716')"
+          >
+            <img
+              src="../assets/img/yesgo_icon09.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon17.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            炸物燒烤
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0718"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0718')"
+          >
+            <img
+              src="../assets/img/yesgo_icon10.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon18.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            蛋糕甜點
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0717"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0717')"
+          >
+            <img
+              src="../assets/img/yesgo_icon11.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon19.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            生鮮蔬果
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0720"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0720')"
+          >
+            <img
+              src="../assets/img/yesgo_icon12.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon20.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            休閒零食
+          </router-link>
+        </li>
+        <li class="list-group-item flex-fill">
+          <router-link
+            to="/productboard/productList/S0721"
+            class="text-secondary px-1"
+            @click.prevent="sendCategoryId('S0721')"
+          >
+            <img
+              src="../assets/img/yesgo_icon13.svg"
+              alt="instantFood"
+              class="listIcon"
+            />
+            <img
+              src="../assets/img/yesgo_icon21.svg"
+              alt="instantFood"
+              class="listIconHover"
+            />
+            咖啡茶飲
+          </router-link>
+        </li>
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default ({
+  methods: {
+    sendCategoryId (id) {
+      this.$store.commit('getCategoryId', id)
+      this.$store.commit('getCategory', '')
+      this.$store.commit('getSubCategoryId', '')
+      this.$store.commit('getSubCategory', '')
+    }
+  }
+})
+</script>

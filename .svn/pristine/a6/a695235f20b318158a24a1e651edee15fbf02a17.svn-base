@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="36.72" height="36.72" viewBox="0 0 36.72 36.72">
+  <g id="yesgo_icon元件-14" transform="translate(-0.39 -0.39)">
+    <path id="Path_22" data-name="Path 22" d="M37.11,18.75A18.36,18.36,0,1,1,18.75.39,18.36,18.36,0,0,1,37.11,18.75Z" fill="#f8412e"/>
+    <g id="Group_8" data-name="Group 8">
+      <path id="Path_23" data-name="Path 23" d="M8.73,25.72a10,10,0,0,1,20,0" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_24" data-name="Path 24" d="M16.75,13.69a2,2,0,1,1,2,2A2,2,0,0,1,16.75,13.69Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line id="Line_2" data-name="Line 2" x2="23.68" transform="translate(6.91 28.14)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <g id="Group_7" data-name="Group 7">
+        <line id="Line_3" data-name="Line 3" y2="2.87" transform="translate(18.75 6.14)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line id="Line_4" data-name="Line 4" y2="2.88" transform="translate(12.75 7.09)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <line id="Line_5" data-name="Line 5" y2="2.88" transform="translate(24.75 7.09)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>

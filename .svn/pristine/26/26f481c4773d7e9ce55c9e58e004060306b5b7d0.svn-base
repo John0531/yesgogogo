@@ -1,0 +1,225 @@
+<template>
+  <div>
+    <!-- 視覺 -->
+    <div class="header d-none d-md-block"></div>
+    <div class="d-md-none">
+      <img
+        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/Index_lg_03.jpg"
+        class="img-fluid"
+      />
+    </div>
+
+    <!-- 活動按鈕 -->
+    <div class="btn-6">
+      <div class="container">
+        <div class="row">
+          <div class="text-center">
+            <img
+              src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/banner_00.png"
+              alt="100元"
+              class="img-fluid"
+            />
+          </div>
+          <!-- <div class="text-center d-md-none"><img src="../../assets/img/activity/memberbonus/banner_00_m.png" alt="100元" class="img-fluid"></div> -->
+        </div>
+      </div>
+      <!-- 電腦版 -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12 hvr-bob text-center">
+            <router-link to="/register">
+              <img
+                :src="events.link"
+                alt="新會員(新)"
+                class="img-fluid"
+              />
+            </router-link>
+          </div>
+          <div class="col-12 hvr-bob text-center" id="tenprecent">
+            <router-link to="/memberboard/membercoupon" @click.prevent="this.$store.commit('goToOldLogin', true)">
+              <img
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/banner_02_new.png"
+                alt="舊會員(新)"
+                class="img-fluid"
+              />
+            </router-link>
+          </div>
+          <div class="col-12 hvr-bob text-center" ref="tenprecentbonus">
+            <router-link to="/">
+              <img
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/banner_03_new2.png"
+                alt="10%(新)"
+                class="img-fluid"
+              />
+            </router-link>
+          </div>
+        </div>
+      </div>
+      <!-- 手機版
+      <div class="container d-md-none">
+        <div class="row no-gutters">
+          <div class="col-4"><a href="https://www.yesgogogo.com/YesgoMarket/event/2021/0901UBcampaign/Index.aspx" target="_blank"><img src="../../assets/img/activity/memberbonus/icon-01_m.png" alt="最高回饋100%" class="img-fluid" style="padding-right: 12px;"></a></div>
+          <div class="col-4"><a href="https://reurl.cc/kLonnL" target="_blank"><img src="../../assets/img/activity/memberbonus/icon-02_m.png" alt="註冊會員送500" class="img-fluid" style="padding: 0 6px;"></a></div>
+          <div class="col-4"><a href="https://reurl.cc/yeARAM" target="_blank"><img src="../../assets/img/activity/memberbonus/icon-03_m.png" alt="加LINE送POINT" class="img-fluid" style="padding-left: 12px;"></a></div>
+        </div>
+      </div>-->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <table class="noticeTable">
+              <tbody>
+                <tr>
+                  <td colspan="2">《注意事項》</td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    活動期間:
+                    <span>{{ events.title }}</span>
+                    <br />【yesgogogo 會員活動好禮說明】
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">1.</td>
+                  <td>
+                    <p>折價券新會員/舊會員皆可領取使用：於本活動期間發送之折價券使用期限為兩個月，每個會員帳號限領一次。</p>
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">2.</td>
+                  <td>
+                    <p>
+                      新會員折價券面額包含$100五張(消費滿$101可使用)。<br>
+                      舊會員折價券面額包含$100一張(消費滿$101可使用)、$100兩張(消費滿$1,000可使用)、$200兩張(消費滿1,800可使用)、$300(消費滿$2,500可使用)。
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">3.</td>
+                  <td>
+                    新會員註冊或舊會員登入後，可至會員中心的「我的優惠券」→「折價券」內查看所領取到的折價券。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">4.</td>
+                  <td>
+                    折價券使用期限為領取日當天起算兩個月，如折價券在使用期限到期日前無使用則失效。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">5.</td>
+                  <td>
+                    折價券不得轉贈他人、要求變換現金或商品，並不適用於票券與部分商品。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">6.</td>
+                  <td>
+                    每次消費可得到10%購物金回饋無上限，可於下次消費作使用，最高折抵結帳總金額25%，不得使用於票券商品與部分商品。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">7.</td>
+                  <td>
+                    回饋購物金將於訂單完成(即訂單內所有商品出貨)起算15日後發送至會員帳戶內，若訂單取消、退貨或任何不可歸咎於 yesgogogo 之因素導致訂單未成立，恕不補發。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">8.</td>
+                  <td>
+                    回饋購物金可至會員中心的「我的優惠券」→「回饋購物金」內查詢明細。
+                  </td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">9.</td>
+                  <td>每筆訂單購物金回饋折抵不可與折價券合併使用。</td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap" valign="top">10.</td>
+                  <td>
+                    購物金點數回饋為活動贈品，屬無償取得，故購物金回饋折抵部分不計入發票開立金額，開立發票之金額是以該訂單「購買時實際支付的金額」來計算。
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    以上優惠活動使用期限及規範請於 yesgogogo 會員中心查詢。<br /><br />活動事項皆載明於網頁中，參加本活動者視為同意接受本活動注意事項之規範，參加人不符合或違反本活動規定事項者，不可歸責於本公司，本公司保有取消其參加資格之權利，並對於任何破壞本活動之行為保留相關權利。<br />如有其他未盡事宜，本公司保留修改、變更、暫停或終止及解釋本活動相關事項之權利，亦有權對本活動之所有事宜做出解釋或決定若有其他未盡事宜，悉依本公司相關規定或決定辦理。<br />其他問題請於上班時間(周一至周五
+                    8:30~12:00、13:30~18:00，國定假日除外)，洽line客服人員(ID：@yesgogogo)。<br /><br />yesgogogo 購物網保留隨時變更、修改或終止本活動及約定條款之權利，若有異動，修改後的活動內容及約定條款將公佈在 yesgogogo 購物網本站上，若您於任何修改或變更後繼續使用本服務時，視為您已閱讀、瞭解並同意接受該等修改或變更。
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default ({
+  data () {
+    return {
+      title: '',
+      isNotExpired: true,
+      events: ''
+    }
+  },
+  methods: {
+    getEvent () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=memberbouns`
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            this.events = res.data.info[0]
+          }
+        })
+    }
+  },
+  watch: {
+    '$route' (to) {
+      if (to.fullPath.match('/activity/memberbonus')) {
+        setTimeout(() => {
+          window.scrollTo({ top: this.title.offsetTop, behavior: 'smooth' })
+        }, 500)
+      }
+    }
+  },
+  mounted () {
+    this.getEvent()
+    this.title = this.$refs.tenprecentbonus
+    // ?進入頁面後導到回饋10%的活動位置
+    if (this.$route.params.hashposition || this.$route.params.id === 'tenpercent') {
+      setTimeout(() => {
+        window.scrollTo({ top: this.title.offsetTop, behavior: 'smooth' })
+      }, 500)
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+@import '@/assets/scss/activity/_hover.min.scss';
+@import '@/assets/scss/activity/memberbonus/_siteNew.scss';
+
+.dtl-event {
+  background-color: #e5d3ac;
+  color: #a12d2d;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.dtl-notes {
+  color: #ffffff;
+}
+
+.dtl-details {
+  background-color: #fbe1c9;
+  color: #aa332b;
+  font-size: 1.3em;
+}
+
+@media (max-width: 767px) {
+  .dtl-event {
+    font-size: 1.5em;
+  }
+}
+</style>

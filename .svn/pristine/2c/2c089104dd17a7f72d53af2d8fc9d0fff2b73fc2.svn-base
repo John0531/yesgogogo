@@ -1,0 +1,34 @@
+﻿.header {
+    background-image: url("https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/Index_xl_03.jpg");
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 700px;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #990000;
+}
+
+.btn-6 {
+    background-image: url("https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/memberbonus/bg.png");
+    background-repeat: repeat;
+    background-position: center top;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: #990000;
+}
+
+@media (min-width: 576px) {
+    .btn-6 {
+        background-position: top center;
+        /* background-repeat: no-repeat; */
+        margin-top: 0px;
+    }
+}
+
+/* 注意事項 */
+.noticeTable{
+    margin: 0 20px 30px 0px;
+    font-size: 0.9em;
+    color: #fff;
+    line-height: 1.5em;
+}

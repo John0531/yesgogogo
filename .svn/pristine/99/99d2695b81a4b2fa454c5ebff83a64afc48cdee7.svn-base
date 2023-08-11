@@ -1,0 +1,1290 @@
+<template>
+  <div class="mt-3 bg-light d-flex justify-content-center py-5" v-if="isEmpty === true"><h3 class="my-5 py-5">查無此商品頁面</h3></div>
+  <div class="product" v-if="isEmpty === false">
+    <!--Facebook pixel & microdata with the script tag -->
+    <div v-show="!isLoading">
+      <LoadingProduct></LoadingProduct>
+    </div>
+    <div v-show="isLoading">
+      <teleport to="body">
+        <component :is="'script'" type="application/ld+json">
+          {{ jsonId }}
+        </component>
+      </teleport>
+      <nav v-if="this.$store.state.subCategory !== '' || this.$store.state.category !==''" aria-label="breadcrumb" class="d-flex mb-2">
+        <ol class="breadcrumb mb-md-2 ms-md-0">
+          <li>
+            <span class="loacation m-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15.646" height="20.887" viewBox="0 0 15.646 20.887">
+                <g id="yesgo_icon元件-05" transform="translate(-0.503 -0.5)">
+                  <path id="Path_105" data-name="Path 105" d="M8.33,4.77h0a3.19,3.19,0,0,0-2.4,1.1,3.14,3.14,0,0,0,0,4.21,3.19,3.19,0,0,0,2.4,1.1h0a3.21,3.21,0,0,0,0-6.41ZM9.52,9.52A1.95,1.95,0,1,1,7.14,6.43a1.9,1.9,0,0,1,2.38,0,1.94,1.94,0,0,1,0,3.09Z" fill="#f8412e"/>
+                  <path id="Path_106" data-name="Path 106" d="M8.33.5A7.83,7.83,0,0,0,1.75,12.57a.37.37,0,0,0,.06.1l5.93,8.41a.72.72,0,0,0,1.18,0l5.93-8.41.06-.1A7.84,7.84,0,0,0,8.33.5Zm5.16,11.86-5.16,7.3-5.17-7.3a6.57,6.57,0,1,1,10.33,0Z" fill="#f8412e"/>
+                </g>
+              </svg>
+            </span>
+          </li>
+          <li class="breadcrumb-item">
+            <router-link to="/">首頁</router-link>
+          </li>
+          <router-link v-if="this.$store.state.category" :to="{ path: `/productboard/productlist/${this.$store.state.categoryId}`}" class="breadcrumb-item"
+            @click.prevent="clearBreadcrumbName"
+          >
+            {{ this.$store.state.category }}
+          </router-link>
+          <router-link v-if="this.$store.state.subCategory" :to="{ path: `/productboard/productlist/${this.$store.state.subCategoryId}`}" class="breadcrumb-item">
+            {{ this.$store.state.subCategory }}
+          </router-link>
+        </ol>
+      </nav>
+      <div class="mb-4">
+        <BannerInside></BannerInside>
+      </div>
+      <div class="row">
+        <div class="col-md-6 pe-md-4">
+          <!-- <div class="head d-flex mb-3 d-md-none ms-3">
+            <div class="circle bg-warning me-2"></div>
+            <span class="fw-bold">買一送一</span>
+            <a href="#" class="text-muted ms-1">詳情</a>
+          </div> -->
+          <!-- 電腦版大圖 -->
+          <div class="img w-100 ratio ratio-1x1 d-none d-md-block">
+            <img
+              v-if="data.productImage"
+              :src="data.productImage"
+              alt=""
+            />
+            <iframe v-else class="video" :src="`${data.video}?autoplay=1`" frameborder="0"></iframe>
+          </div>
+          <!-- 手機版大圖 -->
+          <div class="img w-100 ratio ratio-1x1 d-md-none" v-if="!data.productOtherImg">
+            <img
+              :src="data.productImage"
+              alt=""
+            />
+          </div>
+          <!-- 電腦版多圖介紹幻燈片 -->
+          <div class="mt-3 d-none d-md-block productOtherImgPC" v-if="data.productOtherImg">
+            <swiper
+              :navigation="{
+                nextEl: '#js-next1',
+                prevEl: '#js-prev1'
+              }"
+              :spaceBetween="10"
+              :slidesPerView="2"
+              :breakpoints="{
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 10
+                },
+                992: {
+                  slidesPerView: 4,
+                  spaceBetween: 10
+                },
+                1200: {
+                  slidesPerView: 5,
+                  spaceBetween: 15
+                }
+              }"
+            >
+              <swiper-slide v-for="item in data.productOtherImg" :key="item.id">
+                <div class="ratio ratio-1x1">
+                  <a href="#" @click.prevent="changeImg(item)">
+                    <img class="w-100 h-100" :src="item.imgFilePath" alt="" />
+                  </a>
+                </div>
+              </swiper-slide>
+            </swiper>
+            <!-- navigation buttons -->
+            <div id="js-prev1" class="swiper-button-prev"></div>
+            <div id="js-next1" class="swiper-button-next"></div>
+          </div>
+          <!-- 手機版多圖介紹幻燈片 -->
+          <div :class="{'d-none':!data.productOtherImg||!data.productOtherImg.length>1}" class="d-md-none productOtherImgMB">
+            <swiper
+              :navigation="true"
+              :pagination="{
+                el: '#pagination',
+                type: 'fraction'
+              }"
+            >
+              <swiper-slide v-for="item in data.productOtherImg" :key="item">
+                <div class="ratio ratio-1x1">
+                  <img v-if="!item.imageUrl" :src="item.imgFilePath" alt="" class="w-100">
+                  <iframe v-else class="video" :src="`${item.imageUrl}?autoplay=1`"></iframe>
+                </div>
+              </swiper-slide>
+            </swiper>
+            <div id="pagination" class="swiper-pagination-fraction"></div>
+          </div>
+          <!-- 社群分享 -->
+          <div class="social-icons d-flex mt-3 text-secondary align-items-center">
+            <p class="me-1">分享到</p>
+            <a href="#" @click.prevent="shareLink('line')" class="me-1">
+              <img src="../assets/img/yesgo_icon42.svg" alt="" class="line-icon">
+            </a>
+            <!-- <a href="#" @click.prevent="shareLink('facebook')" class="me-1">
+              <img src="../assets/img/yesgo_icon43.svg" alt="" class="facebook-icon">
+            </a> -->
+            <a href="#" @click.prevent="shareLinkModal" class="me-1">
+              <img src="../assets/img/yesgo_icon44.svg" alt="" class="currentLink-icon">
+            </a>
+          </div>
+          <!-- 複製商品網址 Modal -->
+          <div class="modal fade" id="shareLink" ref="shareModal">
+            <div class="shareModal modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center pb-6 pt-4 pt-lg-5 px-4 px-md-5 px-lg-6">
+                  <h4 class="fw-medium text-secondary mb-4">複製商品網址</h4>
+                  <div class="position-relative">
+                    <img class="sharelinkIcon position-absolute" src="../assets/img/yesgo_icon45.svg" alt="sharelink icon">
+                    <input type="text" class="shareInput form-control ps-7 mb-3 mb-md-4" v-model="shareUrl" readonly>
+                    <button type="button" @click.prevent="shareLink('currentLink')" class="btn btn-primary py-1 px-7 rounded-0 text-white">確定</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="content">
+            <h5 v-if="data.slogan" class="text-primary mt-3 mt-md-0 mb-md-2 border-start border-primary border-3 ps-3">{{data.slogan}}</h5>
+            <h3 class="pt-3 pt-md-0 mb-3">
+              {{ data.name }}
+            </h3>
+            <div v-html="data.shortDescription"></div>
+            <div class="my-2 d-flex w-100" v-if="data.gift !== null">
+              <span class="bg-primary px-3 py-2 d-flex align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="19.63" height="20.13" viewBox="0 0 19.63 20.13">
+                  <g id="yesgo_icon元件-32" transform="translate(-0.435 -0.435)">
+                    <path id="Path_1" data-name="Path 1" d="M18.35,4.43a1,1,0,0,1,1,1V7.71a1,1,0,0,1-1,1H2.15a1,1,0,0,1-1-1V5.43a1,1,0,0,1,1-1h16.2m0,0H2.15a1.07,1.07,0,0,0-1.09,1V7.71a1.07,1.07,0,0,0,1.09,1h16.2a1.07,1.07,0,0,0,1.09-1V5.43A1.07,1.07,0,0,0,18.35,4.43Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+                    <path id="Path_2" data-name="Path 2" d="M2.46,8.76v10a1.21,1.21,0,0,0,1.25,1.15H16.79A1.21,1.21,0,0,0,18,18.76v-10" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+                    <line id="Line_1" data-name="Line 1" y2="15.56" transform="translate(10.25 4.38)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+                    <path id="Path_3" data-name="Path 3" d="M10.25,4.41H8.06A2.06,2.06,0,0,1,5.82,2.66c0-.94,1.06-1.69,2.29-1.59C10,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+                    <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
+                  </g>
+                </svg><span class="ms-2 text-light text-nowrap">贈品</span>
+              </span>
+              <span class="border border-2 border-start-0 flex-grow-1 ps-3 py-2">{{data.gift.giftName}}</span>
+            </div>
+            <span class="d-flex flex-row-reverse text-secondary my-2"
+              ><small>品號: {{ data.productId }}</small></span
+            >
+          </div>
+          <div class="price w-100 p-md-3 py-2">
+            <span class="fs-md-5"
+              >市售價 <del>${{ $currency.currency(data.oldPrice) }}</del> 元</span
+            >
+            <span
+              class="ms-md-5 d-md-none d-xxl-inline ms-4 text-primary fs-5"
+              v-if="bonus === false"
+              >特價NT$
+              <span class="fs-1">{{ $currency.currency(data.price) }}</span
+              >元</span
+            >
+            <span
+              class="d-none d-md-block d-xxl-none text-primary text-end"
+              v-if="bonus === false"
+            >
+              特價NT$
+              <span class="fs-1">{{ $currency.currency(data.price) }}</span
+              >元
+            </span>
+            <span
+              class="ms-md-0 d-block text-primary fs-md-5"
+              v-if="bonus === true"
+              >兌換本商品需 <span class="fs-1">{{ data.price * 20 }}</span
+              >點</span
+            >
+            <a
+              href="#"
+              class="text-muted text-decoration-underline d-block text-end fs-7 fs-md-6"
+              @click.prevent="changeBonus"
+              >點擊切換聯邦紅利(每20點抵1元)與金額</a
+            >
+          </div>
+          <div class="pay mt-4">
+            <p class="mb-1">
+              結帳方式 :
+              <span class="ms-1">信用卡 / ATM / 聯邦卡友紅利折抵</span
+              ><span class="text-info">(聯邦紅利點數)</span>
+            </p>
+            <p class="mb-1">折 價 券 : <a @click.prevent="checkCoupon" href="#" v-if="isCouponExist===true">查看可使用的折價券<span v-if="couponCheck[0].couponId">(共{{couponCheck.length}}張)</span></a><span v-if="isCouponExist===false">此產品沒有可使用的折價券</span></p>
+            <p v-if="data.areas===null">配送方式 : {{data.shippingInfo.shippingTypeName}}，未滿${{$currency.currency(data.shippingInfo.limitPrice)}}元，運費${{$currency.currency(data.shippingInfo.shippingFee)}}元</p>
+            <!-- 折價券Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="couponModal">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">折價券</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <table class="table table-striped fs-7 fs-md-6">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-nowrap">折價券名稱</th>
+                          <th scope="col" width="18%">可折扣金額</th>
+                          <th scope="col" width="18%">最低限制金額</th>
+                          <th scope="col">到期時間</th>
+                          <th scope="col" class="text-nowrap">數量</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="item in couponCheck" :key="item.conPonId">
+                          <th scope="row">{{item.couponName}}</th>
+                          <td>{{$currency.currency(item.discountAmount)}}</td>
+                          <td>{{$currency.currency(item.limitPrice)}}</td>
+                          <td>{{item.endDate}}</td>
+                          <td class="text-center">{{item.quantity}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="d-flex">
+                      <button type="button" class="btn btn-primary text-light ms-auto" data-bs-dismiss="modal">確認</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="select mt-4">
+            <p class="m-1">品項</p>
+            <select
+              class="form-select mb-3"
+              aria-label="Default select example"
+              v-model="itemSelect"
+              @change="changeItem"
+            >
+              <option value="" selected disabled hidden>請選擇品項</option>
+              <option
+                :value="item"
+                v-for="(item, index) in data.options"
+                :key="index"
+                >{{ item.optionName }}</option
+              >
+            </select>
+            <label for="num" class="form-label">數量</label>
+            <div class="input-group mb-3 number">
+              <button
+                type="button"
+                class="btn border"
+                @click.prevent="minusNum"
+                :class="{'disabled': productNum===0}"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                class="form-control"
+                aria-label="Amount (to the nearest dollar)"
+                id="num"
+                min="1"
+                readonly
+                v-model.number="productNum"
+              />
+              <button type="button" class="btn border" @click.prevent="addNum" :class="{'disabled': productNum===0}">
+                +
+              </button>
+            </div>
+            <!-- 活動商品滿額限制 -->
+            <div class="d-flex align-items-center" v-if="data.areas!==null">
+              <router-link :to="`/productboard/productlistfullshipment/${data.areas[0].areaCode}`">
+                <i class="bi bi-bag-plus fs-5 me-1"></i>
+                <span v-if="data.areas[0].limitPrice===999999">本優惠商品，運費 ${{data.areas[0].shippingFee}} 元</span>
+                <span v-else>本優惠商品滿 ${{data.areas[0].limitPrice}} 元免運，未滿額運費 ${{data.areas[0].shippingFee}} 元</span>
+                ，加購商品請按此<i class="far fa-hand-point-left"></i>
+              </router-link>
+            </div>
+            <div class="row pt-3" v-if="productNum!==0&&data.forSale">
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary btn-cart text-nowrap"
+                    @click.prevent="addToCart"
+                  >
+                    <img src="../assets/img/yesgo_icon-30.svg" alt="" class="cart-icon"> <span>加入購物車</span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="d-grid gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary text-light"
+                    @click.prevent="toCheckout"
+                  >
+                    直接購買
+                  </button>
+                </div>
+              </div>
+            </div>
+            <h4 class="text-primary" v-if="data.forSale&&productNum===0">此商品已無庫存</h4>
+            <h4 class="text-primary" v-if="!data.forSale">此商品尚未開賣</h4>
+            <!-- 加入追蹤清單功能 -->
+            <a href="#" class="d-flex mt-3 align-items-center" @click.prevent="addToTracklist" v-if="!isAddedToTracklist"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="19.808" height="17.918" viewBox="0 0 19.808 17.918">
+              <path id="yesgo_icon元件-28" d="M19.44,6a4.8,4.8,0,0,0-9.19-1.9A4.8,4.8,0,1,0,2.51,9.47l7.74,8.29L18,9.47A4.8,4.8,0,0,0,19.44,6Z" transform="translate(-0.307 -0.517)" fill="none" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35"/>
+              </svg>
+              <span class="text-muted ms-1">加入追蹤清單</span></a
+            >
+            <a href="#" class="d-flex mt-3 align-items-center" @click.prevent="removeFromTracklist" v-if="isAddedToTracklist"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" width="19.808" height="18.233" viewBox="0 0 19.808 18.233">
+                <path id="yesgo_icon元件-29" d="M19.44,5.88a4.8,4.8,0,0,0-9.19-1.94A4.8,4.8,0,1,0,2.51,9.31l7.74,8.29L18,9.31A4.78,4.78,0,0,0,19.44,5.88Z" transform="translate(-0.307 -0.355)" fill="#f8412e" stroke="#f8412e" stroke-miterlimit="10" stroke-width="1.35"/>
+              </svg>
+              <span class="text-muted ms-1">商品已加入追蹤清單</span></a
+            >
+            <!-- <div class="social-icons d-flex">
+              <a href="#" @click.prevent="shareLink('currentLink')" style="color: grey;">
+                <i class="fas fa-link"></i>
+              </a>
+              <a href="#" @click.prevent="shareLink('facebook')">
+                <svg viewBox="0 0 25 48" xmlns="http://www.w3.org/2000/svg"><path d="M25 0v8h-5c-3 0-4 2-4 4v5h8l-1 9h-7v22H7V26H0v-9h7v-6C7 4 12 0 18 0h7z" fill="#4460A0"/></svg>
+              </a>
+              <a href="#" class="line-icon" @click.prevent="shareLink('line')">
+                <i class="fab fa-line"></i>
+              </a>
+              <a href="#" @click.prevent="shareLink('twitter')">
+                <svg viewBox="0 0 48 39" xmlns="http://www.w3.org/2000/svg"><path d="M43 9.7A27.9 27.9 0 010 34.6c5.2.6 10.4-.8 14.6-4-4.3-.2-8-3-9.2-7 1.5.4 3 .3 4.4-.1-4.7-1-8-5.2-7.9-9.8 1.4.8 2.9 1.2 4.5 1.2a9.9 9.9 0 01-3-13.1 28 28 0 0020.2 10.3 9.9 9.9 0 0116.8-9c2.3-.4 4.4-1.3 6.3-2.4a9.9 9.9 0 01-4.4 5.5c2-.3 4-.8 5.7-1.6a20 20 0 01-5 5.1" fill="#4DC8F1"/></svg>
+              </a>
+              <a href="#" @click.prevent="shareLink('linkedin')">
+                <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg"><path d="M52 52H41V34c0-5-2-8-6-8s-6 3-6 8v18H19V17h10v5s3-6 10-6c8 0 13 5 13 14v22zM6 13c-3 0-6-3-6-7 0-3 3-6 6-6 4 0 7 3 7 6 0 4-3 7-7 7zM1 52h11V17H1v35z" fill="#007EBB"/></svg>
+              </a>
+              <a href="#" @click.prevent="shareLink('wechat')" style="color: grey;">
+                <i class="fab fa-weixin"></i>
+              </a>
+              <a href="#" @click.prevent="shareLink('whatsapp')" style="color: grey;">
+                <i class="fab fa-whatsapp"></i>
+              </a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <!-- 手機版側邊卡片轉幻燈片 -->
+      <div v-if="productHot" class="d-md-none bg-light px-2 py-3 mt-4">
+        <div class="mb-3" style="width:130px">
+          <img src="@/assets/img/yesgo_icon39.svg" alt="" class="hot-product-title-img">
+        </div>
+        <swiper
+          :navigation="true"
+          class="mySwiper mobile-swiper"
+          :slidesPerView="3.3"
+          :spaceBetween="15"
+        >
+          <swiper-slide v-for="item in productHot" :key="item.productId"><a href="#" @click.prevent="toHotProduct(item.productId);this.$store.commit('getSubCategoryId', '');" class="card-hover">
+              <div class="mb-1">
+                <img :src="item.productImage" class="card-img-top" alt="..." />
+              </div>
+              <small class="d-block text-dark fs-7 hotproduct-mobile-name" style="height:60px">{{ item.name }}</small>
+              <small class="text-primary">NT${{ item.price }}</small>
+            </a>
+          </swiper-slide>
+        </swiper>
+      </div>
+      <!-- 換頁頁簽 -->
+      <ul class="nav mb-3 mt-5" id="pills-tab" role="tablist">
+        <li class="" role="presentation">
+          <button
+            class="btn btn-outline-secondary border-end-0 px-md-5 rounded-start active"
+            id="pills-home-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-home"
+            type="button"
+            role="tab"
+            aria-controls="pills-home"
+            aria-selected="true"
+          >
+            商品特色
+          </button>
+        </li>
+        <li class="" role="presentation">
+          <button
+            class="btn btn-outline-secondary border-end-0 px-md-5"
+            id="pills-profile-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-profile"
+            type="button"
+            role="tab"
+            aria-controls="pills-profile"
+            aria-selected="false"
+          >
+            商品規格
+          </button>
+        </li>
+        <li class="" role="presentation">
+          <button
+            class="btn btn-outline-secondary px-md-5 rounded-end"
+            id="pills-contact-tab"
+            data-bs-toggle="pill"
+            data-bs-target="#pills-contact"
+            type="button"
+            role="tab"
+            aria-controls="pills-contact"
+            aria-selected="false"
+          >
+            注意事項
+          </button>
+        </li>
+      </ul>
+      <div class="row mt-4 mb-5">
+        <div class="col-md-8">
+          <div class="tab-content" id="pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="pills-home"
+              role="tabpanel"
+              aria-labelledby="pills-home-tab"
+            >
+              <div class="text-dark introduce" v-html="data.description"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-profile"
+              role="tabpanel"
+              aria-labelledby="pills-profile-tab"
+            >
+              <div class="h-md-100 text-dark introduce2" v-html="data.specification"></div>
+            </div>
+            <div
+              class="tab-pane fade"
+              id="pills-contact"
+              role="tabpanel"
+              aria-labelledby="pills-contact-tab"
+            >
+              <div class="introduce h-md-100">
+                <h5>一、商品訂購：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2"><span class="me-3">1.</span> 訂購完成將寄發付款完成通知函。通知函僅為通知付款交易成功，非訂單確認，本網站有保留接單與否之權利。</div>
+                  <div class="d-flex mb-2"><span class="me-3">2.</span> 商品規格、圖片、說明、無庫存、價格或交易條件有誤及其他無法接受訂單情形，將通知您訂單不成立/取消訂單並辦理退款，敬請見諒。</div>
+                  <div class="d-flex mb-2"><span class="me-3">3.</span> 請詳閱商品連結之各活動說明頁，實際回饋或折扣以說明頁、購物結帳金額為準。</div>
+                  <div class="d-flex mb-2"><span class="me-3">4.</span> 若以紅利、點數…優惠折抵訂單金額部份將不開立發票(依財政部 93.1.09台財稅字第0920456901號令辦理)。</div>
+                </div>
+                <h5>二、商品配送：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2"><span class="me-3">1.</span> 配送時間：<br>本網站單筆訂單內之商品若分屬不同供貨商提供，將會分批送達，並於付款完成後5個工作天(不含週六、日及人事行政局公告之假日)內送達，部份預購、客製化商品及特殊原因除外。</div>
+                  <div class="d-flex mb-2"><span class="me-3">2.</span> 送貨範圍：<br>yesgogogo即食購購物網僅提供台灣本島配送，且送貨地址不為郵政信箱。</div>
+                  <div class="d-flex mb-2"><span class="me-3">3.</span> 配送方式：<br>商品由供貨廠商以貨運宅配或郵局之物流方式送達，特殊商品除外(例如:電子票券、虛擬性服務商品，請詳閱商品文案之說明為準)。</div>
+                  <div class="d-flex mb-2"><span class="me-3">4.</span> 針對部份商品(以商品頁為主)，我們將於完成收款確認後，2天內(不含例假日)將會有專人與您確認相關配送細節等的聯繫。偏遠地區、樓層費及其它加價費用，皆由廠商於約定配送時一併告知，廠商將保留出貨與否的權利。</div>
+                </div>
+                <h5>三、付款方式為ATM轉帳者：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2"><span class="me-3">1.</span> 若訂單之付款方式為ATM轉帳者，皆可使用ATM逕行轉帳(銀行代碼803)或至金融機構臨櫃匯款/劃撥付款(入款銀行名稱:聯邦商業銀行803 營業部0021 聯邦網通科技股份有限公司)，於結帳最後步驟顯示該筆訂單轉帳資訊(每筆訂單帳號不同)，且該訂單將保留5天，逾期未付款訂單自動失效。</div>
+                  <div class="d-flex mb-2"><span class="me-3">2.</span> ATM付款/轉帳劃撥付款的入帳時間為2個工作天。</div>
+                </div>
+                <h5>四、退換貨需知：</h5>
+                <div class="my-3">
+                  <div class="mb-3">yesgogogo即食購購物網消費者，依「依消費者保護法第19條及行政院消費者保護處公告「通訊交易解除權合理例外情事適用準則」易於腐敗、保存期限較短或解約時即將逾期之商品無7天猶豫期。</div>
+                  <h6 class="mb-2">關於退貨</h6>
+                  <div class="d-flex mb-2"><span class="me-3">1.</span> <span>本商店商品屬新鮮食材/品，請您收受商品時，建議到貨時立即檢驗，若有瑕疵損毀、退冰或規格不符之情況，欲辦理換貨，請於收到商品3小時內(以簽收時間算起)與我們聯繫，並且請麻煩將商品拍照LINE給本公司或寄到客服信箱。我們將會儘快為您處理，否則恕不接受退換貨。<!-- <div class="mt-2">洽line客服人員(ID：@yesgogogo) ，客服信箱：<a href="mailto:yesgogogo@uitc.com.tw">yesgogogo@uitc.com.tw</a> <br>上班時間：週一至週五 09:00~18:00，若非上班時間，依來信時間為主</div> --></span></div>
+                  <div class="d-flex justify-content-center ms-3 mt-4 mb-4 boxes">
+                    <div class="pb-2 m-1 border">
+                      <div class="text-center p-2 fs-6 fs-md-5 fw-bold h-50 bg-light d-flex justify-content-center align-items-center">洽line  <br>客服人員</div>
+                      <div class="text-center fw-bold p-2 mt-1">ID：@yesgogogo<br>&#8195;</div>
+                    </div>
+                    <div class="pb-2 m-1 border">
+                      <div class="text-center p-2 fs-6 fs-md-5 fw-bold h-50 bg-light d-flex justify-content-center align-items-center">客服信箱</div>
+                      <div class="text-center fw-bold p-2 mt-1 "><a href="mailto:yesgogogo@uitc.com.tw">yesgogogo@uitc.com.tw</a><br>&#8195;</div>
+                    </div>
+                    <div class="pb-2 m-1 border">
+                      <div class="text-center p-2 fs-6 fs-md-5 fw-bold h-50 bg-light d-flex justify-content-center align-items-center">上班時間</div>
+                      <div class="text-center fw-bold p-2 mt-1">週一至週五 09:00~18:00，<br>若非上班時間，依來信時間為主</div>
+                    </div>
+                  </div>
+                  <div class="d-flex mb-2"><span class="me-3">2.</span> 根據「通訊交易解除權合理例外情事適用準則」第2條第一項：「易於腐敗、保存期限較短或解約時即將逾期」之商品，屬於消費者保護法第19條第一項但書所稱合理例外情事。自105年1月1日起，生鮮食品不適用於消費者保護法第19條，並不享有7天鑑賞期。</div>
+                  <div class="d-flex mb-2"><span class="me-3">3.</span> 由於本網站商品皆為食品類，恕不接受因個人主觀因素（香氣、大小、甜度、顏色、口感、不喜歡、不好吃）辦理退換貨，或是收到商品時意願降低、臨時取消。因此，若非商品瑕疵恕無法為您辦理退換貨，請下單前務必考慮清楚！</div>
+                  <div class="d-flex mb-2"><span class="me-3">4.</span> 若因商品有瑕疵損毀、退冰或規格不符之情況，消費者欲申請退換貨，請保持商品本體、贈品、內外包裝之原樣及發票或附隨資料的完整性，切勿有任何缺漏或毀損，否則恕不接受退貨申請。</div>
+                  <div class="d-flex mb-2"><span class="me-3">5.</span> 外包裝及其內容物、贈品等均屬於商品的一部分，本公司將依照商品退貨時之不完整程度(遺失、毀損或缺件等)，就該商品價錢之範圍內扣除回復原狀費用後，返還剩餘金額予消費者。</div>
+                  <div class="d-flex mb-2"><span class="me-3">6.</span> 若您是使用線上刷卡與轉帳的付款服務，欲辦理退款需請您提供您的個人資料，共需7-10個工作天，其衍生之額外費用，將由您自行負擔。</div>
+                </div>
+                <h5>五、商品異常處理流程：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2">
+                    <div class="mb-3">
+                      <img src="@/assets/img/productHandle.jpg" alt="商品異常處理">
+                    </div>
+                  </div>
+                </div>
+                <h5>六、訂購注意事項：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2">
+                    <div class="mb-3">
+                      <img src="@/assets/img/orderNotice.jpg" alt="訂購注意事項">
+                    </div>
+                  </div>
+                </div>
+                <h5>七、售後服務：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2"><div class="mb-3">如您收到商品，請依正常程序儘速檢查商品，若商品發生新品瑕疵之情形，您可申請更換新品或退貨，請至<a href="#">【LINE官方帳號】</a>留言，我們將儘速回覆您。若對購買流程、付款方式、退貨及商品運送方式有疑問，可直接點選會員中心。</div></div>
+                </div>
+                <h5>八、特別說明：</h5>
+                <div class="my-3">
+                  <div class="d-flex mb-2"><div class="mb-3">本公司對於所販售具遞延性之商品或服務，消費者權益均受保障。如因合作廠商無法提供商品或服務，請與本公司聯繫辦理退貨或換成等值商品。</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 桌機版側邊卡片 -->
+        <div class="col-md-4 d-none d-md-block">
+          <div class="ms-xl-2">
+            <div class="border border-5 mt-4 position-relative py-4">
+              <div class="bg-white position-absolute ps-4 pb-2 top-0 start-50 translate-middle" style="z-index:5">
+                <img src="@/assets/img/yesgo_icon39.svg" alt="" class="hot-product-title-img">
+              </div>
+              <div
+                class="card card-hover p-xl-4 p-md-3 rounded-0 border-0"
+                v-for="(item, index) in productHot"
+                :key="index"
+              >
+                <img src="@/assets/img/yesgo_icon36.svg" alt="" class="mb-4">
+                <a href="#" @click.prevent="toHotProduct(item.productId); this.$store.commit('getSubCategoryId', '');">
+                  <div class="ratio ratio-1x1">
+                    <img
+                      :src="item.productImage"
+                      class="card-img-top"
+                      :alt="item.name"
+                    />
+                  </div>
+                  <div class="card-body px-0 pb-0">
+                    <p class="card-title text-secondary">
+                      {{ item.name }}
+                    </p>
+                    <p class="card-text text-primary">
+                      特價 NT$ {{ item.price }}元
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { defineAsyncComponent } from 'vue'
+import Modal from 'bootstrap/js/dist/modal'
+import checkToken from '@/assets/js/checkToken.js'
+import checkVideoSrc from '@/assets/js/checkVideoSrc.js'
+const LoadingProduct = defineAsyncComponent(() => import(/* webpackChunkName: "loadingProduct" */'@/views/LoadingProduct.vue'))
+const BannerInside = defineAsyncComponent(() => import(/* webpackChunkName: "bannerInside" */'@/components/BannerInside.vue'))
+
+export default {
+  data () {
+    return {
+      productNum: 1,
+      productHot: [{}],
+      data: {
+        // name: this.getTitle(),
+        areas: null,
+        gift: [],
+        options: [{}],
+        shippingInfo: {}
+      },
+      productId: '',
+      bonus: false,
+      myModal: '',
+      itemSelect: '',
+      addCart: {
+        productId: '',
+        optionId: '',
+        quantity: 1,
+        ProductName: '',
+        CostPrice: 0,
+        SellPrice: 0
+      },
+      addTrackList: {
+        productId: '',
+        optionId: '',
+        sellPrice: 0,
+        stock: 0
+      },
+      allProductNum: 0, // *加入購物車產品總數量(icon顯示數量)
+      couponCheck: [{}],
+      isLoading: false,
+      isAddedToTracklist: false,
+      isEmpty: false,
+      title: '', // ? 放 <title> 的內容
+      jsonId: {
+        offers: [{}]
+      },
+      shareUrl: '',
+      shareModal: '',
+      isCouponExist: true
+    }
+  },
+  components: {
+    LoadingProduct,
+    BannerInside
+  },
+  watch: {
+    /* 監聽路由變化，重渲染館別頁面 */
+    '$route' (to) {
+    /* 當路由為 /productboard/product/時，重新呼叫 API 取得館別資料 */
+      if (to.fullPath.match('/productboard/product/')) {
+        this.getData()
+        this.$store.commit('getSubCategoryId', '')
+        this.shareUrl = `https://www.yesgogogo.com${this.$route.fullPath}` // ?取得網址
+      /* 當路由為 /productboard/productList/時，清空瀏覽紀錄 */
+      } else if (to.fullPath.match('/productboard/productList/')) {
+        this.$store.commit('getHomeRecordHeight', '')
+      }
+    }
+  },
+  methods: {
+    // *取得API資料
+    getData () {
+      this.productId = this.$route.params.productId
+      const url = `${process.env.VUE_APP_API}/Api/Product/Details?id=${this.productId}`
+      this.axios.get(url).then(res => {
+        if (res.data.rtnCode === 0) {
+          this.data = res.data.info
+          if (this.data.productOtherImg) {
+            this.data.productOtherImg.forEach((item) => {
+              if (item.imageUrl) {
+                item.imageUrl = checkVideoSrc(item.imageUrl).url
+              }
+            })
+            this.data.productOtherImg.unshift({
+              imageUrl: '',
+              imgFilePath: this.data.productImage
+            })
+          }
+          setTimeout(() => {
+            const url = document.querySelectorAll('.introduce img')
+            url.forEach(item => {
+              item.classList.add('w-100')
+            })
+            const url2 = document.querySelectorAll('.introduce2 img')
+            url2.forEach(item => {
+              item.classList.add('w-100')
+            })
+            // *商品影片改為 video tag
+            const url3 = document.querySelectorAll('oembed[url]')
+            if (url3.length >= 0) {
+              url3.forEach((item) => {
+                /* YT */
+                const videoLable = document.createElement('iframe')
+                let ytUrlId = item.getAttribute('url')
+                if (ytUrlId.includes('youtu.be')) {
+                  ytUrlId = ytUrlId.split('youtu.be/')[1]
+                  ytUrlId = ytUrlId.substr(0, 11)
+                } else if (ytUrlId.includes('watch?v=')) {
+                  ytUrlId = ytUrlId.split('watch?v=')[1]
+                  ytUrlId = ytUrlId.substr(0, 11)
+                }
+                const src = `https://www.youtube.com/embed/${ytUrlId}`
+                videoLable.setAttribute('src', src)
+                videoLable.setAttribute('style', 'width: 100%; height: 400px;')
+                videoLable.setAttribute('allowFullScreen', '')
+                videoLable.setAttribute('frameBorder', 0)
+                item.appendChild(videoLable)
+              })
+            }
+          }, 500)
+          this.view_itemGA() // ? 觸發GA追蹤碼
+          this.addTrackList.productId = this.data.productId
+          this.addTrackList.optionId = this.data.options[0].optionId
+          this.addTrackList.sellPrice = this.data.price
+          this.addTrackList.stock = this.data.options[0].stock
+          if (this.data.options.length === 1) {
+            this.itemSelect = this.data.options[0]
+            if (this.data.options[0].stock === 0) {
+              this.productNum = 0
+            }
+          }
+          this.title.textContent = `yesgogogo - ${this.data.name}` // ?<title> 更新為商品名稱
+          this.track() // ?呼叫 vue-gtag 傳入 title 值
+          this.isLoading = true
+          // ? Facebook Pixel 傳入商品 ID 及價格(ViewContent)
+          window.fbq('track', 'ViewContent', {
+            content_ids: this.data.productId,
+            content_type: 'product',
+            value: this.data.price,
+            currency: 'TWD'
+          })
+          // ?Facebook json
+          this.getJsonId(this.data)
+        } else {
+          this.isEmpty = true
+        }
+      })
+    },
+    getHotProduct () {
+      const url = `${process.env.VUE_APP_API}/api/widgets/hotproduct`
+      this.axios.get(url).then(res => {
+        this.productHot = res.data.info
+      })
+    },
+    // * GA 追蹤碼(瀏覽產品)
+    view_itemGA () {
+      const datatoGA1 = {
+        currency: 'TWD',
+        value: this.data.price,
+        hello: '123',
+        items: [{
+          id: this.data.productId,
+          name: this.data.name,
+          item_id: this.data.productId,
+          item_name: this.data.name,
+          price: this.data.price,
+          discount: this.data.oldPrice - this.data.price,
+          currency: 'TWD'
+        }]
+      }
+      this.$gtag.event('view_item', datatoGA1)
+    },
+    // * GA 追蹤碼(加入購物車)
+    addtoCartGA (data) {
+      const datatoGA2 = {
+        currency: 'TWD',
+        value: this.data.price * this.productNum,
+        items: [{
+          id: this.data.productId,
+          name: this.data.name,
+          item_id: this.data.productId,
+          item_name: this.data.name,
+          variant: this.itemSelect.optionName,
+          price: this.data.price,
+          discount: this.data.oldPrice - this.data.price,
+          quantity: this.productNum,
+          currency: 'TWD'
+        }]
+      }
+      this.$gtag.event('add_to_cart', datatoGA2)
+    },
+    // *點擊查看折價券
+    checkCoupon () {
+      const AccessToken = checkToken.getAccessToken()
+      if (AccessToken) {
+        this.myModal.show()
+      } else {
+        const url = `${process.env.VUE_APP_API}/api/coupon/productcoupon?productid=${this.data.productId}`
+        this.axios.get(url)
+      }
+    },
+    // *變更品項
+    changeItem () {
+      if (this.itemSelect.stock === 0) {
+        this.productNum = 0
+      } else {
+        this.productNum = 1
+      }
+      if (this.data.price !== this.itemSelect.price || this.data.oldPrice !== this.itemSelect.oldPrice) {
+        this.data.price = this.itemSelect.price
+        this.data.oldPrice = this.itemSelect.oldPrice
+      }
+    },
+    // *變更數量
+    addNum () {
+      this.productNum++
+      if (this.productNum > this.itemSelect.stock) {
+        this.productNum = this.itemSelect.stock
+      } else if (this.itemSelect === '') {
+        this.$swal.fire({
+          title: '請選擇品項',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+        this.productNum = 1
+      }
+    },
+    minusNum () {
+      this.productNum--
+      if (this.productNum < 1) {
+        this.productNum = 1
+      }
+    },
+    // *查看需要多少聯邦紅利點數可兌換
+    changeBonus () {
+      this.bonus = !this.bonus
+    },
+    changeImg (item) {
+      if (item.imageUrl) {
+        this.data.productImage = ''
+        this.data.video = item.imageUrl
+        return
+      }
+      this.data.productImage = item.imgFilePath
+    },
+    // *直接購買(前往購物車頁面)
+    toCheckout () {
+      this.addCart.productId = this.data.productId
+      this.addCart.quantity = this.productNum
+      this.addCart.optionId = this.itemSelect.optionId
+      this.addCart.ProductName = this.data.name
+      this.addCart.CostPrice = this.data.oldPrice
+      this.addCart.SellPrice = this.data.price
+      if (this.itemSelect === '') {
+        this.$swal.fire({
+          title: '請選擇品項',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+      } else {
+        const url = `${process.env.VUE_APP_API}/api/newCart/add`
+        this.axios.post(url, this.addCart)
+          .then((res) => {
+            if (res.data.rtnCode !== 0) {
+              this.$swal.fire({
+                title: `${res.data.rtnMsg}(${res.data.rtnCode})`,
+                allowOutsideClick: true,
+                confirmButtonColor: '#F8412E',
+                confirmButtonText: '確認',
+                width: 400,
+                customClass: {
+                  title: 'text-class',
+                  confirmButton: 'confirm-btn-class'
+                }
+              })
+              return
+            }
+            if (res.data.status !== 401) {
+              this.addtoCartGA(this.data)
+              this.addtoCartFbq(this.data)
+              // *將購物車總產品量加總
+              this.allProductNum = 0
+              res.data.info.items.forEach((item) => {
+                this.allProductNum += item.quantity
+              })
+              this.$store.commit('getcartIconNum', this.allProductNum)
+              sessionStorage.setItem('cartType', this.data.shippingInfo.shippingTypeName)
+              if (this.data.areas !== null) {
+                sessionStorage.setItem('cartType', '超值滿額配')
+              }
+              this.$router.push('/checkoutboard/checkoutcartlist')
+            }
+          })
+      }
+    },
+    // *前往熱門商品頁面
+    toHotProduct (id) {
+      this.$router.push(`/productboard/product/${id}`)
+    },
+    // *加入購物車
+    addToCart () {
+      this.addCart.productId = this.data.productId
+      this.addCart.quantity = this.productNum
+      this.addCart.optionId = this.itemSelect.optionId
+      this.addCart.ProductName = this.data.name
+      this.addCart.CostPrice = this.data.oldPrice
+      this.addCart.SellPrice = this.data.price
+      if (this.itemSelect === '') {
+        this.$swal.fire({
+          title: '請選擇品項',
+          allowOutsideClick: true,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        })
+      } else {
+        const url = `${process.env.VUE_APP_API}/api/newCart/add`
+        this.axios.post(url, this.addCart)
+          .then((res) => {
+            if (res.data.rtnCode === 0) {
+              this.addtoCartGA(this.data)
+              this.addtoCartFbq(this.data)
+              // * 將購物車總產品量加總
+              this.allProductNum = 0
+              res.data.info.items.forEach((item) => {
+                this.allProductNum += item.quantity
+              })
+              this.$store.commit('getcartIconNum', this.allProductNum)
+              // * 記住商品類別
+              sessionStorage.setItem('cartType', this.data.shippingInfo.shippingTypeName)
+              if (this.data.areas !== null) {
+                sessionStorage.setItem('cartType', '超值滿額配')
+              }
+              this.$swal.fire({
+                toast: true,
+                position: 'center',
+                icon: 'success',
+                title: '商品已成功加入購物車',
+                showConfirmButton: false,
+                timer: 1500,
+                width: 500,
+                background: '#F0F0F2',
+                padding: 25
+              })
+            } else {
+              this.$swal.fire({
+                title: `${res.data.rtnMsg}(${res.data.rtnCode})`,
+                allowOutsideClick: true,
+                confirmButtonColor: '#F8412E',
+                confirmButtonText: '確認',
+                width: 400,
+                customClass: {
+                  title: 'text-class',
+                  confirmButton: 'confirm-btn-class'
+                }
+              })
+            }
+          })
+      }
+    },
+    // *加入追蹤清單
+    addToTracklist () {
+      // ? Facebook Pixel 傳入商品 ID 及價格(ViewContent)
+      window.fbq('track', 'AddToWishlist', {
+        content_ids: this.data.productId,
+        content_type: 'product',
+        value: this.data.price,
+        currency: 'TWD'
+      })
+      if (this.itemSelect !== '') {
+        this.addTrackList.productId = this.data.productId
+        this.addTrackList.optionId = this.itemSelect.optionId
+        this.addTrackList.sellPrice = this.data.price
+        this.addTrackList.stock = this.itemSelect.stock
+      }
+      const url = `${process.env.VUE_APP_API}/api/wishlist/add`
+      this.axios.post(url, this.addTrackList)
+        .then((res) => {
+          this.isAddedToTracklist = true
+          this.$swal.fire({
+            toast: true,
+            position: 'center',
+            title: '商品已加入追蹤清單',
+            showConfirmButton: false,
+            timer: 1500,
+            width: 500,
+            background: '#F0F0F2',
+            padding: 25,
+            iconHtml: '<i class="bi bi-suit-heart-fill"></i>',
+            iconColor: '#f00'
+          })
+          document.querySelector('.swal2-icon').setAttribute('style', 'display: flex; color: rgb(255, 0, 0); border: none; font-size:18px')
+        })
+    },
+    // *從追蹤清單中移除
+    removeFromTracklist () {
+      const url = `${process.env.VUE_APP_API}/api/wishlist/remove`
+      const id = ({ productId: this.$route.params.productId })
+      this.axios.post(url, id)
+        .then((res) => {
+          this.isAddedToTracklist = false
+        })
+    },
+    // *檢查是否登入，有登入則檢查是否有將此商品加入追蹤清單，並取得商品可用折價券
+    checkCookie () {
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (AccessToken || RefreshToken) {
+        const wishlistUrl = `${process.env.VUE_APP_API}/api/wishlist/find?productId=${this.$route.params.productId}`
+        this.axios.get(wishlistUrl)
+          .then((res) => {
+            if (res.data.rtnCode === 0) {
+              this.isAddedToTracklist = true
+            }
+          })
+        const productId = this.$route.params.productId
+        const couponUrl = `${process.env.VUE_APP_API}/api/coupon/productcoupon?productid=${productId}`
+        this.axios.get(couponUrl)
+          .then((res) => {
+            if (res.status === 200) {
+              this.couponCheck = res.data.info
+              if (res.data.rtnCode === 4001) {
+                this.isCouponExist = false
+              }
+            }
+          })
+      }
+    },
+    track () {
+      // ?使用 set 將商品名稱傳入 GA 的 page_title
+      this.$gtag.set({
+        page_title: `yesgogogo - ${this.data.name}`
+      })
+    },
+    addtoCartFbq (data) {
+      // ? Facebook Pixel 傳入商品 ID 及價格
+      window.fbq('track', 'AddToCart', {
+        content_ids: data.productId,
+        content_type: 'product',
+        value: data.price,
+        currency: 'TWD'
+      })
+    },
+    getJsonId (item) {
+      this.jsonId['@context'] = 'https://schema.org'
+      this.jsonId['@type'] = 'Product'
+      this.jsonId.url = `https://61.219.193.157/uat/#/${this.$route.fullPath}`
+      this.jsonId.productID = item.productId
+      this.jsonId.name = item.name
+      this.jsonId.image = item.productImage
+      this.jsonId.offers[0]['@type'] = 'Offer'
+      this.jsonId.offers[0].price = item.price
+      this.jsonId.offers[0].priceCurrency = 'TWD'
+      this.jsonId.offers[0].availability = 'in stock'
+    },
+    shareLink (social) {
+      if (social === 'facebook') {
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=https://www.yesgogogo.com${this.$route.fullPath}`)
+      } else if (social === 'twitter') {
+        window.open(`https://twitter.com/intent/tweet?url=https://www.yesgogogo.com${this.$route.fullPath}&amp;text=${this.data.name}`)
+      } else if (social === 'line') {
+        if (document.body.clientWidth < 576) {
+          // ? 手機版
+          const urlStringMobile = encodeURIComponent(`我在 yesgogogo 發現一個很棒的商品「${this.data.name}」，分享給你！\nhttps://www.yesgogogo.com${this.$route.fullPath}`)
+          window.open(`line://msg/text/${urlStringMobile}`, '_blank')
+        } else {
+          // ? web 版
+          const urlString = encodeURIComponent(`https://www.yesgogogo.com${this.$route.fullPath}`)
+          const text = encodeURIComponent(`我在 yesgogogo 發現一個很棒的商品「${this.data.name}」，分享給你！`)
+          window.open(`https://social-plugins.line.me/lineit/share?url=${urlString}&text=${text}`)
+        }
+      } else if (social === 'linkedin') {
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=https://www.yesgogogo.com${this.$route.fullPath}&amp;title=${this.data.name}`)
+      } else if (social === 'currentLink') {
+        const inputLink = document.querySelector('.shareInput')
+        inputLink.focus()
+        setTimeout(() => {
+          inputLink.selectionStart = 0
+          inputLink.selectionEnd = this.shareUrl.length
+          inputLink.select()
+          document.execCommand('copy')
+        }, 100)
+        setTimeout(() => {
+          this.shareModal.hide()
+          this.$swal.fire({
+            title: '已複製網址連結',
+            showConfirmButton: false,
+            timer: 1000,
+            customClass: {
+              title: 'text-class'
+            }
+          })
+        }, 800)
+      } else if (social === 'wechat') {
+        window.open(`weixin://dl/profile/?ticket=https://www.yesgogogo.com${this.$route.fullPath}`)
+      } else if (social === 'whatsapp') {
+        window.open(`https://wa.me/?text=https://www.yesgogogo.com${this.$route.fullPath}`, '_blank')
+      }
+    },
+    shareLinkModal () {
+      this.shareModal.show()
+    },
+    clearBreadcrumbName () {
+      this.$store.commit('getSubCategoryId', '')
+      this.$store.commit('getSubCategory', '')
+    }
+  },
+  created () {
+    this.getData()
+    this.getHotProduct()
+    // this.shareLink()
+  },
+  mounted () {
+    this.myModal = new Modal(this.$refs.couponModal)
+    this.shareModal = new Modal(this.$refs.shareModal)
+    this.checkCookie()
+    this.title = document.querySelector('title') // ?取得 <title> DOM 元素
+    this.shareUrl = `https://www.yesgogogo.com${this.$route.fullPath}` // ?取得網址
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.content,
+.price {
+  border-bottom: 1px solid #000;
+}
+.number {
+  button {
+    width: 45px;
+    font-size: 24px;
+    padding: 0;
+  }
+}
+
+::v-deep(.swiper-button-next:after),::v-deep(.swiper-button-prev:after)
+{
+  color: #F8412E;
+  font-weight: bolder;
+  font-size: 16px;
+  padding: 28px 4px;
+  background: rgba(256, 256, 256, .9);
+  border-radius: 4px;
+}
+
+// ::v-deep(.swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled){
+//   pointer-events: initial;
+// }
+
+/* 桌機多圖 - 將 swiper navigation 箭頭放置外側 */
+.productOtherImgPC{
+  margin-left: auto;
+  margin-right: auto;
+  width: 98%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  position: relative;
+}
+
+::v-deep(.productOtherImgPC .swiper-button-next){
+  position: absolute;
+  right: -10px;
+}
+
+::v-deep(.productOtherImgPC .swiper-button-prev){
+  position: absolute;
+  left: -10px;
+}
+
+.productOtherImgMB{
+  position: relative;
+}
+
+::v-deep(.productOtherImgMB .swiper-button-next){
+  right: 10;
+}
+
+::v-deep(.productOtherImgMB .swiper-button-prev){
+  left: 10;
+}
+
+::v-deep(.productOtherImgMB .swiper-pagination-fraction){
+  position: absolute;
+  z-index: 10;
+  width: fit-content;
+  right: 10px;
+  left: auto;
+  bottom: 5px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 30%;
+  padding: 5px;
+  font-size: 14px;
+}
+
+::v-deep(.productOtherImgMB .swiper-button-next:after),::v-deep(.productOtherImgMB .swiper-button-prev:after){
+  border-radius: 50%;
+  padding: 10px 14px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.3);
+}
+
+.btn-outline-primary {
+  &:hover {
+    color: #f0f0f2;
+  }
+}
+.nav button {
+  border-radius: 0;
+}
+.btn-outline-secondary:active:focus,
+.btn-outline-secondary.active:focus {
+  box-shadow: none;
+}
+.form-control[readonly]{
+  background-color: #fff;
+}
+.btn-cart{
+  &:hover .cart-icon{
+    filter:invert(89%) sepia(3%) saturate(82%) hue-rotate(226deg) brightness(109%) contrast(92%);
+  }
+}
+.cart-icon{
+  width: auto;
+  height: 15px;
+  filter: invert(36%) sepia(50%) saturate(4763%) hue-rotate(345deg) brightness(100%) contrast(96%);
+  margin-bottom: 3px;
+}
+.hot-product-title-img{
+  @media (min-width: 768px){
+   width: 110px;
+  }
+  @media (min-width: 992px) {
+    width: 160px;
+  }
+  @media (min-width: 1200px) {
+    width: 200px;
+  }
+}
+div.boxes {
+  @media (max-width: 1400px){
+    flex-direction: column;
+  }
+}
+// .mobile-swiper .swiper-slide div{
+//   width: 101.667px
+// }
+// .mobile-swiper .swiper-slide .hotproduct-mobile-name{
+//   width: 101.667px
+// }
+
+.shareModal{
+  max-width: 700px;
+}
+// /* 社群分享 */
+// .social-icons svg{
+//   width: 32px;
+//   height: 32px;
+//   padding: 0;
+//   margin: 0 0.2em 0 0;
+//   vertical-align: middle;
+//   background-color: #fff;
+//   border: 0.4em solid #fff;
+//   border-radius: 50%;
+//   overflow: visible;
+// }
+// .social-icons .line-icon{
+//   color: #07b53b;
+// }
+.line-icon, .facebook-icon, .currentLink-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.sharelinkIcon{
+  top: 9px;
+  left: 9px;
+  width: 20px;
+  height: 20px;
+}
+
+.shareInput:focus{
+  border-color: #1479FB;
+  border-width: 2px;
+}
+
+.shareInput::selection{
+  background: #bdd6fb;
+}
+
+.shareInput::-moz-selection{
+  background: #bdd6fb;
+}
+
+.modal-backdrop.show{
+  opacity: .3;
+}
+</style>

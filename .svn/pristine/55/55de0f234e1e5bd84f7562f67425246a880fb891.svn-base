@@ -1,0 +1,1478 @@
+<template>
+  <div class="checkoutcart">
+    <div class="row justify-content-center">
+      <div class="col-md-8 my-md-5">
+        <div class="p-3 p-md-0">
+          <div class="position-relative m-4">
+            <div class="progress bg-gray" style="height: 4px;">
+              <div
+                class="progress-bar bg-gray"
+                role="progressbar"
+                style="width: 50%;"
+                aria-valuenow="50"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <button
+              type="button"
+              class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-secondary rounded-pill fs-5 fs-md-4 text-light step"
+              style="width: 3rem; height:3rem;"
+            >
+              1
+              <span class="fw-normal text-dark position-absolute text-nowrap step1"
+                >購物車</span
+              >
+            </button>
+            <button
+              type="button"
+              class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-primary rounded-pill fs-5 fs-md-4 text-light step"
+              style="width: 3rem; height:3rem;"
+            >
+              2
+              <span class="fw-normal text-dark position-absolute text-nowrap step2"
+                >填寫資料</span
+              >
+            </button>
+            <button
+              type="button"
+              class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill fs-5 fs-md-4 step"
+              style="width: 3rem; height:3rem;"
+            >
+              3
+              <span class="fw-normal text-dark position-absolute text-nowrap step3"
+                >訂單確認</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 表單驗證套件範圍 -->
+      <div class="col-md-12 my-5">
+        <Form
+          class=""
+          v-slot="{ errors }"
+          @submit="orderSubmit"
+          ref="disabledd"
+          @invalid-submit="onInvalidSubmit"
+        >
+          <!-- 訂購人資料 -->
+        <div class="card rounded-0">
+          <div class="card-header fw-bold bg-gray px-4 py-3">
+            <h4>訂購人資料</h4>
+          </div>
+          <div class="card-body px-3 py-4 p-lg-5">
+              <div class="row mb-3 ">
+                <label for="orderName" class="col-2 col-form-label"
+                  >姓名</label
+                >
+                <div class="col-10 col-md-4 ps-2">
+                  <Field
+                    name="訂購人姓名"
+                    type="text"
+                    class="form-control"
+                    id="orderName"
+                    v-model.trim="checkOrder.buyer.buyerName"
+                    rules="required"
+                    :class="{ 'is-invalid': errors['訂購人姓名'] }"
+                  ></Field>
+                  <ErrorMessage name="訂購人姓名" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="orderPhone" class="col-2 col-form-label"
+                  >手機</label
+                >
+                <div class="col-10 col-md-4 ps-2">
+                  <Field
+                    name="訂購人手機"
+                    type="text"
+                    class="form-control"
+                    id="orderPhone"
+                    v-model.trim="checkOrder.buyer.buyerCellphone"
+                    :rules="isPhone"
+                    :class="{ 'is-invalid': errors['訂購人手機'] }"
+                  ></Field>
+                  <ErrorMessage name="訂購人手機" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label for="orderEmail" class="col-2 col-form-label"
+                  >電子郵件</label
+                >
+                <div class="col-10 ps-2 pe-3">
+                  <Field
+                    name="訂購人電子郵件"
+                    type="email"
+                    class="form-control"
+                    id="orderEmail"
+                    v-model="checkOrder.buyer.buyerEmail"
+                    rules="required"
+                    :class="{ 'is-invalid': errors['訂購人電子郵件'] }"
+                  ></Field>
+                  <ErrorMessage name="訂購人電子郵件" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <div class="row mb-3 ">
+                <label for="orderPhone" class="col-2 col-md-2 col-form-label "
+                  >地址</label
+                >
+                <div class="col-10 col-md-10">
+                  <div class="row">
+                    <div class="col-6 col-md-2 ps-2 ">
+                      <Field
+                        name="訂購人縣市"
+                        type="text"
+                        as="select"
+                        class="form-select"
+                        v-model="checkOrder.buyer.buyerCity"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['訂購人縣市'] }"
+                        placeholder="縣市"
+                        @change="getTownBuyer"
+                      >
+                      <!-- <option value="" disabled selected>縣市</option> -->
+                      <option
+                        :value="country.Country"
+                        v-for="country in addressListBuyer.countryList"
+                        :key="country"
+                        >{{ country.CountryName }}</option
+                      >
+                      </Field>
+                      <ErrorMessage name="訂購人縣市" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                    <div class="col-6 col-md-2 ps-1 pe-2">
+                      <Field
+                        name="訂購人區名"
+                        type="text"
+                        as="select"
+                        class="form-select"
+                        v-model="checkOrder.buyer.buyerDistrict"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['訂購人區名'] }"
+                        placeholder="區名"
+                      >
+                      <!-- <option :value="checkOrder.buyer.buyerDistrict" disabled >區名</option> -->
+                      <option
+                        v-for="town in addressListBuyer.townList"
+                        :key="town"
+                        :value="town.District"
+                        >{{ town.DistrictName }}</option
+                      >
+                      </Field>
+                      <ErrorMessage name="訂購人區名" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                    <div class="col col-md px-2 mt-2 mt-md-0">
+                      <Field
+                        name="訂購人詳細地址"
+                        type="text"
+                        class="form-control"
+                        v-model.trim="checkOrder.buyer.buyerOtherAddress"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['訂購人詳細地址'] }"
+                        placeholder="詳細地址"
+                      ></Field>
+                      <ErrorMessage name="訂購人詳細地址" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+          <!-- {{ errors }} 監測slot用-->
+          <!-- 收件人資料 -->
+          <div class="card rounded-0 mt-3 mt-md-5">
+            <div class=" card-header fw-bold bg-gray px-4 py-3 ">
+              <div class="row align-items-center">
+                <div class="col-4 col-md-2 ">
+                  <h4 class="text-nowrap mb-2">收件人資料</h4>
+                </div>
+                <div class="col-12 col-md-10">
+                  <div class="d-flex  align-items-end flex-md-row justify-content-md-start">
+                    <button class="d-block btn btn-primary ms-md-3 me-md-3  me-1 shadow-none  border-primary text-nowrap" @click.prevent="likemember">同訂購人</button>
+                    <button class="d-block btn btn-primary me-md-3 me-1 shadow-none  border-primary text-nowrap mt-2 mt-md-0" @click.prevent="contactListShow">選擇收件人</button>
+                    <button class="d-block btn btn-primary me-md-3 me-1 shadow-none  border-primary text-nowrap  mt-2 mt-md-0" @click.prevent="addUsedContact">新增收件人</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body px-3 py-4 p-lg-5">
+              <div class="row mb-3">
+                <label for="receiverName" class="col-2 col-form-label"
+                  >姓名</label
+                >
+                <div class="col-10 col-md-4">
+                  <Field
+                    type="text"
+                    v-model.trim="checkOrder.consignee.consigneeName"
+                    name="姓名"
+                    class="form-control"
+                    id="receiverName"
+                    placeholder="請填入姓名"
+                    rules="required"
+                    :class="{ 'is-invalid': errors['姓名'] }"
+                  ></Field>
+                  <ErrorMessage name="姓名" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="receiverPhone" class="col-2 col-form-label"
+                  >手機</label
+                >
+                <div class="col-10 col-md-4">
+                  <Field
+                    type="text"
+                    v-model.trim="checkOrder.consignee.consigneeCellphone"
+                    name="手機"
+                    class="form-control"
+                    id="receiverPhone"
+                    placeholder="請填入手機"
+                    :rules="isPhone"
+                    :class="{ 'is-invalid': errors['手機'] }"
+                  ></Field>
+                  <ErrorMessage name="手機" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label
+                  for="receiverAddress"
+                  class="col-2 col-md-2 col-form-label "
+                  >寄送地址</label
+                >
+                <div class="col-10 col-md-10">
+                  <div class="row g-2">
+                    <div class="col-6 col-md-3">
+                      <Field
+                        name="收件人縣市"
+                        type="text"
+                        as="select"
+                        class="form-select pe-xl-2"
+                        v-model="checkOrder.consignee.consigneeCity"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['收件人縣市'] }"
+                        placeholder="縣市"
+                        @change="getTown"
+                        id="country"
+                      >
+                        <!-- <option value="" disabled selected>縣市</option> -->
+                        <option
+                          :value="country.Country"
+                          v-for="country in addressList.countryList"
+                          :key="country"
+                          >{{ country.CountryName }}</option
+                        >
+                      </Field>
+                      <ErrorMessage name="收件人縣市" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                    <div class="col-6 col-md-3">
+                      <Field
+                        type="text"
+                        name="區名"
+                        id="town"
+                        value=""
+                        class="form-select pe-xl-2"
+                        v-model="checkOrder.consignee.consigneeDistrict"
+                        as="select"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['區名'] }"
+                      >
+                        <!-- <option value="" disabled >區名</option> -->
+                        <option
+                          v-for="town in addressList.townList"
+                          :key="town"
+                          :value="town.District"
+                          >{{ town.DistrictName }}</option
+                        >
+                      </Field>
+                      <ErrorMessage name="區名" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                    <div class="col mt-2">
+                      <Field
+                        type="text"
+                        name="詳細地址"
+                        class="form-control"
+                        rules="required"
+                        v-model.trim="checkOrder.consignee.consigneeOtherAddress"
+                        placeholder="請輸入詳細地址"
+                        :class="{ 'is-invalid': errors['詳細地址'] }"
+                      >
+                      </Field>
+                      <ErrorMessage name="詳細地址" class="invalid-feedback">
+                      </ErrorMessage>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3 align-items-center">
+                <label for="receiverEmail" class="col-2 col-md-2 col-form-label "
+                  >電子郵件</label
+                >
+                <div class="col-10 col-md-10">
+                  <Field
+                    type="email"
+                    name="電子郵件"
+                    class="form-control"
+                    rules="required"
+                    v-model="checkOrder.consignee.consigneeEmail"
+                    id="receiverEmail"
+                    placeholder="請填入 Email"
+                    :class="{ 'is-invalid': errors['電子郵件'] }">
+                  </Field>
+                  <ErrorMessage name="電子郵件" class="invalid-feedback">
+                  </ErrorMessage>
+                </div>
+              </div>
+              <!-- 2021/10/30討論先註解，後端無法處理 -->
+              <div class="row mb-3 align-items-center">
+                <label for="receiverMemo" class="col-2  col-md-2 col-form-label"
+                  >備註</label
+                >
+                <div class="col-10">
+                  <textarea type="text" rows="3" class="form-control" id="receiverMemo" maxlength="100" v-model="this.checkOrder.Memo" placeholder="內容限100字" style="resize: none;"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--發票資訊 -->
+          <div class="card receipt-card rounded-0 mt-3 mt-md-5">
+            <div class="card-header fw-bold bg-gray px-4 py-3">
+              <h4>發票資訊</h4>
+            </div>
+            <div class="card-body px-3 py-3 px-lg-5">
+              <!-- 1.捐贈發票 -->
+              <div class="form-check border-bottom pb-3">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="receipt"
+                  id="donate"
+                  value="OI03/" v-model="checkReceiver.receipt.method"
+                  @change="reFreshTwoThree"
+                />
+                <label class="form-check-label" for="donate">
+                  捐贈 ( 捐給創世基金會 )
+                </label>
+              </div>
+              <!-- 2.二聯式發票 -->
+              <div class="border-bottom d-lg-flex py-3 align-items-center" >
+                <p
+                  class="receiptTitle bg-gray text-secondary text-center px-2 d-inline-block"
+                >
+                  二聯式發票
+                </p>
+                <div class="row align-items-center ps-0 ps-lg-3 w-100 ms-lg-2">
+                  <div class="col-xl-2 mt-2 mt-lg-0 ">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="receipt"
+                        id="memberCarrier"
+                        value="OI01/1" v-model="checkReceiver.receipt.method"
+                        @change="reFreshThree_1"
+                        checked
+                      />
+                      <label class="form-check-label" for="memberCarrier">
+                        個人會員載具
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xl-5">
+                    <div class="d-xl-flex align-items-center ">
+                      <div class="form-check flex-fill">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="receipt"
+                          id="memberVehicle1"
+                          value="OI01/2/3J0002" v-model="checkReceiver.receipt.method"
+                          @change="reFreshThree_2"
+                        />
+                        <label class="form-check-label" for="memberVehicle1">
+                          手機條碼載具
+                        </label>
+                      </div>
+                      <div class="d-flex flex-column ms-1 flex-fill">
+                        <Field
+                          type="text"
+                          class="form-control vehicle-input "
+                          name="手機條碼載具"
+                          maxlength="8"
+                          :rules="isMyVehicle"
+                          v-model="checkReceiver.receipt.myVehicle"
+                          :class="{ 'is-invalid': errors['手機條碼載具'] }"
+                          @keyup="reFreshThree_2"
+                        >
+                        </Field>
+                        <ErrorMessage name="手機條碼載具" class="clearInputMsg invalid-feedback" >
+                        </ErrorMessage>
+                        <!-- <div class="flex form-check">
+                          <input  type="checkbox" id="recordMyVehicle" class="form-check-input">
+                          <label for="recordMyVehicle" class="fs-7 fs-md-6">我同意紀錄本次手機條碼為常用載具</label>
+                        </div> -->
+                      </div>
+                    </div>
+                    <div class="d-flex form-check ms-1 ms-md-4 pt-1" v-if="showRecordMyVehicle">
+                      <input  type="checkbox" id="recordMyVehicle" class="form-check-input" v-model="recordMyVehicle">
+                      <label for="recordMyVehicle" class="fs-7 ms-1 pt-1">我同意紀錄本次手機條碼為常用載具</label>
+                    </div>
+                  </div>
+                  <div class="col-xl-5">
+                    <div class="d-xl-flex align-items-center ">
+                      <div class="form-check flex-fill">
+                        <input
+                          class="form-check-input "
+                          type="radio"
+                          name="receipt"
+                          id="memberVehicle2"
+                          value="OI01/2/CQ0001" v-model="checkReceiver.receipt.method"
+                          @change="reFreshThree_3"
+                        />
+                        <label class="form-check-label" for="memberVehicle2">
+                          自然人憑證載具
+                        </label>
+                      </div>
+                      <div class="d-flex flex-column ms-1 flex-fill" >
+                        <Field
+                          type="text"
+                          class="form-control vehicle-input"
+                          name="自然人憑證載具"
+                          maxlength="16"
+                          :rules="isNatureVehicle"
+                          v-model.trim="checkReceiver.receipt.coVehicle"
+                          :class="{ 'is-invalid': errors['自然人憑證載具'] }"
+                          @keyup="reFreshThree_3"
+                          @clipboardData="reFreshThree_3"
+                        >
+                        </Field>
+                        <ErrorMessage name="自然人憑證載具" class="clearInputMsg invalid-feedback" >
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 3.三聯式發票 -->
+              <div class="border-bottom d-lg-flex py-3 align-items-center" >
+                <p
+                  class="receiptTitle bg-gray text-secondary text-center px-2 d-inline-block"
+                >
+                  三聯式發票
+                </p>
+                <div class="row align-items-center ps-0 ps-lg-3 w-100 ms-xl-2">
+                  <div class="col-xl-2 mt-2 mt-lg-0 ">
+                    <div class="form-check ">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="receipt"
+                        id="companyCarrier"
+                        value="OI02/1" v-model="checkReceiver.receipt.method"
+                        @change="reFreshTwo"
+                      />
+                      <label class="form-check-label" for="companyCarrier">
+                        公司會員載具
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-xl-4">
+                    <div class="d-xl-flex align-items-center">
+                      <label for="companyId" class="col-form-label py-0 mx-md-1"
+                          >統一編號</label
+                        >
+                      <div class="d-flex flex-column ms-1 flex-fill">
+                        <Field
+                          type="text" class="form-control" id="companyId"
+                          name="統一編號"
+                          maxlength="8"
+                          :rules="isTaxIdNumber" v-model.trim="checkOrder.Invoice.BizAdmNo" :class="{'is-invalid': errors['統一編號']}" @change="isTaxIdNumber2" @keyup="reFreshTwo" @clipboardData="reFreshTwo"
+                        >
+                        </Field>
+                        <ErrorMessage name="統一編號" class="invalid-feedback clearInputMsg" >
+                        </ErrorMessage>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-1 d-lg-block d-flex justify-content-end align-items-center">
+                    <button class="d-block btn btn-secondary me-md-2 me-1 shadow-none  border-secondary text-nowrap mt-2 mt-lg-0 fs-7 p-md-1 p-1 btn-sm" @click.prevent="checkTaxNumberExist">帶入公司名</button>
+                  </div>
+                  <div class="col-xl-5">
+                    <div class="d-xl-flex align-items-center">
+                      <label for="companyName" class="col-form-label py-0 me-md-1"
+                          >公司名稱</label
+                        >
+                        <div class="d-flex flex-column ms-1 flex-fill">
+                          <Field type="text" class="form-control" id="companyName" name="公司名稱" :rules="isCompanyName" v-model.trim="checkOrder.Invoice.companyName" :class="{'is-invalid': errors['公司名稱']}" ref="" @keyup="reFreshTwo"></Field>
+                          <ErrorMessage name="公司名稱" class="invalid-feedback clearInputMsg" >
+                          </ErrorMessage>
+                        </div>
+                    </div>
+                  </div>
+                    <!-- 2021/11/2與業務端討論先關閉此功能 -->
+                    <!-- <div class="d-xl-flex align-items-center mb-2">
+                      <div class="form-check flex-fill">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="memberReceipt"
+                          id="companyCommonCarrier"
+                          value="5" v-model="checkReceiver.receipt.method"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="companyCommonCarrier"
+                        >
+                          公司共通載具<span class="text-primary"
+                            >(手機/自然人憑證條碼載具)</span
+                          >
+                        </label>
+                      </div>
+                      <div class="d-flex flex-column ms-1 flex-fill">
+                        <Field
+                          type="text"
+                          class="form-control vehicle-input "
+                          name="公司載具"
+                          placeholder="手機/自然人憑證條碼"
+                          :rules="isCoVehicle"
+                          v-model="checkReceiver.receipt.coVehicle"
+                          :class="{ 'is-invalid': errors['公司載具'] }"
+                        >
+                        </Field>
+                        <ErrorMessage name="公司載具" class="invalid-feedback">
+                        </ErrorMessage>
+                      </div>
+                    </div> -->
+                </div>
+              </div>
+              <div class="form-check mt-4 mt-ld-5" >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="agreementChecked"
+                  name="必須同意"
+                  v-model="must"
+                />
+                <label class="form-check-label fs-6 fs-md-5" for="agreementChecked">
+                  我同意辦理退貨時，由 YesGogogo 代為處理發票及銷貨退回證明單，以加速退貨退款作業。
+                </label>
+              </div>
+              <p class="p-1 fs-7 fs-md-6">
+                依統一發票使用辦法規定， 個人發票一經開立，不得更改或改開公司戶發票。
+                <a href="https://www.einvoice.nat.gov.tw/" class="finacial text-decoration-underline text-nowrap "
+                  >財政部電子發票流程說明</a
+                >
+              </p>
+            </div>
+          </div>
+          <router-link
+            to="/checkoutboard/checkoutcart"
+            class="d-block text-primary my-3 ms-3 "
+          >
+            &lt; 回上一步
+          </router-link>
+          <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="d-grid gap-2">
+                <button class="btn btn-primary text-white" id="submit" type="submit">
+                  確定
+                </button>
+              </div>
+            </div>
+          </div>
+        </Form>
+      </div>
+    </div>
+  </div>
+  <!-- 常用收件人彈窗 myModal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="contactModal">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="border-top border-1 px-0 px-md-3 py-3" v-for="item in contactList" :key="item.consigeeId+1">
+              <div class="row align-items-center">
+                <div class="col-2 ">
+                  <button type="button" class="btn btn-primary text-light " data-bs-dismiss="modal"   @click="pickUsedContact(item)">選擇</button>
+                </div>
+                <div class="col-10  mt-2 mt-md-0">
+                  <p class="text-secondary fs-6"><i class="bi bi-person-fill me-3"></i>姓名:<span class="me-2"></span>{{item.consigneeName}}</p>
+                  <p class="text-secondary fs-6"><i class="bi bi-geo-alt-fill me-3"></i>地址:<span class="me-2"></span>{{item.cityName}}{{item.districtName}}{{item.otherAddress}}</p>
+                  <p class="text-secondary fs-6"><i class="bi bi-telephone-fill me-3"></i>電話:<span class="me-2"></span>{{item.cellphone}}</p>
+                  <p class="text-secondary fs-6"><i class="bi bi-envelope-fill me-3"></i>電子郵件:{{item.consigneeEmail}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 資料讀取 loading動畫放在最下層 -->
+    <loading :active="sendingOrder" class="bottom-fixed" id="overlay" backgroundColor='transparent' blur="">
+      <div class="loadingio-spinner-ellipsis-4hx2p6xfr9s" style="">
+        <div class="ldio-2rhuifu0dvy">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </loading>
+
+</template>
+
+<script>
+import countryName from '@/assets/country.json'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js' // ?網頁會認不得要再引入
+import checkToken from '@/assets/js/checkToken.js'
+
+export default {
+  data () {
+    return {
+      myModal: '', // 以js的方式呼叫彈窗
+      must: true, /* 勾選判斷 */
+      sendingOrder: false, /* loading動畫 */
+      finaltotal: 0, // 統編邏輯運算總和
+      correctInvoice: false, // 統編邏輯運算判斷變數
+      sum: [], // 統一編號邏輯運算非7加總用
+      sumTax_1: [], // 統一編號邏輯運算為7加總用
+      sumTax_2: [], // 統一編號邏輯運算為7加總用
+      contactList: [], // 常用聯絡人接值
+      TaxIdNumber: [ /* 統一編號驗證邏輯乘數 */
+        1, 2, 1, 2, 1, 2, 4, 1
+      ],
+      countTaxNumber: [],
+      addUsedContactList: { // 以js操控常用聯絡人Modal接值
+        consigneeName: '',
+        consigneeCellphone: '',
+        consigneeCity: '',
+        consigneeDistrict: '',
+        consigneeOtherAddress: '',
+        consigneeEmail: ''
+      },
+      countryName, // 縣市鄉鎮代碼 json
+      addressList: { // 顯示用收件人縣市鄉鎮選單
+        countryList: [],
+        townList: [] // ?未使用到
+      },
+      addressListBuyer: { // 顯示用訂購人縣市鄉鎮選單
+        countryList: [],
+        townList: []
+      },
+      checkReceiver: { // 暫時性接值物件
+        name: '',
+        phone: '',
+        email: '',
+        receiveAddress: {
+          countryId: '',
+          townId: '',
+          addressDetail: ''
+        },
+        receipt: {
+          method: 'OI01/1', //* 預設checked 為會員載具
+          myVehicle: '',
+          coVehicle: '',
+          coName: '',
+          taxIdNumber: ''
+        }
+      },
+      checkOrder: { //  訂單送出時要post的物件
+        items:
+        [
+        ],
+        payInfo:
+        {
+        },
+        buyer:
+        {
+          buyerName: '',
+          buyerCellphone: '',
+          buyerCity: '',
+          buyerDistrict: '',
+          buyerOtherAddress: '',
+          buyerEmail: ''
+        },
+        consignee:
+        {
+          consigneeName: '',
+          consigneeCellphone: '',
+          consigneeCity: '',
+          consigneeDistrict: '',
+          consigneeOtherAddress: '',
+          consigneeEmail: ''
+        },
+        Invoice:
+        {
+          invoiceType: '',
+          invoiceMark: '',
+          carrierType: '',
+          carrierCode: '',
+          companyName: '',
+          BizAdmNo: ''
+        },
+        Memo: '',
+        activities: []
+      },
+      showRecordMyVehicle: false, // ?紀錄載具顯示偵測項
+      recordMyVehicle: true // ?預設紀錄
+    }
+  },
+  methods: {
+    getCountry () { // ? 一渲染自動產生縣市清單
+    // 如果希望「陣列（Array）」的元素不會重複，可以使用 Set
+      const list = new Set()
+      countryName.forEach(item => {
+        list.add(item.CountryName)
+      })
+      // set轉陣列
+      const listAry = [...list]
+      const list2 = []
+      listAry.forEach(item => {
+        const num = this.countryName.findIndex(item2 => item2.CountryName === item)
+        list2.push({
+          Country: this.countryName[num].Country,
+          CountryName: item
+        })
+      })
+      this.addressList.countryList = list2
+      this.addressListBuyer.countryList = list2
+    },
+    getTownBuyer () { // ? 產生鄉鎮清單
+      // 清空原訂單資訊
+      this.checkOrder.buyer.buyerDistrict = ''
+      // 比對產生列表
+      this.addressListBuyer.townList = this.countryName.filter(
+        item => item.Country === this.checkOrder.buyer.buyerCity
+      )
+      // 預設購買人第一筆為該縣市的第一區域
+      this.checkOrder.buyer.buyerDistrict = this.addressListBuyer.townList[0].District
+    },
+    getTown () { // ? 產生收件人鄉鎮清單
+      // 清空原訂單資訊
+      this.checkOrder.consignee.consigneeDistrict = ''
+      // 比對產生列表
+      this.addressList.townList = this.countryName.filter(
+        item => item.Country === this.checkOrder.consignee.consigneeCity
+      )
+      // 預設收件人第一筆為該縣市的第一區域
+      this.checkOrder.consignee.consigneeDistrict = this.addressList.townList[0].District
+    },
+    async getMember () { // ?訂購人欄自動帶入會員資料
+      const url = `${process.env.VUE_APP_API}/api/order/GetBuyerInfo`
+      await this.axios.get(url).then(res => {
+        this.checkOrder.buyer.buyerName = res.data.info.buyerName
+        this.checkOrder.buyer.buyerCellphone = res.data.info.buyerCellphone
+        // 自動帶入載具(2022/08)
+        if (res.data.info.cellphoneCarrier && res.data.info.cellphoneCarrier !== 0) {
+          this.reFreshThree_2()
+          this.checkReceiver.receipt.myVehicle = res.data.info.cellphoneCarrier
+        }
+        // 檢查訂購人縣市資訊
+        if (!res.data.info.city) {
+          res.data.info.city = ''
+        } else {
+          this.checkOrder.buyer.buyerCity = res.data.info.city
+          this.getTownBuyer()
+        }
+        // 檢查訂購人區資訊
+        if (!res.data.info.district) {
+          // 若訂購人上一筆資訊不全，直接給空值
+          res.data.info.district = ''
+        } else {
+          // !要進行縣市比對
+          this.addressListBuyer.townList = this.countryName.filter(
+            item => item.Country === this.checkOrder.buyer.buyerCity
+          )
+          const match = this.addressListBuyer.townList.filter(
+            item => item.District === res.data.info.district)
+          if (match.length !== 0) {
+            // 資料比對吻合
+            this.checkOrder.buyer.buyerDistrict = res.data.info.district
+            // this.addressListBuyer.townList = this.countryName.filter(
+            //   item => item.Country === this.checkOrder.buyer.buyerCity
+            // )
+          } else {
+            // 資料比對失敗
+            this.checkOrder.buyer.buyerDistrict = ''
+          }
+        }
+        if (!res.data.info.otherAddress) {
+          res.data.info.otherAddress = ''
+        } else {
+          this.checkOrder.buyer.buyerOtherAddress = res.data.info.otherAddress
+        }
+        // ==新API==
+        this.checkOrder.buyer.buyerEmail = res.data.info.buyerEmail
+      })
+    },
+    contactListShow () { // ?常用聯絡人彈窗
+      const url = `${process.env.VUE_APP_API}/api/consignee/List`
+      this.axios.get(url).then(res => {
+        this.contactList = res.data.info
+        if (res.data.info.length === 0) {
+          this.$swal.fire({
+            title: '該帳號目前沒有常用聯絡人',
+            showConfirmButton: false,
+            timer: 2000,
+            customClass: {
+              title: 'text-class'
+            }
+          })
+        } else {
+          this.contactList.forEach(item => {
+            if (item.city || item.district) {
+              item.cityName = this.countryName[this.countryName.findIndex(item1 => item1.Country === item.city)].CountryName
+              item.districtName = this.countryName[this.countryName.findIndex(item1 => item1.District === item.district)].DistrictName
+            }
+          })
+          this.myModal.show()
+        }
+      })
+    },
+    // ?帶入訂購人資料
+    // ?要先創建變數接值才能產生鄉鎮清單將值傳入
+    likemember () { // ? 同訂購人
+      this.checkOrder.consignee.consigneeName = this.checkOrder.buyer.buyerName
+      this.checkOrder.consignee.consigneeCellphone = this.checkOrder.buyer.buyerCellphone
+      this.checkOrder.consignee.consigneeCity = this.checkOrder.buyer.buyerCity
+      this.checkOrder.consignee.consigneeDistrict = this.checkOrder.buyer.buyerDistrict
+      this.checkOrder.consignee.consigneeOtherAddress = this.checkOrder.buyer.buyerOtherAddress
+      this.checkOrder.consignee.consigneeEmail = this.checkOrder.buyer.buyerEmail
+      // 重新產生鄉鎮清單
+      this.addressList.townList = this.countryName.filter(
+        item => item.Country === this.checkOrder.consignee.consigneeCity
+      )
+    },
+    pickUsedContact (item) { // ?選擇常用聯絡人帶入
+      this.$swal.fire({
+        title: '將此聯絡人填寫為收件人?',
+        showCancelButton: true,
+        reverseButtons: true,
+        confirmButtonColor: '#F8412E',
+        cancelButtonColor: '#4D4D4D',
+        confirmButtonText: '確定',
+        cancelButtonText: '否',
+        width: 400,
+        customClass: {
+          title: 'text-class',
+          confirmButton: 'confirm-btn-class',
+          cancelButton: 'confirm-btn-class'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.checkOrder.consignee.consigneeName = item.consigneeName
+          this.checkOrder.consignee.consigneeCellphone = item.cellphone
+          this.checkOrder.consignee.consigneeCity = item.city
+          this.checkOrder.consignee.consigneeDistrict = item.district
+          this.checkOrder.consignee.consigneeOtherAddress = item.otherAddress
+          this.checkOrder.consignee.consigneeEmail = item.consigneeEmail
+          // 重新產生鄉鎮清單
+          this.addressList.townList = this.countryName.filter(
+            item => item.Country === this.checkOrder.consignee.consigneeCity
+          )
+          this.$swal.fire({
+            title: `${this.checkOrder.consignee.consigneeName}填寫為收件人`,
+            showConfirmButton: false,
+            timer: 1800,
+            customClass: {
+              title: 'text-class'
+            }
+          })
+        }
+      })
+    },
+    addUsedContact () { // ? 加入常用聯絡人
+      if (!this.checkOrder.consignee.consigneeName || !this.checkOrder.consignee.consigneeCellphone || !this.checkOrder.consignee.consigneeCity || !this.checkOrder.consignee.consigneeDistrict || !this.checkOrder.consignee.consigneeOtherAddress) {
+        this.$swal.fire({
+          position: 'center',
+          title: '聯絡人姓名|電話|地址為必填',
+          showConfirmButton: false,
+          timer: 2500,
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class',
+            cancelButton: 'confirm-btn-class'
+          }
+        })
+        return
+      }
+      this.addUsedContactList.consigneeName = this.checkOrder.consignee.consigneeName
+      this.addUsedContactList.consigneeCity = this.checkOrder.consignee.consigneeCity
+      this.addUsedContactList.consigneeDistrict = this.checkOrder.consignee.consigneeDistrict
+      this.addUsedContactList.consigneeOtherAddress = this.checkOrder.consignee.consigneeOtherAddress
+      this.addUsedContactList.consigneeCellphone = this.checkOrder.consignee.consigneeCellphone
+      this.addUsedContactList.consigneeEmail = this.checkOrder.consignee.consigneeEmail
+      const url = `${process.env.VUE_APP_API}/api/consignee/add`
+      this.axios.post(url, this.addUsedContactList).then(res => {
+        this.$swal.fire({
+          position: 'center',
+          title: '該聯絡人已加入常用清單',
+          showConfirmButton: false,
+          timer: 2500,
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class',
+            cancelButton: 'confirm-btn-class'
+          }
+        })
+      })
+    },
+    // *GA追蹤碼(加入付款資訊)
+    add_payment_infoGA () {
+      const datatoGA = {
+        currency: 'TWD',
+        value: this.checkOrder.payInfo.paidAmount,
+        payment_type: this.checkOrder.payInfo.paymentMethod,
+        items: JSON.parse(JSON.stringify(this.$store.state.datatoGA))
+      }
+      this.$gtag.event('add_payment_info', datatoGA)
+    },
+    // ?=========================================================================================
+    // ?以下為表單驗證方法
+    isPhone (value) { // ?驗證手機格式(用套件的方式，不易改寫)
+      /* 驗證手機 */
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '請輸入9碼手機格式'
+    },
+    isMyVehicle (value) { // ?驗證手機載具格式(用套件的方式，不易改寫)
+      if (this.checkReceiver.receipt.method === 'OI01/2/3J0002') {
+        const MyVehicleNumber = /^\/[0-9A-Z.+-]{7}$/
+        return MyVehicleNumber.test(value) ? true : '請輸入含/8碼載具格式'
+      } else {
+        return true
+      }
+    },
+    isNatureVehicle (value) { // ?驗證自然人載具格式(用套件的方式，不易改寫)
+      /* 驗證自然人載具格式 */
+      if (this.checkReceiver.receipt.method === 'OI01/2/CQ0001') {
+        const NatureVehicleNumber = /^[a-zA-Z]{2}[0-9]{14}$/
+        return NatureVehicleNumber.test(value) ? true : '請輸入16碼載具格式'
+      } else {
+        return true
+      }
+    },
+    isCompanyName (value) { // ? 驗證公司名稱(用套件的方式，不易改寫)
+      if (this.checkReceiver.receipt.method === 'OI02/1') {
+        return value ? true : '請輸入公司名稱'
+      } else {
+        return true
+      }
+    },
+    isTaxIdNumber (value) { // ? 驗證統一編號step1-正規式(用套件的方式，不易改寫)
+      if (this.checkReceiver.receipt.method === 'OI02/1') {
+        const TaxIdNumber = /^[0-9]{8}$/
+        return TaxIdNumber.test(value) ? true : '請輸入正確格式'
+      } else {
+        return true
+      }
+    },
+    isTaxIdNumber2 () { // ? 驗證統一編號step2-公式檢驗(112年4月後,因空號將於113年用罄須修改邏輯參數)
+      this.countTaxNumber = this.checkOrder.Invoice.BizAdmNo.split('').map(Number)
+      if (this.countTaxNumber[6] === 7) {
+        this.countTaxNumber2is7()
+      } else if (this.countTaxNumber[6] !== 7) {
+        this.countTaxNumber2not7()
+      }
+    },
+    countTaxNumber2not7 () { // ?驗證統一編號step2-公式檢驗:可能性1-倒數第二碼非7
+      this.sum = []
+      this.countTaxNumber.forEach((item, index) => {
+        // 統編乘以
+        item = item * this.TaxIdNumber[index]
+        if (item >= 10) {
+          // ?取十位數再取個位數
+          item = Math.floor(item / 10) + item % 10
+          this.sum.push(item)
+        } else {
+          this.sum.push(item)
+        }
+      })
+      this.finaltotal = 0
+      this.sum.forEach((item) => {
+        this.finaltotal += item
+      })
+      if (this.finaltotal % 10 === 0) {
+        this.correctInvoice = true
+      } else {
+        this.correctInvoice = false
+      }
+    },
+    countTaxNumber2is7 () { // ?驗證統一編號step2-公式檢驗:可能性2-倒數第二碼為7
+      this.sum = []
+      this.countTaxNumber.forEach((item, index) => {
+        item = item * this.TaxIdNumber[index]
+        if (item >= 10) {
+          // ?取十位數再取個位數
+          item = Math.floor(item / 10) + item % 10
+          this.sum.push(item)
+        } else {
+          this.sum.push(item)
+        }
+      })
+      this.sum[6] = 1
+      this.sumTax_1 = [...this.sum]
+      this.sum[6] = 0
+      this.sumTax_2 = [...this.sum]
+      let finaltotal2 = 0
+      this.sumTax_1.forEach((item) => {
+        finaltotal2 = item + finaltotal2
+      })
+      let finaltotal3 = 0
+      this.sumTax_2.forEach((item) => {
+        finaltotal3 = item + finaltotal3
+      })
+      if (finaltotal2 % 5 === 0 || finaltotal3 % 5 === 0) {
+        this.correctInvoice = true
+      } else {
+        this.correctInvoice = false
+      }
+    },
+    checkTaxNumberExist () { // ?按鈕帶入公司名稱並驗證統編是否存在
+      if (this.correctInvoice === false) {
+        this.$swal.fire({
+          title: '統一編號格式有誤',
+          showConfirmButton: false,
+          timer: 2500,
+          customClass: {
+            title: 'text-class'
+          }
+        })
+        return
+      }
+      const TaxIdNumberApi = `${process.env.VUE_APP_API}/api/order/getcompanyname?bizAdmNo=${this.checkOrder.Invoice.BizAdmNo}`
+      this.axios.get(TaxIdNumberApi)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            /* 帶入對應公司名稱 */
+            this.checkOrder.Invoice.companyName = res.data.info.bizAdmName
+            this.$swal.fire({
+              title: '統編對應公司名稱已帶入',
+              showConfirmButton: true,
+              confirmButtonColor: '#F8412E',
+              width: 400,
+              // timer: 1500,
+              customClass: {
+                title: 'text-class'
+              }
+            })
+            this.$store.commit('getCheckInfo', this.checkOrder) // ?暫存目前訂單輸入資料
+          } else {
+            this.$swal.fire({
+              title: `該統編格式正確，<br>但${res.data.rtnMsg}(錯誤代碼${res.data.rtnCode})，請手動輸入!`,
+              showConfirmButton: true,
+              confirmButtonColor: '#F8412E',
+              width: 400,
+              // timer: 5500,
+              customClass: {
+                title: 'text-class'
+              }
+            })
+            this.$store.commit('getCheckInfo', this.checkOrder) // ?暫存目前訂單輸入資料
+          }
+        })
+    },
+    diverseTradeUnsucess (data) { // ?帶入後端回應各種交易失敗情境
+      this.$swal.fire({
+        title: `${data.rtnMsg}(${data.rtnCode})`,
+        width: 500,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonColor: '#F8412E',
+        CancelButtonColor: '#4D4D4D',
+        confirmButtonText: '回到購物車',
+        cancelButtonText: '返回首頁',
+        // reverseButtons: true,
+        customClass: {
+          title: 'text-class',
+          showConfirmButton: 'center',
+          showCancelButton: 'center'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) { // ?user選擇回到購物車
+          this.$router.push('/checkoutboard/checkoutcartlist')
+        } else if (result.dismiss === this.$swal.DismissReason.cancel) { // ?user選擇回到首頁
+          this.$router.push('/')
+        }
+      })
+    },
+    orderSubmit (value) { // ? 訂單第一步驟-送出訂單，是否有勾選核取方塊
+      // ? 檢查Token是否過期(3小時)
+      const AccessToken = checkToken.getAccessToken()
+      const RefreshToken = checkToken.getFreshToken()
+      if (!AccessToken && RefreshToken) {
+        this.$swal.fire({
+          title: '頁面逾時，請重新填寫資料',
+          allowOutsideClick: false,
+          confirmButtonColor: '#F8412E',
+          confirmButtonText: '確認',
+          width: 400,
+          customClass: {
+            title: 'text-class',
+            confirmButton: 'confirm-btn-class'
+          }
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.$router.go()
+          }
+        })
+        return
+      }
+      if (this.must === false) {
+        this.$swal.fire({
+          title: '請勾選退貨辦法同意說明',
+          showConfirmButton: false,
+          timer: 2500,
+          customClass: {
+            title: 'text-class'
+          }
+        })
+      } else if (this.checkReceiver.receipt.method === 'OI02/1') { // ?統一編號邏輯驗證並call api查證
+        this.isTaxIdNumber2() // ?若是庫存不足自動帶入訂單資訊也要觸發運算
+        if (this.correctInvoice === false) {
+          this.$swal.fire({
+            title: '統一編號格式有誤',
+            showConfirmButton: false,
+            timer: 2500,
+            customClass: {
+              title: 'text-class'
+            }
+          })
+          return
+        }
+        this.dataHandlerandSender()
+      } else if (this.checkReceiver.receipt.method === 'OI01/2/CQ0001') { // ? 自然人載具call api查證
+        this.dataHandlerandSender()
+        /* 自然人載具無須串聯API驗證由後端回應狀態碼，不個別驗證 */
+      } else if (this.checkReceiver.receipt.method === 'OI01/2/3J0002') { // ? 手機條碼載具call api查證
+        this.dataHandlerandSender()
+      } else { // ?選擇捐贈或者會員載具 不須callAPI檢查
+        this.dataHandlerandSender()
+      }
+    },
+    dataHandler () {
+      /* 2.資料整理 */
+      this.checkOrder.Invoice.invoiceType = this.checkReceiver.receipt.method.split('/')[0]
+      this.checkOrder.Invoice.invoiceMark = this.checkReceiver.receipt.method.split('/')[1]
+      if (this.checkOrder.Invoice.invoiceMark === '2') {
+        this.checkOrder.Invoice.carrierType = this.checkReceiver.receipt.method.split('/')[2]
+        if (this.checkOrder.Invoice.carrierType === '3J0002') {
+          this.checkOrder.Invoice.carrierCode = this.checkReceiver.receipt.myVehicle
+        } else if (this.checkOrder.Invoice.carrierType === 'CQ0001') {
+          this.checkOrder.Invoice.carrierCode = this.checkReceiver.receipt.coVehicle
+        }
+      }
+      // ?若勾選紀錄載具，每次交易都記錄
+      if (this.recordMyVehicle) {
+        const secondUrl = `${process.env.VUE_APP_API}/api/order/CommonCellphoneCarrier`
+        this.axios({
+          method: 'post',
+          url: secondUrl,
+          data:
+          { cellphoneCarrier: this.checkReceiver.receipt.myVehicle }
+        })
+      }
+      this.$swal.fire({
+        position: 'center',
+        title: '訂單處理中',
+        showConfirmButton: false,
+        width: 400,
+        customClass: {
+          title: 'text-class'
+        },
+        backdrop: true,
+        allowOutsideClick: false
+      })
+    },
+    async dataHandlerandSender () { // ?訂單第二、三步驟
+      try {
+        await this.dataHandler()
+        const btn = document.querySelector('#submit')
+        /* 3.送訂單post */
+        // this.sendingOrder = true
+        this.$swal.fire({
+          title: '前往支付交易介面，請勿關閉頁面',
+          showConfirmButton: false,
+          width: 600,
+          // timer: 3500,
+          customClass: {
+            title: 'text-class'
+          },
+          backdrop: true,
+          allowOutsideClick: false
+        })
+        const url = `${process.env.VUE_APP_API}/api/newOrder/CreateOrder`
+        const res = await this.axios.post(url, this.checkOrder)
+        btn.setAttribute('disabled', '') // !打送出訂單API後鎖按鈕
+        this.checkOrder.Invoice = {} // !暫存訂單前先清空發票資訊
+        this.$store.commit('getCheckInfo', this.checkOrder) // !送出訂單前先將訂單資訊暫存，避免返回頁面重新KEYIN
+        this.$swal.close()
+        if (res.data.rtnCode === 0) {
+          if (res.data.info.redirectUrl) {
+            setTimeout(() => { // ?交易成功清空vuex
+              this.$store.commit('getCheckInfo', [])
+              this.$store.commit('getCheckoutCartInfo', {
+                items: [],
+                payInfo: {}
+              })
+              // window.location.HREF = res.data.info.redirectUrl
+              // ?為服務搜尋引擎，改為更兼容的語法
+              window.location.assign(res.data.info.redirectUrl)
+              const btn = document.querySelector('#submit')
+              btn.removeAttribute('disabled')
+            }, 500)
+          } else if (res.data.info.orderNo && !res.data.info.redirectUrl) {
+            this.$swal.fire({
+              title: '前往支付介面，請勿關閉頁面',
+              showConfirmButton: false,
+              width: 600,
+              // timer: 3500,
+              customClass: {
+                title: 'text-class'
+              }
+            })
+            setTimeout(() => { // ?交易成功清空vuex
+              this.$store.commit('getCheckInfo', [])
+              this.$store.commit('getCheckoutCartInfo', {
+                items: [],
+                payInfo: {}
+              })
+              this.$swal.close()
+              const btn = document.querySelector('#submit')
+              btn.removeAttribute('disabled')
+              this.$router.push(`/checkoutboard/ordercomplete/${res.data.info.orderNo}`)
+            }, 1500)
+          }
+        } else {
+          this.diverseTradeUnsucess(res.data)
+          const btn = document.querySelector('#submit')
+          btn.removeAttribute('disabled')
+        }
+      } catch (err) {
+        if (err) {
+          this.$swal.fire({
+            title: `${err.response} 系統發生錯誤請聯絡客服人員`,
+            showConfirmButton: true,
+            confirmButtonColor: '#F8412E',
+            width: 400,
+            timer: 3500,
+            customClass: {
+              title: 'text-class'
+            }
+          })
+          setTimeout(() => {
+            this.$swal.close()
+          }, 2500)
+        }
+      }
+    },
+    onInvalidSubmit ({ values, errors, results }) { // !總表單驗證
+      this.$swal.fire({
+        title: '尚有必填欄位未填寫',
+        showConfirmButton: false,
+        timer: 2500,
+        customClass: {
+          title: 'text-class'
+        }
+      })
+    },
+    reFreshTwo () {
+      this.checkReceiver.receipt.method = 'OI02/1' // ?值為[三聯式發票]公司會員載具
+      this.showRecordMyVehicle = false
+      // console.log('刷新第二聯')
+      this.$nextTick(() => {
+        this.checkReceiver.receipt.myVehicle = ''
+        this.checkReceiver.receipt.coVehicle = ''
+      })
+    },
+    reFreshThree_1 () {
+      // ?關閉紀錄載具按鈕
+      this.showRecordMyVehicle = false
+      // console.log('刷新第三聯')
+      this.$nextTick(() => {
+        this.checkOrder.Invoice.BizAdmNo = ''
+        this.checkOrder.Invoice.companyName = ''
+        this.checkReceiver.receipt.myVehicle = ''
+        this.checkReceiver.receipt.coVehicle = ''
+      })
+    },
+    reFreshThree_2 () {
+      this.checkReceiver.receipt.method = 'OI01/2/3J0002' // ?值為[二聯式發票]手機會員載具
+      // ?開啟紀錄載具按鈕
+      this.showRecordMyVehicle = true
+      // console.log('刷新第三聯')
+      this.$nextTick(() => {
+        this.checkOrder.Invoice.BizAdmNo = ''
+        this.checkOrder.Invoice.companyName = ''
+        this.checkReceiver.receipt.coVehicle = ''
+      })
+    },
+    reFreshThree_3 () {
+      this.checkReceiver.receipt.method = 'OI01/2/CQ0001' // ?值為[二聯式發票]自然人憑證載具
+      // ?關閉紀錄載具按鈕
+      this.showRecordMyVehicle = false
+      // console.log('刷新第三聯')
+      this.$nextTick(() => {
+        this.checkOrder.Invoice.BizAdmNo = ''
+        this.checkOrder.Invoice.companyName = ''
+        this.checkReceiver.receipt.myVehicle = ''
+      })
+    },
+    reFreshTwoThree () {
+      // ?關閉紀錄載具按鈕
+      this.showRecordMyVehicle = false
+      // console.log('刷新第二三聯')
+      this.$nextTick(() => {
+        this.checkReceiver.receipt.myVehicle = ''
+        this.checkReceiver.receipt.coVehicle = ''
+        this.checkOrder.Invoice.BizAdmNo = ''
+        this.checkOrder.Invoice.companyName = ''
+      })
+    }
+  },
+  watch: {
+  // ?監聽radio input值的變化補足validate的UI體驗
+    'checkReceiver.receipt.method' () {
+      this.$refs.disabledd.setErrors({
+        手機條碼載具: '',
+        自然人憑證載具: '',
+        公司名稱: '',
+        統一編號: ''
+      })
+    },
+    deep: true,
+    immetate: true
+  },
+  mounted () {
+    // 產生縣市清單
+    this.getCountry()
+    // 自動帶入上一筆訂單資訊
+    setTimeout(() => {
+      this.getMember()
+    }, 1000)
+    // 用非按鈕的方式操作一個dom元素
+    this.myModal = new bootstrap.Modal(this.$refs.contactModal)
+    // 若有keyin紀錄則回溯訂單資訊，避免重複輸入
+    if (Object.keys(this.$store.state.checkInfo).length !== 0 && this.$store.state.checkInfo.constructor === Object) {
+      // !清空發票資訊才存入訂單資訊
+      this.checkOrder = this.$store.state.checkInfo
+      this.checkReceiver.receipt.method = `${this.$store.state.checkInfo.Invoice.invoiceType}/${this.$store.state.checkInfo.Invoice.invoiceMark}`
+      this.correctInvoice = true // 統編已檢查過不檢查，若有正確資料暫存的狀態直接給正確判定
+      if (this.$store.state.checkInfo.Invoice.carrierType) {
+        this.checkReceiver.receipt.method = `${this.checkReceiver.receipt.method}/${this.$store.state.checkInfo.Invoice.carrierType}`
+        if (this.$store.state.checkInfo.Invoice.carrierType === '3J0002') {
+          this.checkReceiver.receipt.myVehicle = this.$store.state.checkInfo.Invoice.carrierCode
+        } else {
+          this.checkReceiver.receipt.coVehicle = this.$store.state.checkInfo.Invoice.carrierCode
+        }
+      }
+      this.getTown()
+      this.checkReceiver.receipt.method = 'OI01/1' // !還原資料預設為會員載具
+    }
+    // 取vuex內的購買商品資訊
+    this.checkOrder.items = this.$store.state.checkoutCart.items
+    this.checkOrder.payInfo = this.$store.state.checkoutCart.payInfo
+    this.checkOrder.activities = this.$store.state.checkoutCart.activities
+    // 若畫面刷新購物車清空返回第一頁
+    if (this.$store.state.checkoutCart.items.length === 0) {
+      this.$router.push('/checkoutboard/checkoutcartlist')
+    }
+    if (Object.keys(this.$store.state.checkoutCart.payInfo).length === 0) {
+      this.$router.push('/checkoutboard/checkoutcartlist')
+    }
+    this.add_payment_infoGA() // *觸發GA追蹤碼
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+
+.progress-bar {
+  background-color: #e9ecef;
+}
+.step {
+  pointer-events: none;
+}
+.step1 {
+  bottom: -100%;
+  left: -25%;
+  font-weight: bold;
+}
+.step2,
+.step3 {
+  bottom: -100%;
+  left: -50%;
+  font-weight: bold;
+}
+.card {
+  .card-header {
+    border-radius: 0;
+  }
+}
+.vehicle-input {
+  width: 120px;
+  @media (max-width: 1200px) {
+    width: 100%;
+  }
+}
+.receiptTitle {
+  white-space: nowrap;
+}
+.receipt-card {
+  .col-form-label {
+    white-space: nowrap;
+    @media (max-width: 576px) {
+      white-space: wrap;
+    }
+  }
+}
+.btn-primary {
+  color:white;
+}
+
+a.finacial {
+  color:#295BF2;
+}
+
+// vue-overlay樣式 其餘共用樣式在scss檔
+.loadingio-spinner-ellipsis-4hx2p6xfr9s {
+  width: 200px;
+  height: 150px;
+  display: inline-block;
+  overflow: hidden;
+  position: fixed;
+  left:45%;
+  top:60%;
+  // background: #ffffff;
+  // opacity: 0.6;
+  @media (max-width: 768px){
+       left:28%;
+        top:45%;
+    }
+}
+.form-check-input[type="checkbox"] {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.btn {
+  @media (max-width:390px) {
+        padding: 0rem 0.5rem;
+  }
+}
+
+</style>
