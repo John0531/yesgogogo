@@ -22,6 +22,6 @@ module.exports = {
         return args
       })
     }
-  },
+  }
   productionSourceMap: process.env.NODE_ENV !== 'production'
 }

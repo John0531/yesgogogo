@@ -3,7 +3,13 @@
     <nav aria-label="breadcrumb" class="d-flex">
       <ol class="breadcrumb ms-3 mb-md-2 ms-md-0">
         <li>
-          <img class="location me-2" src="../assets/img/yesgo_icon05.svg" />
+           <span class="loacation mx-2"
+            ><svg xmlns="http://www.w3.org/2000/svg" width="15.646" height="20.887" viewBox="0 0 15.646 20.887">
+        <g id="yesgo_icon元件-05" transform="translate(-0.503 -0.5)">
+          <path id="Path_105" data-name="Path 105" d="M8.33,4.77h0a3.19,3.19,0,0,0-2.4,1.1,3.14,3.14,0,0,0,0,4.21,3.19,3.19,0,0,0,2.4,1.1h0a3.21,3.21,0,0,0,0-6.41ZM9.52,9.52A1.95,1.95,0,1,1,7.14,6.43a1.9,1.9,0,0,1,2.38,0,1.94,1.94,0,0,1,0,3.09Z" fill="#f8412e"/>
+          <path id="Path_106" data-name="Path 106" d="M8.33.5A7.83,7.83,0,0,0,1.75,12.57a.37.37,0,0,0,.06.1l5.93,8.41a.72.72,0,0,0,1.18,0l5.93-8.41.06-.1A7.84,7.84,0,0,0,8.33.5Zm5.16,11.86-5.16,7.3-5.17-7.3a6.57,6.57,0,1,1,10.33,0Z" fill="#f8412e"/>
+        </g>
+      </svg></span>
         </li>
         <li class="breadcrumb-item">
           <router-link to="/">首頁</router-link>
@@ -105,7 +111,7 @@
 
     <div v-else class="row">
       <div
-        class="col-6 col-md-4 col-lg-3 mb-3"
+        class="col-6 col-lg-3 mb-3"
         v-for="(search) in resultsPage"
         :key="search.productId"
       >

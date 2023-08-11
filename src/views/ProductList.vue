@@ -123,16 +123,16 @@
  <!-- <ProductOptionModal ref="productOptionModal" :target-item-id="targetItemId"   @remove-id="delId"   > </ProductOptionModal> -->
 
  <!-- 登入 modal -->
- <LoginModal ref="loginModal"    > </LoginModal>
+ <LoginModal ref="loginModal" > </LoginModal>
 
     <div
-      class="col-6  col-md-4 col-lg-3 "
+      class="col-6   col-lg-3 "
       v-for="(item) in productsList_2"
       :key="item.productId"
       style="margin-top:15px;"
     >
 <!-- 元件化的卡片 -->
-<ProductCard  :cardData="item"  :login-status="loginStatus" :wish-list="wishlist" :data-number="dataNumber"   @show-login="showLoginModal" @rander-wishlist="getWishlist"     > </ProductCard>
+<ProductCard  :card-data="item"  :login-status="loginStatus" :wish-list="wishlist" :data-number="dataNumber"   @show-login="showLoginModal" @rander-wishlist="getWishlist" > </ProductCard>
 
     <!-- 元件化前的卡片結構 start -->
 
@@ -228,9 +228,7 @@
 // import Banner from '../components/Banner.vue'
 import { defineAsyncComponent } from 'vue'
 import checkToken from '@/assets/js/checkToken.js'
-// import Modal from 'bootstrap/js/dist/modal'
 import ProductCard from '../components/ProductCard.vue'
-// import ProductOptionModal from '../components/ProductOptionModal.vue'
 import LoginModal from '../components/LoginModal.vue'
 const LoadingProductList = defineAsyncComponent(() => import(/* webpackChunkName: "loadingProductList" */'@/views/LoadingProductList.vue'))
 const BannerInside = defineAsyncComponent(() => import(/* webpackChunkName: "bannerInside" */'@/components/BannerInside.vue'))
@@ -243,7 +241,6 @@ export default {
     LoadingProductList,
     // 首頁banner
     BannerInside,
-    // ProductOptionModal,
     LoginModal,
     ProductCard
   },
@@ -271,95 +268,9 @@ export default {
       viewData: '4', /* 計數器分子起始值 */
       loginStatus: false,
       wishlist: [] // ! 願望清單資料
-      // noCouponIdArr: []
-      // isHover: '', // ! hover的商品id
-      // targetItemId: '' // ! 當前點擊之購物車icon商品id
     }
   },
   methods: {
-    // delId () {
-    //   this.targetItemId = ''
-    // },
-    // // ! hover後顯示願望&購物車icon
-    // setHover (targetId, status) {
-    //   if (status === true) {
-    //     this.isHover = targetId
-    //   } else {
-    //     this.isHover = ''
-    //   }
-    // },
-    // addWishlist (targetId) {
-    //   // !先判斷是否有登入
-    //   if (AccessToken || RefreshToken) {
-    //     //! 判斷該品項是否已在收藏清單內
-    //     const status = this.wishlist.some(product => product.productId === targetId)
-    //     // console.log(status)
-    //     if (!status) {
-    //       // console.log(`has token addwishlist-${targetId} `)
-    //       //! 取得該商品的資料
-    //       const productDetailUrl = `${process.env.VUE_APP_API}/Api/Product/Details?id=${targetId}`
-    //       this.axios.get(productDetailUrl).then(res => {
-    //         const data = {}
-    //         data.optionId = res.data.info.options[0].optionId
-    //         data.stock = res.data.info.options[0].stock
-    //         data.productId = res.data.info.productId
-    //         data.sellPrice = res.data.info.price
-    //         // console.log(data)
-    //         const url = `${process.env.VUE_APP_API}/api/wishlist/add`
-    //         this.axios.post(url, data).then((res) => {
-    //           // console.log(res)
-    //           this.$swal.fire({
-    //             toast: true,
-    //             position: 'center',
-    //             title: '商品已加入追蹤清單',
-    //             showConfirmButton: false,
-    //             timer: 1500,
-    //             width: 500,
-    //             background: '#F0F0F2',
-    //             padding: 25,
-    //             iconHtml: '<i class="bi bi-suit-heart-fill"></i>',
-    //             iconColor: '#f00'
-    //           })
-    //           document.querySelector('.swal2-icon').setAttribute('style', 'display: flex; color: rgb(255, 0, 0); border: none; font-size:18px')
-    //           this.getWishlist()
-    //         })
-    //       })
-    //     } else {
-    //       //! 若已在收藏清單內，跳出alert
-    //       this.$swal.fire({
-    //         toast: true,
-    //         position: 'center',
-    //         title: '商品已在追蹤清單內',
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //         width: 500,
-    //         background: '#F0F0F2',
-    //         padding: 25,
-    //         iconHtml: '<i class="bi bi-suit-heart-fill"></i>',
-    //         iconColor: '#f00'
-    //       })
-    //       document.querySelector('.swal2-icon').setAttribute('style', 'display: flex; color: rgb(255, 0, 0); border: none; font-size:18px')
-    //     }
-    //   } else {
-    //     this.$swal.fire({
-    //       title: '請先登入',
-    //       allowOutsideClick: true,
-    //       confirmButtonColor: '#F8412E',
-    //       confirmButtonText: '確認',
-    //       width: 400,
-    //       customClass: {
-    //         title: 'text-class',
-    //         confirmButton: 'confirm-btn-class'
-    //       }
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.$refs.loginModal.showModal()
-    //       }
-    //     })
-    //   }
-    // },
-    // // !
-
     getWishlist () {
       const wishlistUrl = `${process.env.VUE_APP_API}/api/wishlist/list`
       this.axios.get(wishlistUrl)
@@ -367,37 +278,6 @@ export default {
           this.wishlist = res.data.info
         })
     },
-    // addToCart (targetId) {
-    //   if (AccessToken || RefreshToken) {
-    //     this.targetItemId = targetId
-    //     if (this.targetItemId === '') {
-    //       return
-    //     }
-
-    //     this.$refs.productOptionModal.showModal()
-    //   } else {
-    //     this.$swal.fire({
-    //       title: '請先登入',
-    //       allowOutsideClick: true,
-    //       confirmButtonColor: '#F8412E',
-    //       confirmButtonText: '確認',
-    //       width: 400,
-    //       customClass: {
-    //         title: 'text-class',
-    //         confirmButton: 'confirm-btn-class'
-    //       }
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         this.$refs.loginModal.showModal()
-    //       }
-    //     })
-    //   }
-    // },
-
-    clearNoCouponIdArr () {
-      this.noCouponIdArr = []
-    },
-
     checkCookie () {
       if (AccessToken || RefreshToken) {
         this.loginStatus = true
@@ -461,27 +341,6 @@ export default {
           this.title.textContent = `館別 - ${this.$store.state.category} - ${this.$store.state.subCategory}` // ?<title> 更新為商品名稱
           this.track()
           this.preProductsList = res.data
-          // 嘗試 start
-          // //! 先看目前的登入狀態，有登入 抓目前的商品列表後 打api對照是否有優惠券可使用
-          // if (AccessToken || RefreshToken) {
-          //   console.log(this.preProductsList.info.products)
-          //   const apiArr = this.preProductsList.info.products.map((product) => { return this.axios.get(`${process.env.VUE_APP_API}/api/coupon/productcoupon?productid=${product.productId}`) })
-          //   console.log(apiArr)
-          //   this.noCouponIdArr = []
-          //   Promise.all(apiArr)
-          //     .then((resArr) => {
-          //       console.log('resArr', resArr)
-          //       const noCouponList = resArr.filter((res) => {
-          //         if (res.data.rtnCode === 4001 || res.data.rtnCode === 4002) return this.noCouponIdArr.push((res.config.url).split('?productid=', [2])[1])
-          //       })
-          //       console.log(this.noCouponIdArr)
-          //       console.log(noCouponList)
-          //     })
-          //     .catch((err) => { console.log('err', err) })
-          // } else {
-          //   this.noCouponIdArr = []
-          // }
-          // 嘗試 end
 
           // 2.資料排序以最新的為第一筆
           this.preProductsList.info.products.sort((a, b) => {
@@ -664,30 +523,6 @@ export default {
         this.axios.get(url).then(res => {
           if (res.data.rtnCode === 0 && res.data.info.products.length !== 0) {
             this.preProductsList = res.data //* 原始api */
-            // console.log(this.preProductsList)
-
-            // 嘗試 start
-            // //! 先看目前的登入狀態，有登入 抓目前的商品列表後 打api對照是否有優惠券可使用
-            // if (AccessToken || RefreshToken) {
-            //   console.log(this.preProductsList.info.products)
-            //   const apiArr = this.preProductsList.info.products.map((product) => { return this.axios.get(`${process.env.VUE_APP_API}/api/coupon/productcoupon?productid=${product.productId}`) })
-            //   console.log(apiArr)
-            //   this.noCouponIdArr = []
-            //   Promise.all(apiArr)
-            //     .then((resArr) => {
-            //       console.log('resArr', resArr)
-            //       const noCouponList = resArr.filter((res) => {
-            //         if (res.data.rtnCode === 4001 || res.data.rtnCode === 4002) return this.noCouponIdArr.push((res.config.url).split('?productid=', [2])[1])
-            //       })
-            //       console.log(this.noCouponIdArr)
-            //       console.log(noCouponList)
-            //     })
-            //     .catch((err) => { console.log('err', err) })
-            // } else {
-            //   this.noCouponIdArr = []
-            // }
-            // 嘗試 end
-
             this.preProductsList.info.products.sort((a, b) => {
               return b.date - a.date
             })
