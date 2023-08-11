@@ -70,10 +70,10 @@
 
               <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <p v-if="cardData.isCouponAvailable" class=" d-inline-block bg-primary text-white fs-7 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs me-1 padding-xxs" > 折價券 </p>
+                    <p v-if="cardData.isCouponAvailable" class=" d-inline-block bg-primary text-white fs-7 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs me-1" > 折價券 </p>
 
-                    <!-- 判斷是否為愛心品  -->
-                    <p v-if="cardData.isDonativeProduct" class=" d-inline-block bg-primary text-white fs-7 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs padding-xxs" > 愛心品 </p>
+                    <!-- 要改成判斷是否為愛心品 (先不上) -->
+                    <!-- <p v-if="cardData.isCouponAvailable" class=" d-inline-block bg-primary text-white fs-7 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs" > 愛心品 </p> -->
                  </div>
 
                  <!-- 手機版 追蹤、購買 icon -->
@@ -347,13 +347,6 @@ export default ({
 .padding-xs{
 padding-top:.1rem;
 padding-bottom:.1rem;
-}
-
-@media (min-width: 1px) and (max-width: 395px) {
-      .padding-xxs{
-        padding: 1.5px 3px 1.5px 3px !important;
-        border-radius: 0.25rem !important;
-      }
 }
 
 </style>

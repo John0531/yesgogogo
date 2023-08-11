@@ -137,8 +137,6 @@
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button
-            ref="memberdonation"
-            @click="this.$router.push('/memberboard/memberdonation');addActive($event, 'memberdonation');"
             class="accordion-button collapsed fw-bold py-0 ps-3 ps-xl-4 pe-3"
             type="button"
             data-bs-toggle="collapse"
@@ -146,34 +144,11 @@
             aria-expanded="true"
             aria-controls="menuListOne"
           >
-            <span class="d-block w-100 ps-xl-2 py-3 pe-3">我的愛心捐</span>
-          </button>
-        </h2>
-        <div
-          id="category5"
-          class="accordion-collapse collapse"
-          aria-labelledby="headingOne"
-          data-bs-parent="#memberMenuList"
-        >
-          <div class="accordion-body p-0">
-          </div>
-        </div>
-      </div>
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button
-            class="accordion-button collapsed fw-bold py-0 ps-3 ps-xl-4 pe-3"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#category6"
-            aria-expanded="true"
-            aria-controls="menuListOne"
-          >
             <span class="d-block w-100 ps-xl-2 py-3 pe-3">客服中心</span>
           </button>
         </h2>
         <div
-          id="category6"
+          id="category5"
           class="accordion-collapse collapse"
           aria-labelledby="headingOne"
           data-bs-parent="#memberMenuList"

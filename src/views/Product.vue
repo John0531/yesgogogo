@@ -124,27 +124,17 @@
             <div id="pagination" class="swiper-pagination-fraction"></div>
           </div>
           <!-- 社群分享 -->
-          <div class="social-icons d-flex flex-lg-column mt-3 text-secondary justify-content-between ">
-              <div class="d-flex align-items-center ">
-                  <p class="me-1">分享到</p>
-                  <a href="#" @click.prevent="shareLink('line')" class="me-1">
-                    <img src="../assets/img/yesgo_icon42.svg" alt="" class="line-icon">
-                  </a>
-                  <!-- <a href="#" @click.prevent="shareLink('facebook')" class="me-1">
-                    <img src="../assets/img/yesgo_icon43.svg" alt="" class="facebook-icon">
-                  </a> -->
-                  <a href="#" @click.prevent="shareLinkModal" class="me-1">
-                    <img src="../assets/img/yesgo_icon44.svg" alt="" class="currentLink-icon">
-                  </a>
-              </div>
-
-              <div v-if="this.data.isDonativeProduct" class="d-flex align-items-center mt-0 mt-lg-2">
-                  <span class="badge bg-primary me-1 px-2 py-1 fs-6 "> <i class="bi bi-emoji-smile"></i> 愛心品 </span>
-                  <a @click.prevent="openDonativeModal" class="text-decoration-underline text-muted" style="cursor:pointer" >
-                  <p class=" fw-bold d-none d-lg-inline-block me-1"> <u> 平台加碼捐10% </u> </p>
-                   <i class="bi bi-info-circle"></i> </a>
-              </div>
-
+          <div class="social-icons d-flex mt-3 text-secondary align-items-center">
+            <p class="me-1">分享到</p>
+            <a href="#" @click.prevent="shareLink('line')" class="me-1">
+              <img src="../assets/img/yesgo_icon42.svg" alt="" class="line-icon">
+            </a>
+            <!-- <a href="#" @click.prevent="shareLink('facebook')" class="me-1">
+              <img src="../assets/img/yesgo_icon43.svg" alt="" class="facebook-icon">
+            </a> -->
+            <a href="#" @click.prevent="shareLinkModal" class="me-1">
+              <img src="../assets/img/yesgo_icon44.svg" alt="" class="currentLink-icon">
+            </a>
           </div>
           <!-- 複製商品網址 Modal -->
           <div class="modal fade" id="shareLink" ref="shareModal">
@@ -164,10 +154,6 @@
               </div>
             </div>
           </div>
-
-          <!-- 愛心捐modal元件 -->
-          <DonativeModal ref="donativeModal"></DonativeModal>
-
         </div>
         <div class="col-md-6">
           <div class="content">
@@ -853,9 +839,6 @@ import { defineAsyncComponent } from 'vue'
 import Modal from 'bootstrap/js/dist/modal'
 import checkToken from '@/assets/js/checkToken.js'
 import checkVideoSrc from '@/assets/js/checkVideoSrc.js'
-
-import DonativeModal from '../components/DonativeModal.vue'
-
 const LoadingProduct = defineAsyncComponent(() => import(/* webpackChunkName: "loadingProduct" */'@/views/LoadingProduct.vue'))
 const BannerInside = defineAsyncComponent(() => import(/* webpackChunkName: "bannerInside" */'@/components/BannerInside.vue'))
 
@@ -900,7 +883,6 @@ export default {
       },
       shareUrl: '',
       shareModal: '',
-      // donativeModal: '', //! 愛心捐Modal
       isCouponExist: true,
       historyData: [],
       otherWatchData: []
@@ -908,8 +890,7 @@ export default {
   },
   components: {
     LoadingProduct,
-    BannerInside,
-    DonativeModal
+    BannerInside
   },
   watch: {
     /* 監聽路由變化，重渲染館別頁面 */
@@ -919,7 +900,7 @@ export default {
         this.getData()
         this.$store.commit('getSubCategoryId', '')
         this.shareUrl = `https://www.yesgogogo.com${this.$route.fullPath}` // ?取得網址
-      /* 當路由為 /productboard/productList/時，清空瀏覽高度紀錄 */
+      /* 當路由為 /productboard/productList/時，清空瀏覽紀錄 */
       } else if (to.fullPath.match('/productboard/productList/')) {
         this.$store.commit('getHomeRecordHeight', '')
       }
@@ -935,13 +916,14 @@ export default {
       this.axios.get(url).then(res => {
         if (res.data.rtnCode === 0) {
           this.data = res.data.info
-
-          if (this.data.categoryList !== null && this.data.categoryList[0].subCategory !== null) {
+          if (this.data.categoryList !== null) {
             this.$store.commit('getCategoryId', this.data.categoryList[0].categoryId)
-            // this.$store.dispatch('getCategoryWord')
-
-            this.$store.commit('getSubCategoryId', this.data.categoryList[0].subCategory[0].categoryId)
-            // this.$store.dispatch('getSubCategoryWord')
+            this.$store.dispatch('getCategoryWord')
+            if (this.data.categoryList[0].subCategory[0].categoryId
+            ) {
+              this.$store.commit('getSubCategoryId', this.data.categoryList[0].subCategory[0].categoryId)
+              this.$store.dispatch('getSubCategoryWord')
+            }
           }
 
           this.saveWatchHistory() //! 瀏覽紀錄
@@ -1508,13 +1490,6 @@ export default {
             })
           }
         })
-    },
-    // hideDonativeModal () {
-    //   console.log('要關閉donativeModal')
-    //   this.donativeModal.hide()
-    // },
-    openDonativeModal () {
-      this.$refs.donativeModal.openModal()
     }
 
     // computeSlideNum () { // 監聽瀏覽紀錄品項數字，小於4項時不啟用loop功能
@@ -1535,7 +1510,6 @@ export default {
   mounted () {
     this.myModal = new Modal(this.$refs.couponModal)
     this.shareModal = new Modal(this.$refs.shareModal)
-    // this.donativeModal = new Modal(this.$refs.donativeModal) //! 愛心捐Modal
     this.checkCookie()
     this.title = document.querySelector('title') // ?取得 <title> DOM 元素
     this.shareUrl = `https://www.yesgogogo.com${this.$route.fullPath}` // ?取得網址

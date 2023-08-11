@@ -48,13 +48,6 @@ const memberBoard = {
       }
     },
     {
-      path: 'memberdonation',
-      component: () => import(/* webpackChunkName: "group-member" */ '../views/MemberDonation.vue'),
-      meta: {
-        title: '我的愛心捐'
-      }
-    },
-    {
       path: 'memberorder',
       name: '訂單查詢',
       component: () => import(/* webpackChunkName: "group-member" */ '../views/MemberOrder.vue'),
