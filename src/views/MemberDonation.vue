@@ -2,7 +2,7 @@
   <div class="memberwelfare">
     <p class="d-flex justify-content-between mt-2">
       <span class="fw-bold fs-5">我的愛心捐</span>
-      <a href="#" class="donation-explain">愛心捐說明( !)</a>
+      <a href="#" class="donation-explain" @click.prevent="donativeModal.openModal">愛心捐說明( !)</a>
     </p>
     <div
       class="bg-primary text-white d-flex justify-content-left align-items-center mt-3"
@@ -28,9 +28,11 @@
       </div>
     </div>
   </div>
+  <DonativeModal ref="donativeModal"></DonativeModal>
 </template>
 
 <script setup>
+import DonativeModal from '../components/DonativeModal.vue'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
 // const { proxy } = getCurrentInstance()
@@ -42,7 +44,6 @@ const sumDonation = ref(0)
 async function getWelfare () {
   const url = `${process.env.VUE_APP_API}/api/members/LoveDonate`
   const res = await axios.get(url)
-  console.log(res)
   if (res.data.rtnCode === 0) {
     donation.value = res.data.info
     donation.value.forEach((item) => {
@@ -50,10 +51,11 @@ async function getWelfare () {
     })
   }
 }
-
 onMounted(() => {
   getWelfare()
 })
+
+const donativeModal = ref(null)
 </script>
 
 <style lang="scss" scoped>
