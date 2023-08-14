@@ -1,6 +1,9 @@
 <template>
   <div class="memberwelfare">
-    <h4 class="fw-bold fs-5 mt-2">我的愛心捐</h4>
+    <p class="d-flex justify-content-between mt-2">
+      <span class="fw-bold fs-5">我的愛心捐</span>
+      <a href="#" class="donation-explain">愛心捐說明( !)</a>
+    </p>
     <div
       class="bg-primary text-white d-flex justify-content-left align-items-center mt-3"
       style="height: 80px;"
@@ -24,34 +27,6 @@
         </div>
       </div>
     </div>
-    <!-- <table class="table ms-1" v-if="sumDonation">
-      <tbody
-        v-for="item in donation"
-        :key="item"
-      >
-        <tr>
-          <th width="50%" style="border-bottom: none;" class="fs-5">
-            {{ item.description }}
-          </th>
-          <td
-            colspan="5"
-            align="right"
-            style="border-bottom-color: white;"
-            class="fw-bold fs-5"
-            width="40%"
-          >
-          {{ item.rewardMoney }}
-          </td>
-        </tr>
-        <tr>
-          <td style="border-bottom: none; width: 70%;">訂單編號: {{ item.orderNo }}</td>
-        </tr>
-        <tr>
-          <td style="width: 50%;">{{ item.createDate.split('T')[0] }}</td>
-          <td style="width: 50%;"></td>
-        </tr>
-      </tbody>
-    </table> -->
   </div>
 </template>
 
@@ -105,5 +80,9 @@ onMounted(() => {
       }
     }
   }
+}
+.donation-explain{
+  color: #9c9c9c;
+  text-decoration: underline;
 }
 </style>
