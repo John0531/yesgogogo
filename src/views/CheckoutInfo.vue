@@ -752,7 +752,8 @@ export default {
           BizAdmNo: ''
         },
         Memo: '',
-        activities: []
+        activities: [],
+        donate: {}
       },
       showRecordMyVehicle: false, // ?紀錄載具顯示偵測項
       recordMyVehicle: true, // ?預設紀錄
@@ -1429,6 +1430,8 @@ export default {
     this.checkOrder.items = this.$store.state.checkoutCart.items
     this.checkOrder.payInfo = this.$store.state.checkoutCart.payInfo
     this.checkOrder.activities = this.$store.state.checkoutCart.activities
+    // *2023/08/11 愛心捐活動
+    this.checkOrder.donate = this.$store.state.checkoutCart.donate
     // 若畫面刷新購物車清空返回第一頁
     if (this.$store.state.checkoutCart.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')

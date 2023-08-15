@@ -24,7 +24,8 @@ export default createStore({
     checkoutCart: {
       items: [],
       payInfo: {},
-      activities: []
+      activities: [],
+      donate: {}
     },
     isClickCart: false, //* 是否點擊購物車icon
     clickCartPath: '', //* 手機版記錄購物車前次路徑
