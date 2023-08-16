@@ -211,9 +211,9 @@
                         </router-link>
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
-                  <a v-if="item.isLoveProduct" class="d-flex" @click="openDonativeModal()" href="#">
+                  <a v-if="item.isLoveProduct" class="d-flex py-1" @click="openDonativeModal()" href="#">
                     <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs" href="#">愛心品</a>
-                    <p class="d-inline-block fs-6 p-1 text-primary" >平台加碼捐10%</p>
+                    <p class="d-inline-block fs-6  text-primary" >平台加碼捐10%</p>
                   </a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group d-flex justify-content-center" style="width:fit-content;">
@@ -686,7 +686,7 @@
               <h5 class="px-0 py-2  px-md-2">
                 本次訂單獲得10%購物金
               </h5>
-              <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 px-md-2">
+              <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 px-md-2 text-grary">
                 (1購物金 = 1元，可用於下次折抵訂單金額25%)
               </span>
             </div>
@@ -694,9 +694,9 @@
             <div class="d-flex flex-column custom-border py-3">
                 <!-- 購物金是否愛心捐選擇 -->
                 <div class="d-flex flex-column flex-md-row py-2">
-                  <span class="fs-5 fw-bold pb-2 ">
+                  <!-- <span class="fs-5 fw-bold pb-2 ">
                     我要將購物金轉作「愛心捐」?
-                  </span>
+                  </span> -->
                   <div class="d-flex flex-column px-0">
                     <div class="d-flex flex-column flex-md-row ">
                       <div >
@@ -710,7 +710,7 @@
                         v-model="donate.IsDonate"
                         rules="required"
                         ></Field>
-                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">是，我要參加愛心捐</label>
+                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐 <i class="bi bi-info-circle"></i>」</label>
                       </div>
                       <div>
                         <Field
@@ -723,7 +723,7 @@
                         v-model="donate.IsDonate"
                         rules="required"
                         ></Field>
-                        <label for="dontlove" class="fs-6  py-2 py-md-0 ms-3">否，我要把購物金留在自己帳戶</label>
+                        <label for="dontlove" class="fs-6  py-2 py-md-0 ms-3">購物金很好用，請全數保留</label>
                       </div>
                     </div>
                     <div v-if="errors['愛心捐']" class="d-flex text-center field-error my-1">
@@ -779,7 +779,7 @@
                       </option>
                     </select>
                   </div>
-                  <div class="row flex-column flex-md-row py-2 mx-0 align-items-center">
+                  <!-- <div class="row flex-column flex-md-row py-2 mx-0 align-items-center">
                     <div class="d-flex flex-column px-0">
                       <div class="d-flex flex-column flex-md-row ">
                         <span class="col col-md-auto col-md-auto fs-5 fw-bold px-0">
@@ -798,11 +798,13 @@
                           </ErrorMessage>
                         </div>
                       </div>
-                      <!-- <div v-if="errors['捐贈者']" class="d-flex text-center invalid-feedback my-1">
-                        <div>{{errors['捐贈者']}}</div>
-                      </div> -->
                     </div>
-                  </div>
+                  </div> -->
+                </div>
+                <div>
+                  <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 text-grary">
+                    本站將捐出「愛心捐 」給您指定的非營利組織，感謝您的參與!
+                  </span>
                 </div>
             </div>
           </div>
@@ -959,7 +961,7 @@ export default {
         IsDonate: 'true',
         DonatePercent: 5,
         DonateTo: 1,
-        DonateFrom: ''
+        DonateFrom: '聯邦網通科技股份有限公司'
       },
       donateList: []
     }
@@ -1457,6 +1459,10 @@ export default {
       // ?資料處理
       this.donate.IsDonate = this.transType(this.donate.IsDonate)
       this.donate.DonatePercent = this.transNumber(this.donate.DonatePercent)
+      // ?若會員選擇捐出購物金，無論有沒有愛心品
+      if (this.donate.IsDonate) {
+        localStorage.setItem('pointToDonate', 'true')
+      }
       // // await this.$refs.myForm.validateField('捐贈者')
       // const ers = await this.$refs.myForm.validate()
       // console.log(ers)
@@ -1601,7 +1607,7 @@ export default {
           document.querySelector('.swal2-icon').setAttribute('style', 'display: flex; color: rgb(255, 0, 0); border: none; font-size:18px')
         })
     },
-    // *從追蹤清單中移除
+    // ?從追蹤清單中移除
     removeFromTracklist (item) {
       if (!this.checkRefreshToken()) {
         return
@@ -1649,9 +1655,12 @@ export default {
       return Number(string)
     },
     async getDonateList () {
-      const url = `${process.env.VUE_APP_API}/api/NewOrder/DonateFoundationList`
-      const res = await this.axios.get(url)
-      this.donateList = res.data.info
+      try {
+        const url = `${process.env.VUE_APP_API}/api/NewOrder/DonateFoundationList`
+        const res = await this.axios.get(url)
+        this.donateList = res.data.info
+      } catch (error) {
+      }
     },
     openDonativeModal () {
       this.$refs.donativeModal.openModal()
@@ -1669,6 +1678,7 @@ export default {
   },
   mounted () {
     localStorage.removeItem('isLove')
+    localStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
@@ -1822,6 +1832,9 @@ svg g {
   border-top-color: transparent;
   border-left-color: transparent;
   border-right-color: transparent;
+}
+.text-grary {
+  color: #CED4DA;
 }
 
 </style>
