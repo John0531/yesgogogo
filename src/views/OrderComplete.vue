@@ -211,6 +211,57 @@
             </tr>
           </tbody>
         </table>
+        <!-- 愛心捐 -->
+        <div class="card rounded-0 mt-5" v-if="isLove">
+          <div class="card-header fw-bold bg-gray px-4 py-3">
+            <h4>愛心捐明細</h4>
+          </div>
+          <div class="card-body p-0">
+            <table class="table text-center mb-0">
+              <tbody>
+                <tr>
+                  <td class="ps-3 ps-md-4 text-start" width="40%">購物金轉作愛心捐</td>
+                  <td class="ps-3 ps-md-4 text-start" width="40%">{{ isShopHeart }}</td>
+                </tr>
+                <tr>
+                  <td class="ps-3 ps-md-4 text-start" width="40%">愛心品平台加碼愛心捐</td>
+                  <td class="ps-3 ps-md-4 text-start" width="40%">{{ isShopHeartBonus }}</td>
+                </tr>
+                <tr>
+                  <td class="ps-3 ps-md-4 text-start" width="40%">愛心捐總計</td>
+                  <td class="ps-3 ps-md-4 text-start text-primary" width="40%">{{ isLoveTotal }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="px-2 px-md-4">
+              <table class="table text-end mb-0">
+                <tbody>
+                  <tr>
+                    <td class="text-end align-middle">愛心捐總計:</td>
+                    <td>
+                      <p class="text-primary d-inline">
+                        $ <span class="fs-5 fw-bold">{{ $currency.currency(isLoveTotal) }}</span>
+                      </p>
+                      元
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="text-primary text-end">
+                      <small
+                        >*本站將捐出以上愛心捐金額給非營利組織，感謝您也參與其中。</small
+                      >
+                      <br>
+                      <small
+                        >
+                      *捐款金額以訂單實付金額的比例計算%。</small
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
         <div class="row justify-content-center mt-5">
           <div class="col-md-6">
             <div class="d-grid gap-2">
@@ -223,12 +274,26 @@
       </div>
     </div>
   </div>
+  <!-- <div class="modal animate-Modal fade" id="animateModal" tabindex="-1" aria-labelledby="animateModalLabel"
+        aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="animeBox">
+                    <div class="heart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> -->
 </template>
 
 <script>
 import countryName from '@/assets/country.json'
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
+// import anime from '@/assets/js/anime.min.js'
+// import { Modal } from 'bootstrap'
 
 export default {
   components: {
@@ -242,7 +307,9 @@ export default {
       isLogin: false, // ?判斷是否登入
       event: '', // ?活動廣告 pc
       event_m: '', // ?活動廣告 mobile
-      status: '3'
+      status: '3',
+      isLove: false
+      // animateModal: null
     }
   },
   methods: {
@@ -336,6 +403,76 @@ export default {
             this.event = res.data.info[0]
           }
         })
+    },
+    //* 愛心捐動畫
+    // openHeart () {
+    //   const container = document.querySelector('.animeBox')
+
+    //   for (let i = 0; i <= 100; i++) {
+    //     const hearts = document.createElement('div')
+    //     hearts.classList.add('heart')
+    //     container.appendChild(hearts)
+    //   }
+    //   this.animateHearts()
+    //   this.animateModal.show()
+    //   this.heartAnime.play()
+    // },
+    // animateHearts () {
+    //   this.heartAnime = anime({
+    //     targets: '.heart',
+    //     translateX: function () {
+    //       return anime.random(-1000, 1000)
+    //     },
+    //     translateY: function () {
+    //       return anime.random(-500, 500)
+    //     },
+    //     rotate: 25,
+    //     scale: function () {
+    //       return anime.random(1, 2)
+    //     },
+    //     easing: 'easeInOutBack',
+    //     duration: 2500,
+    //     delay: anime.stagger(10),
+    //     complete: () => {
+    //       anime({
+    //         targets: '.heart',
+    //         opacity: 0, // 添加透明度从1到0的动画
+    //         easing: 'easeInOutSine', // 使用渐变的缓动函数
+    //         duration: 3000, // 透明度渐变的持续时间
+    //         complete: () => {
+    //           this.hideHeart()
+    //         }
+    //       })
+    //     }
+    //   })
+    // },
+    // hideHeart () {
+    //   this.animateModal.hide()
+    //   console.log('env', process.env.NODE_ENV)
+    //   if (process.env.NODE_ENV === 'production') {
+    //     localStorage.removeItem('isLove')
+    //   }
+    //   this.heartAnime.pause()
+    // },
+    //* 愛心捐
+    isHeart () {
+      const isLoveValue = localStorage.getItem('isLove')
+      const pointToDonateValue = localStorage.getItem('pointToDonate')
+
+      if (isLoveValue === 'true' || pointToDonateValue === 'true') {
+        this.isLove = true
+        // this.openHeart()
+        localStorage.removeItem('isLove')
+        localStorage.removeItem('pointToDonate')
+      }
+    }
+
+  },
+  watch: {
+    isOverTime (newQuestion, oldQuestion) {
+      if (newQuestion) {
+        this.removeHeartDiv()
+      }
     }
   },
   mounted () {
@@ -355,6 +492,46 @@ export default {
         this.$store.state.loginModal.show()
       }
     }
+    // ?判斷是否是愛心捐
+    // this.animateModal = new Modal(document.getElementById('animateModal'))
+    this.isHeart()
+  },
+  computed: {
+    isLoveTotal () {
+      if (this.userOrder && this.userOrder.donates) {
+        return this.userOrder.donates.reduce((total, donate) => total + donate.donateAmt, 0)
+      } else {
+        return 0 // 或其他合适的默认值
+      }
+    },
+    isShopHeart () {
+      let totalShopHeart = 0
+
+      if (this.userOrder && this.userOrder.donates && Array.isArray(this.userOrder.donates)) {
+        for (const donate of this.userOrder.donates) {
+          if (donate.donateType === 1) {
+            totalShopHeart += donate.donateAmt
+          }
+        }
+      }
+
+      return totalShopHeart
+    },
+
+    isShopHeartBonus () {
+      let totalShopHeart = 0
+
+      if (this.userOrder && this.userOrder.donates && Array.isArray(this.userOrder.donates)) {
+        for (const donate of this.userOrder.donates) {
+          if (donate.donateType === 2) {
+            totalShopHeart += donate.donateAmt
+          }
+        }
+      }
+
+      return totalShopHeart
+    }
+
   }
 }
 </script>
@@ -391,4 +568,5 @@ export default {
 .card-header {
   border-radius: 0;
 }
+
 </style>
