@@ -139,7 +139,7 @@
               </div>
 
               <div v-if="this.data.isDonativeProduct" class="d-flex align-items-center mt-0 mt-lg-2">
-                  <span class="badge bg-primary me-1 px-2 py-1 fs-6 "> <i class="bi bi-emoji-smile"></i> 愛心品 </span>
+                  <span class="badge bg-primary me-1 px-2 py-1 fs-6 "> 愛心品 </span>
                   <a @click.prevent="openDonativeModal" class="text-decoration-underline text-muted" style="cursor:pointer" >
                   <p class=" fw-bold d-none d-lg-inline-block me-1"> <u> 平台加碼捐10% </u> </p>
                    <i class="bi bi-info-circle"></i> </a>
