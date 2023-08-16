@@ -19,7 +19,7 @@
         <div class="col-10">
           <p>訂單日期: {{item.shoppingDate.split('T')[0]}}</p>
           <h5>訂單編號: {{item.orderNo}}</h5>
-          <h5>捐款描述: {{item.description}}</h5>
+          <h5>捐款描述: <span v-if="item.description===1">購物金轉愛心捐</span><span v-if="item.description===2">平台加碼愛心捐</span></h5>
           <h5>受贈單位: {{item.unit}}</h5>
         </div>
         <div class="col-2 d-flex align-items-center justify-content-end">
