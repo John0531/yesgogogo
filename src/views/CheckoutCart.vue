@@ -732,7 +732,7 @@
                   </div>
                 </div>
                 <!-- 購物金是否愛心捐選擇結束 -->
-                <div v-if="donate.IsDonate || isLove">
+                <div v-if="donate.IsDonate === 'true' || isLove">
                   <div class="d-flex flex-column flex-md-row py-2 " v-if="donate.IsDonate ">
                     <span class=" fs-5 fw-bold pb-2" >
                       請選擇捐出的購物金比例%
