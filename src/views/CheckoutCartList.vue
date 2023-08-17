@@ -78,6 +78,10 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
+                        <a v-if="item.isLoveProduct" class="d-flex py-1" @click="openDonativeModal()" href="#">
+                          <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                          <p class="d-inline-block fs-6 px-1 text-gray-dark" >平台加碼捐10%<i class="bi bi-info-circle"></i></p>
+                        </a>
                         <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                       </div>
                     </div>
@@ -685,15 +689,21 @@
       </div>
     </div>
   </div>
+  <DonativeModalVue ref="donativeModal"></DonativeModalVue>
 </template>
 
 <script>
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import DonativeModalVue from '@/components/DonativeModal.vue'
+
 export default {
   data () {
     return {
+      components: {
+        DonativeModalVue
+      },
       cartData: {
         items: [],
         shippingInfo: [{}] // * 常溫/低溫配送資訊
@@ -1018,6 +1028,10 @@ export default {
         })
       }
       localStorage.removeItem('cartErrorStatus')
+    },
+    openDonativeModal () {
+      console.log(this.$refs.donativeModal)
+      this.$refs.donativeModal.openModal()
     }
   },
   mounted () {

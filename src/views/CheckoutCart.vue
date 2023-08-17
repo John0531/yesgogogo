@@ -755,8 +755,7 @@
                 </div>
                 <div class="d-flex flex-column flex-md-row py-2 " v-if="isLove">
                     <div
-                    class="bg-primary text-white my-2 my-md-1 p-1 me-2 fs-5 h-50 "
-                    style="width:fit-content;">
+                    class="bg-primary text-white my-2 my-md-1 p-1 me-2 fs-5 h-50 flex-shrink-0">
                       愛心品平台加碼
                     </div>
                     <span class=" fs-5 fw-bold my-2" >
@@ -1006,7 +1005,8 @@ export default {
       ).length
       this.isLove = findLove > 0
       if (this.isLove) {
-        localStorage.setItem('isLove', 'true')
+        // localStorage.setItem('isLove', 'true')
+        sessionStorage.setItem('isLove', 'true')
       }
       // *===愛心捐結束
       // ? 檢查是否為滿額出貨購物車
@@ -1461,7 +1461,8 @@ export default {
       this.donate.DonatePercent = this.transNumber(this.donate.DonatePercent)
       // ?若會員選擇捐出購物金，無論有沒有愛心品
       if (this.donate.IsDonate) {
-        localStorage.setItem('pointToDonate', 'true')
+        // localStorage.setItem('pointToDonate', 'true')
+        sessionStorage.setItem('pointToDonate', 'true')
       }
       if (!this.donate.IsDonate) {
         this.donate.DonatePercent = 0
@@ -1680,8 +1681,10 @@ export default {
     }
   },
   mounted () {
-    localStorage.removeItem('isLove')
-    localStorage.removeItem('pointToDonate')
+    // localStorage.removeItem('isLove')
+    // localStorage.removeItem('pointToDonate')
+    sessionStorage.removeItem('isLove')
+    sessionStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
