@@ -699,11 +699,11 @@ import 'bootstrap-icons/font/bootstrap-icons.css'
 import DonativeModalVue from '@/components/DonativeModal.vue'
 
 export default {
+  components: {
+    DonativeModalVue
+  },
   data () {
     return {
-      components: {
-        DonativeModalVue
-      },
       cartData: {
         items: [],
         shippingInfo: [{}] // * 常溫/低溫配送資訊
@@ -1154,6 +1154,10 @@ svg g {
 }
 .nav-tabs .nav-link:hover{
   border-color:transparent;
+}
+.text-gray-dark {
+  // color: #CED4DA;
+  color: #6c757d;
 }
 
 </style>

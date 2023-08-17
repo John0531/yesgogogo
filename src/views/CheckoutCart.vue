@@ -22,9 +22,11 @@
         <div class="border">
           <h4 class="bg-gray px-4 py-3">購物車({{ ProductNum }}件)</h4>
           <!-- 購物車無商品 -->
-          <div class="p-6 bg-white" v-if="cartData.items.length===0||isEmpty" style="height:280px">
-              <h3 class="text-center">目前購物車內無任何商品</h3>
-          </div>
+          <transition name="fade" mode="out-in">
+            <div class="p-6 bg-white" v-if="cartData.items.length===0||isEmpty" style="height:280px">
+                <h3 class="text-center">目前購物車內無任何商品</h3>
+            </div>
+          </transition>
           <!-- 購物車有商品 -->
           <div v-if="cartData.items.length!==0&&!isEmpty">
             <div class="px-3 px-xl-4 pt-4 bg-white" v-if="cartData.shippingInfo.length>0">
@@ -762,7 +764,7 @@
                       即日起凡購買指定愛心品，平台加碼捐愛心品結帳總金額10%給非營利組織
                     </span>
                 </div>
-                <div class="row py-2 mx-0 align-items-center" v-if="isLove || donate.IsDonate">
+                <div class="row py-2 mx-0 align-items-center" v-if="isLove || donate.IsDonate === 'true'">
                   <span class="col-6 col-md-auto fs-5 fw-bold px-0 py-2">
                     贈與愛心單位
                   </span>
@@ -771,7 +773,6 @@
                   v-model="donate.DonateTo"
                   @change="donate.DonateTo = transNumber(donate.DonateTo)"
                   >
-                    <option value="" selected>--</option>
                     <option
                     v-for="group in donateList" :key="group+1" :value="group.id"
                     >
@@ -1005,7 +1006,6 @@ export default {
       ).length
       this.isLove = findLove > 0
       if (this.isLove) {
-        // localStorage.setItem('isLove', 'true')
         sessionStorage.setItem('isLove', 'true')
       }
       // *===愛心捐結束
@@ -1261,6 +1261,17 @@ export default {
               this.$router.push('/checkoutboard/checkoutcartlist')
               return
             }
+            // *===此段為愛心捐特殊活動，活動結束可移除
+            const findLove = this.cartData.items.filter(item =>
+              item?.isLoveProduct
+            ).length
+            this.isLove = findLove > 0
+            if (this.isLove) {
+              sessionStorage.setItem('isLove', 'true')
+            } else {
+              sessionStorage.removeItem('isLove')
+            }
+            // *===愛心捐結束
             await this.calculateCart()
             setTimeout(() => {
               if (this.cartData.activities.canUse.length !== 0 && this.cartData.activities.canUse[0].isConform) {
@@ -1467,9 +1478,6 @@ export default {
       if (!this.donate.IsDonate) {
         this.donate.DonatePercent = 0
       }
-      // // await this.$refs.myForm.validateField('捐贈者')
-      // const ers = await this.$refs.myForm.validate()
-      // console.log(ers)
       this.postToInfo.paidAmount = this.cartData.amountResult.paidAmount
       this.postToInfo.paymentMethod = this.cartData.paymentMethods.used
       // if (this.cartData.amountResult.paidAmount === 0) {
@@ -1842,6 +1850,13 @@ svg g {
 .text-gray-dark {
   // color: #CED4DA;
   color: #6c757d;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 2.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 </style>
