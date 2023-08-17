@@ -462,8 +462,6 @@ export default {
       if (isLoveValue === 'true' || pointToDonateValue === 'true') {
         this.isLove = true
         // this.openHeart()
-        localStorage.removeItem('isLove')
-        localStorage.removeItem('pointToDonate')
       }
     }
 
