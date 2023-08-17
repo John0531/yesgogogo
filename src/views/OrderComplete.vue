@@ -274,8 +274,7 @@
       </div>
     </div>
   </div>
-  <!-- <div class="modal animate-Modal fade" id="animateModal" tabindex="-1" aria-labelledby="animateModalLabel"
-        aria-hidden="true">
+  <!-- <div class="modal animate-Modal fade" id="animateModal" tabindex="-1" aria-labelledby="animateModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-body">
@@ -293,7 +292,7 @@ import countryName from '@/assets/country.json'
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
 // import anime from '@/assets/js/anime.min.js'
-// import { Modal } from 'bootstrap'
+import Modal from 'bootstrap/js/dist/modal'
 
 export default {
   components: {
@@ -456,8 +455,8 @@ export default {
     // },
     //* 愛心捐
     isHeart () {
-      const isLoveValue = localStorage.getItem('isLove')
-      const pointToDonateValue = localStorage.getItem('pointToDonate')
+      const isLoveValue = sessionStorage.getItem('isLove')
+      const pointToDonateValue = sessionStorage.getItem('pointToDonate')
 
       if (isLoveValue === 'true' || pointToDonateValue === 'true') {
         this.isLove = true
@@ -491,7 +490,7 @@ export default {
       }
     }
     // ?判斷是否是愛心捐
-    // this.animateModal = new Modal(document.getElementById('animateModal'))
+    this.animateModal = new Modal(document.getElementById('animateModal'))
     this.isHeart()
   },
   computed: {
