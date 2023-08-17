@@ -1472,8 +1472,7 @@ export default {
       this.donate.DonatePercent = this.transNumber(this.donate.DonatePercent)
       // ?若會員選擇捐出購物金，無論有沒有愛心品
       if (this.donate.IsDonate) {
-        // localStorage.setItem('pointToDonate', 'true')
-        sessionStorage.setItem('pointToDonate', 'true')
+        localStorage.setItem('pointToDonate', 'true')
       }
       if (!this.donate.IsDonate) {
         this.donate.DonatePercent = 0
@@ -1689,10 +1688,8 @@ export default {
     }
   },
   mounted () {
-    // localStorage.removeItem('isLove')
-    // localStorage.removeItem('pointToDonate')
-    sessionStorage.removeItem('isLove')
-    sessionStorage.removeItem('pointToDonate')
+    localStorage.removeItem('isLove')
+    localStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return

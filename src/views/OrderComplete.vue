@@ -293,7 +293,7 @@ import countryName from '@/assets/country.json'
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
 // import anime from '@/assets/js/anime.min.js'
-// import { Modal } from 'bootstrap'
+// import Modal from 'bootstrap/js/dist/modal'
 
 export default {
   components: {
@@ -456,8 +456,8 @@ export default {
     // },
     //* 愛心捐
     isHeart () {
-      const isLoveValue = localStorage.getItem('isLove')
-      const pointToDonateValue = localStorage.getItem('pointToDonate')
+      const isLoveValue = sessionStorage.getItem('isLove')
+      const pointToDonateValue = sessionStorage.getItem('pointToDonate')
 
       if (isLoveValue === 'true' || pointToDonateValue === 'true') {
         this.isLove = true
