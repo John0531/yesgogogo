@@ -456,8 +456,8 @@ export default {
     // },
     //* 愛心捐
     isHeart () {
-      const isLoveValue = sessionStorage.getItem('isLove')
-      const pointToDonateValue = sessionStorage.getItem('pointToDonate')
+      const isLoveValue = localStorage.getItem('isLove')
+      const pointToDonateValue = localStorage.getItem('pointToDonate')
 
       if (isLoveValue === 'true' || pointToDonateValue === 'true') {
         this.isLove = true
