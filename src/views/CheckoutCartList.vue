@@ -2,8 +2,8 @@
   <div class="cartlist py-5 position-relative">
     <div class="row">
       <div class="col-12">
-        <div v-if="normalCart.length===0&&coldCart.length===0&&fullShipmentCart.length===0" class="p-6 bg-white" style="height:280px">
-          <h3 class="text-center">目前購物車內無任何商品</h3>
+        <div v-if="normalCart.length===0&&coldCart.length===0&&fullShipmentCart.length===0"  class="p-6 bg-white" style="height:280px">
+          <h3 v-if="cartData.items.length === 0" class="text-center">目前購物車內無任何商品</h3>
         </div>
         <!-- 常溫宅配 -->
         <div class="mb-4" v-if="normalCart.length!==0">
@@ -706,7 +706,7 @@ export default {
   data () {
     return {
       cartData: {
-        items: [],
+        items: ['1'],
         shippingInfo: [{}] // * 常溫/低溫配送資訊
       },
       // TODO 滿額出貨購物車
