@@ -78,7 +78,7 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct" class="d-flex py-1" @click="openDonativeModal()" href="#">
+                        <a v-if="item.isLoveProduct && release" class="d-flex py-1" @click="openDonativeModal()" href="#">
                           <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                           <p class="d-inline-block fs-6 px-1 text-gray-dark" >平台加碼捐10%<i class="bi bi-info-circle"></i></p>
                         </a>
@@ -697,6 +697,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import DonativeModalVue from '@/components/DonativeModal.vue'
+import moment from 'moment'
 
 export default {
   components: {
@@ -725,7 +726,8 @@ export default {
       // TODO 低溫配送購物車運費資訊
       coldCartShipInfo: {},
       clickCartType: '',
-      trackList: [] // ? 追蹤清單商品
+      trackList: [], // ? 追蹤清單商品
+      release: true // ? for 9/1 00:00 上線
     }
   },
   methods: {
@@ -1036,6 +1038,10 @@ export default {
   },
   mounted () {
     // this.clickCartType = sessionStorage.getItem('cartType')
+    const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-31 23:59:59')) {
+      this.release = false
+    }
     this.getCartData()
   }
 }

@@ -22,11 +22,9 @@
         <div class="border">
           <h4 class="bg-gray px-4 py-3">購物車({{ ProductNum }}件)</h4>
           <!-- 購物車無商品 -->
-          <transition name="fade" mode="out-in">
-            <div class="p-6 bg-white" v-if="cartData.items.length===0||isEmpty" style="height:280px">
+            <div class="p-6 bg-white" v-if="!this.$store.state.checkoutCartList||isEmpty" style="height:280px">
                 <h3 class="text-center">目前購物車內無任何商品</h3>
             </div>
-          </transition>
           <!-- 購物車有商品 -->
           <div v-if="cartData.items.length!==0&&!isEmpty">
             <div class="px-3 px-xl-4 pt-4 bg-white" v-if="cartData.shippingInfo.length>0">
@@ -100,7 +98,7 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct" class="d-flex" @click="openDonativeModal()" href="#">
+                        <a v-if="item.isLoveProduct  && release" class="d-flex" @click="openDonativeModal()" href="#">
                           <a  class=" d-inline-block bg-primary text-white  fs-7 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                           <p class="d-inline-block fs-6 p-1 text-gray-dark" >平台加碼捐10%</p>
                         </a>
@@ -213,7 +211,7 @@
                         </router-link>
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
-                  <a v-if="item.isLoveProduct" class="d-flex py-1" @click="openDonativeModal()" href="#">
+                  <a v-if="item.isLoveProduct && release" class="d-flex py-1" @click="openDonativeModal()" href="#">
                     <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                     <p class="d-inline-block fs-6 px-1 text-gray-dark" >平台加碼捐10%<i class="bi bi-info-circle"></i></p>
                   </a>
@@ -674,7 +672,7 @@
         </div>
       </div>
       <!-- 愛心捐區塊 -->
-      <div class="col-md-10 w-100 mt-5 mb-3" >
+      <div class="col-md-10 w-100 mt-5 mb-3" v-if="release">
         <div>
           <h4 class="bg-gray px-4 py-3">
             愛心捐
@@ -906,8 +904,7 @@
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
-// import { handleError } from '@vue/runtime-core'
-// import Modal from 'bootstrap/js/dist/modal'
+import moment from 'moment'
 
 export default {
   components: {
@@ -952,7 +949,7 @@ export default {
       postTotal: {},
       allProductNum: 0, //* 購物車 icon 顯示數字
       ProductNum: 0, // * 購物車商品數量
-      isEmpty: false,
+      isEmpty: false, // ?calculate沒有response
       productsCanUseCoupon: true,
       trackList: [], // ? 追蹤清單商品,
       status: '1',
@@ -963,7 +960,8 @@ export default {
         DonateTo: 1,
         DonateFrom: '聯邦網通科技股份有限公司'
       },
-      donateList: []
+      donateList: [],
+      release: true // ? for 9/1 00:00 上線
     }
   },
   watch: {
@@ -1472,9 +1470,15 @@ export default {
       this.donate.DonatePercent = this.transNumber(this.donate.DonatePercent)
       // ?若會員選擇捐出購物金，無論有沒有愛心品
       if (this.donate.IsDonate) {
-        localStorage.setItem('pointToDonate', 'true')
+        sessionStorage.setItem('pointToDonate', 'true')
       }
       if (!this.donate.IsDonate) {
+        this.donate.DonatePercent = 0
+      }
+      if (!this.release) {
+        sessionStorage.removeItem('isLove')
+        sessionStorage.removeItem('pointToDonate')
+        this.donate.IsDonate = false
         this.donate.DonatePercent = 0
       }
       this.postToInfo.paidAmount = this.cartData.amountResult.paidAmount
@@ -1688,11 +1692,15 @@ export default {
     }
   },
   mounted () {
-    localStorage.removeItem('isLove')
-    localStorage.removeItem('pointToDonate')
+    sessionStorage.removeItem('isLove')
+    sessionStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
+    }
+    const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-31 23:59:59')) {
+      this.release = false
     }
     this.getData()
     this.checkCookie()
@@ -1849,11 +1857,11 @@ svg g {
   color: #6c757d;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 2.5s;
-}
-.fade-enter, .fade-leave-to {
-  opacity: 0;
-}
+// .fade-enter-active, .fade-leave-active {
+//   transition: opacity 2.5s;
+// }
+// .fade-enter, .fade-leave-to {
+//   opacity: 0;
+// }
 
 </style>
