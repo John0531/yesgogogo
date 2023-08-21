@@ -78,9 +78,9 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct && release" class="d-flex py-1" @click="openDonativeModal()" href="#">
-                          <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
-                          <p class="d-flex align-items-center fs-6 px-1 text-gray-dark" >平台加碼捐10%<img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"></p>
+                        <a v-if="item.isLoveProduct && release" class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                          <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                          <p class="d-inline-block fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                         </a>
                         <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                       </div>
@@ -177,6 +177,10 @@
                     <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
+                  <a v-if="item.isLoveProduct && release" class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                    <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                    <p class="d-inline-block align-items-center fs-7 px-1 text-gray-dark" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center  info-icon-style ms-1"></p>
+                  </a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group d-flex justify-content-center" style="width:fit-content;">
                       <button
@@ -1165,6 +1169,9 @@ svg g {
 .text-gray-dark {
   // color: #CED4DA;
   color: #6c757d;
+}
+.inline-center {
+  vertical-align: middle;
 }
 
 </style>
