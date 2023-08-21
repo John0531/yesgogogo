@@ -80,7 +80,7 @@
                         </a>
                         <a v-if="item.isLoveProduct && release" class="d-flex py-1" @click="openDonativeModal()" href="#">
                           <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
-                          <p class="d-inline-block fs-6 px-1 text-gray-dark" >平台加碼捐10%<i class="bi bi-info-circle"></i></p>
+                          <p class="d-flex align-items-center fs-6 px-1 text-gray-dark" >平台加碼捐10%<img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"></p>
                         </a>
                         <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                       </div>
@@ -1032,7 +1032,7 @@ export default {
       localStorage.removeItem('cartErrorStatus')
     },
     openDonativeModal () {
-      console.log(this.$refs.donativeModal)
+      // console.log(this.$refs.donativeModal)
       this.$refs.donativeModal.openModal()
     }
   },
@@ -1041,6 +1041,7 @@ export default {
     const now = moment().format('YYYY/MM/DD HH:mm:ss')
     if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-31 23:59:59')) {
       this.release = false
+      this.release = true
     }
     this.getCartData()
   }

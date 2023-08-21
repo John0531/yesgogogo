@@ -212,8 +212,8 @@
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
                   <a v-if="item.isLoveProduct && release" class="d-flex py-1" @click="openDonativeModal()" href="#">
-                    <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
-                    <p class="d-inline-block fs-6 px-1 text-gray-dark" >平台加碼捐10%<i class="bi bi-info-circle"></i></p>
+                    <a  class="  d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                    <p class="d-flex align-items-center fs-6 px-1 text-gray-dark" >平台加碼捐10%<img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"></p>
                   </a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group d-flex justify-content-center" style="width:fit-content;">
@@ -710,7 +710,7 @@
                         v-model="donate.IsDonate"
                         rules="required"
                         ></Field>
-                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐 <i class="bi bi-info-circle" @click="openDonativeModal()"></i>」</label>
+                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐<img @click="openDonativeModal()" src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"> 」</label>
                       </div>
                       <div class="d-flex flex-column flex-md-row py-1">
                         <Field
@@ -1700,7 +1700,8 @@ export default {
     }
     const now = moment().format('YYYY/MM/DD HH:mm:ss')
     if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-31 23:59:59')) {
-      this.release = false
+      // this.release = false
+      this.release = true
     }
     this.getData()
     this.checkCookie()
