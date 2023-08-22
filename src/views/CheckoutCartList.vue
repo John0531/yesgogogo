@@ -78,7 +78,7 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct && release" class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                        <a v-if="item.isLoveProduct " class="d-inline-block py-1" @click="openDonativeModal()" href="#">
                           <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                           <p class="d-inline-block fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                         </a>
@@ -177,7 +177,7 @@
                     <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
-                  <a v-if="item.isLoveProduct && release" class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                  <a v-if="item.isLoveProduct " class="d-inline-block py-1" @click="openDonativeModal()" href="#">
                     <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                     <p class="d-inline-block align-items-center fs-7 px-1 text-gray-dark" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center  info-icon-style ms-1"></p>
                   </a>
@@ -730,8 +730,8 @@ export default {
       // TODO 低溫配送購物車運費資訊
       coldCartShipInfo: {},
       clickCartType: '',
-      trackList: [], // ? 追蹤清單商品
-      release: true // ? for 9/1 00:00 上線
+      trackList: [] // ? 追蹤清單商品
+      // release: true // ? for 9/1 00:00 上線
     }
   },
   methods: {
@@ -1042,10 +1042,10 @@ export default {
   },
   mounted () {
     // this.clickCartType = sessionStorage.getItem('cartType')
-    const now = moment().format('YYYY/MM/DD HH:mm:ss')
-    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
-      this.release = false
-    }
+    // const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    // if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
+    //   this.release = false
+    // }
     this.getCartData()
   }
 }

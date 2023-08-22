@@ -98,7 +98,7 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct  && release" class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
+                        <a v-if="item.isLoveProduct  " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
                           <a  class="d-inline-block bg-primary text-white  fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                           <p class="d-inline-block inline-center fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                         </a>
@@ -211,7 +211,7 @@
                         </router-link>
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
-                  <a v-if="item.isLoveProduct && release" class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
+                  <a v-if="item.isLoveProduct " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
                     <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
                     <p class="d-inline-block fs-7 px-1 text-gray-dark" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                   </a>
@@ -672,7 +672,7 @@
         </div>
       </div>
       <!-- 愛心捐區塊 -->
-      <div class="col-md-10 w-100 mt-5 mb-3" v-if="release">
+      <div class="col-md-10 w-100 mt-5 mb-3" >
         <div>
           <h4 class="bg-gray px-4 py-3">
             愛心捐
@@ -960,8 +960,8 @@ export default {
         DonateTo: 1,
         DonateFrom: '聯邦網通科技股份有限公司'
       },
-      donateList: [],
-      release: true // ? for 9/1 00:00 上線
+      donateList: []
+      // release: true // ? for 9/1 00:00 上線
     }
   },
   watch: {
@@ -1475,12 +1475,12 @@ export default {
       if (!this.donate.IsDonate) {
         this.donate.DonatePercent = 0
       }
-      if (!this.release) {
-        sessionStorage.removeItem('isLove')
-        sessionStorage.removeItem('pointToDonate')
-        this.donate.IsDonate = false
-        this.donate.DonatePercent = 0
-      }
+      // if (!this.release) {
+      //   sessionStorage.removeItem('isLove')
+      //   sessionStorage.removeItem('pointToDonate')
+      //   this.donate.IsDonate = false
+      //   this.donate.DonatePercent = 0
+      // }
       this.postToInfo.paidAmount = this.cartData.amountResult.paidAmount
       this.postToInfo.paymentMethod = this.cartData.paymentMethods.used
       // if (this.cartData.amountResult.paidAmount === 0) {
@@ -1698,11 +1698,10 @@ export default {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
     }
-    const now = moment().format('YYYY/MM/DD HH:mm:ss')
-    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
-      // this.release = false
-      this.release = true
-    }
+    // const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    // if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
+    //   this.release = false
+    // }
     this.getData()
     this.checkCookie()
     this.getNewToken()
