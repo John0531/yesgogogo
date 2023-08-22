@@ -1699,7 +1699,7 @@ export default {
       return
     }
     const now = moment().format('YYYY/MM/DD HH:mm:ss')
-    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-31 23:59:59')) {
+    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
       // this.release = false
       this.release = true
     }
