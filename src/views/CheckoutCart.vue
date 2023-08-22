@@ -904,7 +904,7 @@
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
-import moment from 'moment'
+// import moment from 'moment'
 
 export default {
   components: {
