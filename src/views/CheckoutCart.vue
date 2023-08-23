@@ -671,6 +671,52 @@
           </div>
         </div>
       </div>
+      <!-- 福利金使用 -->
+      <div class="col-md-10 w-100 mt-5 mb-3" v-if="!isEmpty&&cartData.rewardMoney.canUse!==0">
+        <div>
+          <h4 class="bg-gray px-4 py-3">
+            福利金使用
+          </h4>
+          <div
+            class="bg-white d-flex justify-content-between flex-column flex-md-row pb-1 pb-md-0"
+          >
+            <span class="ps-md-5 py-md-3 ps-3 pt-2"><span class="text-primary">福利金 : 本次可使用 {{$currency.currency(cartData.rewardMoney.canUse)}} 元</span> (目前共有 {{$currency.currency(cartData.rewardMoney.total)}} 元)<br>本次剩餘 {{$currency.currency(cartData.rewardMoney.canUse-eMoney)}} 元可使用</span>
+            <span class="pe-md-5 py-md-3 ps-3 py-2 text-end">
+              本次使用 <input @change="useEmoney()" type="number" ref="eMoneyInputDom" v-model="eMoney" class="w-50 mx-2 text-end" /> 元
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- 計算金額UI -->
+      <div class="col-md-10 w-100" v-if="!isEmpty">
+        <div class="bg-white border px-4 px-lg-5 py-4">
+            <div class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>本次訂單共買商品</span><span>{{ProductNum}}項</span></div>
+            <div class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>商品總金額</span><span>${{$currency.currency(cartData.amountResult.payableAmount)}}元</span></div>
+            <div v-if="cartData.amountResult.usedRewardMoney!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>福利金折抵</span><span>-${{$currency.currency(cartData.amountResult.usedRewardMoney)}}元</span></div>
+            <div v-if="cartData.amountResult.activityDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>活動折扣</span><span>-${{$currency.currency(cartData.amountResult.activityDiscount)}}元</span></div>
+            <div v-if="cartData.amountResult.couponDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>折價券折扣</span><span>-${{$currency.currency(cartData.amountResult.couponDiscount)}}元</span></div>
+            <div v-if="cartData.amountResult.pointDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>購物金折扣</span><span>-${{$currency.currency(cartData.amountResult.pointDiscount)}}元</span></div>
+            <!-- 常溫、低溫運費 -->
+            <div v-if="!isLimitShipping" class="d-flex justify-content-between pb-1 ps-md-9 ms-md-3">
+              <span>運費</span>
+              <div class="text-end">
+                <span>${{cartData.shippingInfo[0].shippingFee}}元</span>
+                <br>
+                <span v-if="!cartData.shippingInfo[0].isConform" class="text-primary px-1" style="font-size:14px;background-color:rgba(248,65,46,0.25);">(再湊${{cartData.shippingInfo[0].balancePrice}}免運)</span>
+              </div>
+            </div>
+            <!-- 滿額出貨運費 -->
+            <div v-if="cartData.amountResult.totalShippingFee&&isLimitShipping" class="d-flex justify-content-between pb-1 ps-md-9 ms-md-3">
+              <span>運費</span>
+              <div class="text-end">
+                <span>${{cartData.amountResult.totalShippingFee}}元</span>
+              </div>
+            </div>
+            <!-- 常溫、低溫運費折抵 -->
+            <div v-if="cartData.shippingInfo[0].isConform&&!isLimitShipping" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>運費折抵</span><span>-${{cartData.shippingInfo[0].shippingFee}}元</span></div>
+            <h5 class="text-end border-top">總結帳金額<span class="text-primary fs-2"> ${{$currency.currency(cartData.amountResult.paidAmount)}}</span>元</h5>
+          </div>
+      </div>
       <!-- 愛心捐區塊 -->
       <div class="col-md-10 w-100 mt-5 mb-3" >
         <div>
@@ -807,52 +853,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- 福利金使用 -->
-      <div class="col-md-10 w-100 mt-5 mb-3" v-if="!isEmpty&&cartData.rewardMoney.canUse!==0">
-        <div>
-          <h4 class="bg-gray px-4 py-3">
-            福利金使用
-          </h4>
-          <div
-            class="bg-white d-flex justify-content-between flex-column flex-md-row pb-1 pb-md-0"
-          >
-            <span class="ps-md-5 py-md-3 ps-3 pt-2"><span class="text-primary">福利金 : 本次可使用 {{$currency.currency(cartData.rewardMoney.canUse)}} 元</span> (目前共有 {{$currency.currency(cartData.rewardMoney.total)}} 元)<br>本次剩餘 {{$currency.currency(cartData.rewardMoney.canUse-eMoney)}} 元可使用</span>
-            <span class="pe-md-5 py-md-3 ps-3 py-2 text-end">
-              本次使用 <input @change="useEmoney()" type="number" ref="eMoneyInputDom" v-model="eMoney" class="w-50 mx-2 text-end" /> 元
-            </span>
-          </div>
-        </div>
-      </div>
-      <!-- 計算金額UI -->
-      <div class="col-md-10 w-100" v-if="!isEmpty">
-        <div class="bg-white border px-4 px-lg-5 py-4">
-            <div class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>本次訂單共買商品</span><span>{{ProductNum}}項</span></div>
-            <div class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>商品總金額</span><span>${{$currency.currency(cartData.amountResult.payableAmount)}}元</span></div>
-            <div v-if="cartData.amountResult.usedRewardMoney!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>福利金折抵</span><span>-${{$currency.currency(cartData.amountResult.usedRewardMoney)}}元</span></div>
-            <div v-if="cartData.amountResult.activityDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>活動折扣</span><span>-${{$currency.currency(cartData.amountResult.activityDiscount)}}元</span></div>
-            <div v-if="cartData.amountResult.couponDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>折價券折扣</span><span>-${{$currency.currency(cartData.amountResult.couponDiscount)}}元</span></div>
-            <div v-if="cartData.amountResult.pointDiscount!==0" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>購物金折扣</span><span>-${{$currency.currency(cartData.amountResult.pointDiscount)}}元</span></div>
-            <!-- 常溫、低溫運費 -->
-            <div v-if="!isLimitShipping" class="d-flex justify-content-between pb-1 ps-md-9 ms-md-3">
-              <span>運費</span>
-              <div class="text-end">
-                <span>${{cartData.shippingInfo[0].shippingFee}}元</span>
-                <br>
-                <span v-if="!cartData.shippingInfo[0].isConform" class="text-primary px-1" style="font-size:14px;background-color:rgba(248,65,46,0.25);">(再湊${{cartData.shippingInfo[0].balancePrice}}免運)</span>
-              </div>
-            </div>
-            <!-- 滿額出貨運費 -->
-            <div v-if="cartData.amountResult.totalShippingFee&&isLimitShipping" class="d-flex justify-content-between pb-1 ps-md-9 ms-md-3">
-              <span>運費</span>
-              <div class="text-end">
-                <span>${{cartData.amountResult.totalShippingFee}}元</span>
-              </div>
-            </div>
-            <!-- 常溫、低溫運費折抵 -->
-            <div v-if="cartData.shippingInfo[0].isConform&&!isLimitShipping" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>運費折抵</span><span>-${{cartData.shippingInfo[0].shippingFee}}元</span></div>
-            <h5 class="text-end border-top">總結帳金額<span class="text-primary fs-2"> ${{$currency.currency(cartData.amountResult.paidAmount)}}</span>元</h5>
-          </div>
       </div>
       <!-- 付款方式選擇 -->
       <div class="col-md-10 w-100 mt-5 payment">
