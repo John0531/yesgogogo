@@ -810,11 +810,11 @@
                       </span>
                     </div>
                     <div class="row py-2 mx-0 align-items-center" v-if="isLove || donate.IsDonate === 'true'">
-                      <span class="col-6 col-md-auto fs-5 fw-bold px-0 py-2">
+                      <span class="col-12 col-md-auto fs-5 fw-bold px-0 py-2">
                         受贈單位選擇
                       </span>
                       <select
-                      class="col-6 col-md-3 form-select w-80 w-md-50  ms-2" name=""
+                      class="col-6 col-md-3 form-select w-80 w-md-50 ms-0 ms-md-2" name=""
                       v-model="donate.DonateTo"
                       @change="donate.DonateTo = transNumber(donate.DonateTo)"
                       >
