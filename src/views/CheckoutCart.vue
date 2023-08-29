@@ -726,7 +726,7 @@
           <div class="bg-white d-flex justify-content-between flex-column px-3 px-md-5 py-3">
             <!-- 愛心捐規則 -->
             <div class="d-flex flex-column flex-lg-row ustify-content-between  py-md-3  py-2">
-              <div class="bg-primary text-white p-1 me-2 fs-5 flex-shrink-0 " style="width:fit-content;">
+              <div class="bg-donate fw-bold text-white p-1 me-2 fs-5 flex-shrink-0 " style="width:fit-content;">
                 消費回饋
               </div>
               <h5 class="px-0 py-2  px-md-2">
@@ -789,7 +789,7 @@
                     class="ms-3 p-2 form-check-input checked"
                     type="radio"
                     >
-                    <label for="five-percent" class="fs-6 py-2 py-md-0 ms-3">捐出5%，保留購物金5%</label>
+                    <label for="five-percent" class="fs-6 py-2 py-md-0 ms-3">捐出5%，保留5%購物金</label>
                     <input
                     id="ten-percent" value="10"
                     v-model="donate.DonatePercent"
@@ -1862,6 +1862,10 @@ svg g {
 
 .inline-center {
   vertical-align: middle;
+}
+
+.bg-donate {
+  background-color: #FED034;
 }
 
 </style>
