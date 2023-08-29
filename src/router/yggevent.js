@@ -261,6 +261,14 @@ const yggevent = {
       }
     },
     {
+      path: 'activity/2023_moonFestival',
+      name: '2023_中秋活動',
+      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/2023_MoonFestival.vue'),
+      meta: {
+        title: '2023_中秋活動'
+      }
+    },
+    {
       path: 'activity/:fileName',
       name: '聯邦刷卡優惠',
       component: () => import(/* webpackChunkName: "group-zongziselected" */'../views/activity/UITCCardDiscount.vue'),
