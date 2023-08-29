@@ -275,6 +275,14 @@ const yggevent = {
       meta: {
         title: '每月聯邦刷卡優惠'
       }
+    },
+    {
+      path: 'activity/loveDonation',
+      name: '愛心週',
+      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/LoveDonation.vue'),
+      meta: {
+        title: '愛心週'
+      }
     }
     // {
     //   path: 'activity/testnewyeargift/',
