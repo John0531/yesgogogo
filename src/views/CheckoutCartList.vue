@@ -2,8 +2,8 @@
   <div class="cartlist py-5 position-relative">
     <div class="row">
       <div class="col-12">
-        <div v-if="normalCart.length===0&&coldCart.length===0&&fullShipmentCart.length===0" class="p-6 bg-white" style="height:280px">
-          <h3 class="text-center">目前購物車內無任何商品</h3>
+        <div v-if="normalCart.length===0&&coldCart.length===0&&fullShipmentCart.length===0"  class="p-6 bg-white" style="height:280px">
+          <h3 v-if="cartData.items.length === 0" class="text-center">目前購物車內無任何商品</h3>
         </div>
         <!-- 常溫宅配 -->
         <div class="mb-4" v-if="normalCart.length!==0">
@@ -77,6 +77,10 @@
                             </svg>
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
+                        </a>
+                        <a v-if="item.isLoveProduct " class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                          <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                          <p class="d-inline-block fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                         </a>
                         <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                       </div>
@@ -173,6 +177,10 @@
                     <!-- <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用折價券</span> -->
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
+                  <a v-if="item.isLoveProduct " class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                    <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                    <p class="d-inline-block align-items-center fs-7 px-1 text-gray-dark" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center  info-icon-style ms-1"></p>
+                  </a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group d-flex justify-content-center" style="width:fit-content;">
                       <button
@@ -685,17 +693,24 @@
       </div>
     </div>
   </div>
+  <DonativeModalVue ref="donativeModal"></DonativeModalVue>
 </template>
 
 <script>
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import DonativeModalVue from '@/components/DonativeModal.vue'
+// import moment from 'moment'
+
 export default {
+  components: {
+    DonativeModalVue
+  },
   data () {
     return {
       cartData: {
-        items: [],
+        items: ['1'],
         shippingInfo: [{}] // * 常溫/低溫配送資訊
       },
       // TODO 滿額出貨購物車
@@ -716,6 +731,7 @@ export default {
       coldCartShipInfo: {},
       clickCartType: '',
       trackList: [] // ? 追蹤清單商品
+      // release: true // ? for 9/1 00:00 上線
     }
   },
   methods: {
@@ -1018,10 +1034,18 @@ export default {
         })
       }
       localStorage.removeItem('cartErrorStatus')
+    },
+    openDonativeModal () {
+      // console.log(this.$refs.donativeModal)
+      this.$refs.donativeModal.openModal()
     }
   },
   mounted () {
     // this.clickCartType = sessionStorage.getItem('cartType')
+    // const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    // if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
+    //   this.release = false
+    // }
     this.getCartData()
   }
 }
@@ -1140,6 +1164,13 @@ svg g {
 }
 .nav-tabs .nav-link:hover{
   border-color:transparent;
+}
+.text-gray-dark {
+  // color: #CED4DA;
+  color: #6c757d;
+}
+.inline-center {
+  vertical-align: middle;
 }
 
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="memberwelfare">
-    <p class="d-flex justify-content-between mt-2">
+    <p class="d-flex justify-content-between  mt-2">
       <span class="fw-bold fs-5">我的愛心捐</span>
-      <a href="#" class="donation-explain" @click.prevent="donativeModal.openModal">愛心捐說明( !)</a>
+      <a href="#" class="donation-explain d-flex align-items-center " @click.prevent="donativeModal.openModal">愛心捐說明<img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="ms-1 info-icon-style "></a>
     </p>
     <div
       class="bg-primary text-white d-flex justify-content-left align-items-center mt-3"

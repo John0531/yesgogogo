@@ -138,11 +138,13 @@
                   </a>
               </div>
 
-              <div v-if="this.data.isDonativeProduct" class="d-flex align-items-center mt-0 mt-lg-2">
-                  <span class="badge bg-primary me-1 px-2 py-1 fs-6 "> 愛心品 </span>
-                  <a @click.prevent="openDonativeModal" class="text-decoration-underline text-muted" style="cursor:pointer" >
+              <div v-if="this.data.isDonativeProduct" class="d-flex align-items-center mt-0 mt-lg-3">
+                  <span class="badge bg-primary me-2 px-2 py-1 fs-6"> 愛心品 </span>
+                  <a @click.prevent="openDonativeModal" class="d-flex align-items-center text-decoration-underline text-muted" style="cursor:pointer" >
                   <p class=" fw-bold d-none d-lg-inline-block me-1"> <u> 平台加碼捐10% </u> </p>
-                   <i class="bi bi-info-circle"></i> </a>
+                   <img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style d-inline-block d-lg-none">
+                    </a>
+
               </div>
 
           </div>
@@ -1871,7 +1873,6 @@ border-bottom: 5px solid #dee2e6;
   padding: 10px ;
   color: #999;
   font-size: 1.5rem;
-
   }
 
 }

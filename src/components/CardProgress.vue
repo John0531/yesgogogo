@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-8 my-md-5">
+  <div class="col-md-8 my-md-6">
     <div class="p-5 p-md-0">
       <div class="position-relative m-4">
         <div

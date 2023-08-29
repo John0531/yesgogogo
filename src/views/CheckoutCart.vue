@@ -22,9 +22,9 @@
         <div class="border">
           <h4 class="bg-gray px-4 py-3">購物車({{ ProductNum }}件)</h4>
           <!-- 購物車無商品 -->
-          <div class="p-6 bg-white" v-if="cartData.items.length===0||isEmpty" style="height:280px">
-              <h3 class="text-center">目前購物車內無任何商品</h3>
-          </div>
+            <div class="p-6 bg-white" v-if="!this.$store.state.checkoutCartList||isEmpty" style="height:280px">
+                <h3 class="text-center">目前購物車內無任何商品</h3>
+            </div>
           <!-- 購物車有商品 -->
           <div v-if="cartData.items.length!==0&&!isEmpty">
             <div class="px-3 px-xl-4 pt-4 bg-white" v-if="cartData.shippingInfo.length>0">
@@ -98,9 +98,9 @@
                             <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
                           </div>
                         </a>
-                        <a v-if="item.isLoveProduct" class="d-flex" @click="openDonativeModal()" href="#">
-                          <a  class=" d-inline-block bg-primary text-white  fs-7 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs" href="#">愛心品</a>
-                          <p class="d-inline-block fs-6 p-1 text-primary" >平台加碼捐10%</p>
+                        <a v-if="item.isLoveProduct  " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
+                          <a  class="d-inline-block bg-primary text-white  fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                          <p class="d-inline-block inline-center fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                         </a>
                         <div class="v-else">
                           <p class="fs-7 rounded rounded-3 px-2 h-50" style="color:transparent" > 無折價券 </p>
@@ -211,9 +211,9 @@
                         </router-link>
                   </div>
                   <p class="mb-2 mb-md-4">$ {{$currency.currency(item.price)}}</p>
-                  <a v-if="item.isLoveProduct" class="d-flex py-1" @click="openDonativeModal()" href="#">
-                    <a  class=" d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 padding-xs" href="#">愛心品</a>
-                    <p class="d-inline-block fs-6  text-primary" >平台加碼捐10%</p>
+                  <a v-if="item.isLoveProduct " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
+                    <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                    <p class="d-inline-block fs-7 px-1 text-gray-dark" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
                   </a>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="input-group d-flex justify-content-center" style="width:fit-content;">
@@ -671,145 +671,6 @@
           </div>
         </div>
       </div>
-      <!-- 愛心捐區塊 -->
-      <div class="col-md-10 w-100 mt-5 mb-3" >
-        <div>
-          <h4 class="bg-gray px-4 py-3">
-            愛心捐
-          </h4>
-          <div class="bg-white d-flex justify-content-between flex-column px-3 px-md-5 py-3">
-            <!-- 愛心捐規則 -->
-            <div class="d-flex flex-column flex-lg-row ustify-content-between  py-md-3  py-2">
-              <div class="bg-primary text-white p-1 me-2 fs-5 h-50 " style="width:fit-content;">
-                消費回饋
-              </div>
-              <h5 class="px-0 py-2  px-md-2">
-                本次訂單獲得10%購物金
-              </h5>
-              <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 px-md-2 text-grary">
-                (1購物金 = 1元，可用於下次折抵訂單金額25%)
-              </span>
-            </div>
-            <!-- 愛心捐規則結束 -->
-            <div class="d-flex flex-column custom-border py-3">
-                <!-- 購物金是否愛心捐選擇 -->
-                <div class="d-flex flex-column flex-md-row py-2">
-                  <!-- <span class="fs-5 fw-bold pb-2 ">
-                    我要將購物金轉作「愛心捐」?
-                  </span> -->
-                  <div class="d-flex flex-column px-0">
-                    <div class="d-flex flex-column flex-md-row ">
-                      <div >
-                        <Field
-                        name="參加愛心捐"
-                        id="love"
-                        class="ms-3 p-2 form-check-input checked"
-                        :class="{ 'is-invalid': errors['愛心捐'] }"
-                        type="radio"
-                        value="true"
-                        v-model="donate.IsDonate"
-                        rules="required"
-                        ></Field>
-                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐 <i class="bi bi-info-circle"></i>」</label>
-                      </div>
-                      <div>
-                        <Field
-                        name="不參加愛心捐"
-                        id="dontlove"
-                        class="ms-3 p-2 py-md-0 form-check-input"
-                        :class="{ 'is-invalid': errors['愛心捐'] }"
-                        type="radio"
-                        value="false"
-                        v-model="donate.IsDonate"
-                        rules="required"
-                        ></Field>
-                        <label for="dontlove" class="fs-6  py-2 py-md-0 ms-3">購物金很好用，請全數保留</label>
-                      </div>
-                    </div>
-                    <div v-if="errors['愛心捐']" class="d-flex text-center field-error my-1">
-                      <div>{{errors['愛心捐']}}</div>
-                    </div>
-                  </div>
-                </div>
-                <!-- 購物金是否愛心捐選擇結束 -->
-                <div v-if="donate.IsDonate === 'true' || isLove">
-                  <div class="d-flex flex-column flex-md-row py-2 " v-if="donate.IsDonate ">
-                    <span class=" fs-5 fw-bold pb-2" >
-                      請選擇捐出的購物金比例%
-                    </span>
-                    <input
-                    id="five-percent" value="5"
-                    v-model="donate.DonatePercent"
-                    class="ms-3 p-2 form-check-input checked"
-                    type="radio"
-                    >
-                    <label for="five-percent" class="fs-6 py-2 py-md-0 ms-3">捐出5%，保留購物金5%</label>
-                    <input
-                    id="ten-percent" value="10"
-                    v-model="donate.DonatePercent"
-                    class="ms-3 p-2 form-check-input"
-                    type="radio"
-                    >
-                    <label for="ten-percent" class="fs-6 py-2 py-md-0 ms-3">捐出10%，無保留購物金5%</label>
-                  </div>
-                  <div class="d-flex flex-column flex-md-row py-2 " v-if="isLove">
-                    <div
-                    class="bg-primary text-white my-2 my-md-1 p-1 me-2 fs-5 h-50 "
-                    style="width:fit-content;">
-                      愛心品平台加碼
-                    </div>
-                    <span class=" fs-5 fw-bold my-2" >
-                      即日起凡購買指定愛心品，平台加碼捐愛心品結帳總金額10%給非營利組織
-                    </span>
-                  </div>
-                  <div class="row py-2 mx-0 align-items-center">
-                    <span class="col-6 col-md-auto fs-5 fw-bold px-0 py-2">
-                      贈與愛心單位
-                    </span>
-                    <select
-                    class="col-6 col-md-3 form-select w-80 w-md-50 w-lg-30 ms-2" name=""
-                    v-model="donate.DonateTo"
-                    @change="donate.DonateTo = transNumber(donate.DonateTo)"
-                    >
-                      <option value="" selected>--</option>
-                      <option
-                      v-for="group in donateList" :key="group+1" :value="group.id"
-                      >
-                        {{group.name}}
-                      </option>
-                    </select>
-                  </div>
-                  <!-- <div class="row flex-column flex-md-row py-2 mx-0 align-items-center">
-                    <div class="d-flex flex-column px-0">
-                      <div class="d-flex flex-column flex-md-row ">
-                        <span class="col col-md-auto col-md-auto fs-5 fw-bold px-0">
-                          填寫捐贈者姓名/公司抬頭
-                        </span>
-                        <div class="col col-md-6 flex-column">
-                          <Field
-                          name="捐贈者"
-                          class=" mx-0 form-control w-90 w-lg-50 ms-0 ms-md-2 underLine-border"
-                          :class="{ 'is-invalid': errors['捐贈者'] }"
-                          id="" type="text"
-                          v-model="donate.DonateFrom"
-                          rules="required"
-                          ></Field>
-                          <ErrorMessage name="捐贈者" class="invalid-feedback">
-                          </ErrorMessage>
-                        </div>
-                      </div>
-                    </div>
-                  </div> -->
-                </div>
-                <div>
-                  <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 text-grary">
-                    本站將捐出「愛心捐 」給您指定的非營利組織，感謝您的參與!
-                  </span>
-                </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- 福利金使用 -->
       <div class="col-md-10 w-100 mt-5 mb-3" v-if="!isEmpty&&cartData.rewardMoney.canUse!==0">
         <div>
@@ -855,6 +716,143 @@
             <div v-if="cartData.shippingInfo[0].isConform&&!isLimitShipping" class="d-flex justify-content-between mb-1 ps-md-9 ms-md-3"><span>運費折抵</span><span>-${{cartData.shippingInfo[0].shippingFee}}元</span></div>
             <h5 class="text-end border-top">總結帳金額<span class="text-primary fs-2"> ${{$currency.currency(cartData.amountResult.paidAmount)}}</span>元</h5>
           </div>
+      </div>
+      <!-- 愛心捐區塊 -->
+      <div class="col-md-10 w-100 mt-5 mb-3" >
+        <div>
+          <h4 class="bg-gray px-4 py-3">
+            愛心捐
+          </h4>
+          <div class="bg-white d-flex justify-content-between flex-column px-3 px-md-5 py-3">
+            <!-- 愛心捐規則 -->
+            <div class="d-flex flex-column flex-lg-row ustify-content-between  py-md-3  py-2">
+              <div class="bg-primary text-white p-1 me-2 fs-5 flex-shrink-0 " style="width:fit-content;">
+                消費回饋
+              </div>
+              <h5 class="px-0 py-2  px-md-2">
+                本次訂單獲得10%購物金
+              </h5>
+              <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 px-md-2 text-gray-dark">
+                (1購物金 = 1元，可用於下次折抵訂單金額25%)
+              </span>
+            </div>
+            <!-- 愛心捐規則結束 -->
+            <div class="d-flex flex-column custom-border py-3">
+                <!-- 購物金是否愛心捐選擇 -->
+                <div class="d-flex flex-column flex-md-row py-2">
+                  <!-- <span class="fs-5 fw-bold pb-2 ">
+                    我要將購物金轉作「愛心捐」?
+                  </span> -->
+                  <div class="d-flex flex-column px-0">
+                    <div class="d-flex flex-column flex-md-row ">
+                      <div class="d-flex flex-column flex-md-row py-1">
+                        <Field
+                        name="參加愛心捐"
+                        id="love"
+                        class="ms-3 p-2 form-check-input checked"
+                        :class="{ 'is-invalid': errors['愛心捐'] }"
+                        type="radio"
+                        value="true"
+                        v-model="donate.IsDonate"
+                        rules="required"
+                        ></Field>
+                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐<img @click="openDonativeModal()" src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"> 」</label>
+                      </div>
+                      <div class="d-flex flex-column flex-md-row py-1">
+                        <Field
+                        name="不參加愛心捐"
+                        id="dontlove"
+                        class="ms-3 p-2 py-md-0 form-check-input"
+                        :class="{ 'is-invalid': errors['愛心捐'] }"
+                        type="radio"
+                        value="false"
+                        v-model="donate.IsDonate"
+                        rules="required"
+                        ></Field>
+                        <label for="dontlove" class="fs-6  py-2 py-md-0 ms-3">購物金很好用，請全數保留</label>
+                      </div>
+                    </div>
+                    <div v-if="errors['愛心捐']" class="d-flex text-center field-error my-1">
+                      <div>{{errors['愛心捐']}}</div>
+                    </div>
+                  </div>
+                </div>
+                <!-- 購物金是否愛心捐選擇結束 -->
+                <div v-if="donate.IsDonate === 'true'">
+                  <div class="d-flex flex-column flex-md-row py-2 ">
+                    <span class=" fs-5 fw-bold pb-2" >
+                      請選擇捐出的購物金比例%
+                    </span>
+                    <input
+                    id="five-percent" value="5"
+                    v-model="donate.DonatePercent"
+                    class="ms-3 p-2 form-check-input checked"
+                    type="radio"
+                    >
+                    <label for="five-percent" class="fs-6 py-2 py-md-0 ms-3">捐出5%，保留購物金5%</label>
+                    <input
+                    id="ten-percent" value="10"
+                    v-model="donate.DonatePercent"
+                    class="ms-3 p-2 form-check-input"
+                    type="radio"
+                    >
+                    <label for="ten-percent" class="fs-6 py-2 py-md-0 ms-3">捐出10%，無保留購物金5%</label>
+                  </div>
+                </div>
+                <div class="d-flex flex-column flex-md-row py-2 " v-if="isLove">
+                    <div
+                    class="bg-primary text-white my-2 my-md-1 p-1 me-2 fs-5 h-50 flex-shrink-0">
+                      愛心品平台加碼
+                    </div>
+                    <span class=" fs-5 fw-bold my-2" >
+                      即日起凡購買指定愛心品，平台加碼捐愛心品結帳總金額10%給非營利組織
+                    </span>
+                </div>
+                <div class="row py-2 mx-0 align-items-center" v-if="isLove || donate.IsDonate === 'true'">
+                  <span class="col-6 col-md-auto fs-5 fw-bold px-0 py-2">
+                    贈與愛心單位
+                  </span>
+                  <select
+                  class="col-6 col-md-3 form-select w-80 w-md-50 w-lg-30 ms-2" name=""
+                  v-model="donate.DonateTo"
+                  @change="donate.DonateTo = transNumber(donate.DonateTo)"
+                  >
+                    <option
+                    v-for="group in donateList" :key="group+1" :value="group.id"
+                    >
+                      {{group.name}}
+                    </option>
+                  </select>
+                </div>
+                <!-- <div class="row flex-column flex-md-row py-2 mx-0 align-items-center">
+                    <div class="d-flex flex-column px-0">
+                      <div class="d-flex flex-column flex-md-row ">
+                        <span class="col col-md-auto col-md-auto fs-5 fw-bold px-0">
+                          填寫捐贈者姓名/公司抬頭
+                        </span>
+                        <div class="col col-md-6 flex-column">
+                          <Field
+                          name="捐贈者"
+                          class=" mx-0 form-control w-90 w-lg-50 ms-0 ms-md-2 underLine-border"
+                          :class="{ 'is-invalid': errors['捐贈者'] }"
+                          id="" type="text"
+                          v-model="donate.DonateFrom"
+                          rules="required"
+                          ></Field>
+                          <ErrorMessage name="捐贈者" class="invalid-feedback">
+                          </ErrorMessage>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+                <div>
+                <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 text-gray-dark">
+                  本站將捐出「愛心捐 」給您指定的非營利組織，感謝您的參與!
+                </span>
+                </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- 付款方式選擇 -->
       <div class="col-md-10 w-100 mt-5 payment">
@@ -906,8 +904,7 @@
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
-// import { handleError } from '@vue/runtime-core'
-// import Modal from 'bootstrap/js/dist/modal'
+// import moment from 'moment'
 
 export default {
   components: {
@@ -952,7 +949,7 @@ export default {
       postTotal: {},
       allProductNum: 0, //* 購物車 icon 顯示數字
       ProductNum: 0, // * 購物車商品數量
-      isEmpty: false,
+      isEmpty: false, // ?calculate沒有response
       productsCanUseCoupon: true,
       trackList: [], // ? 追蹤清單商品,
       status: '1',
@@ -964,6 +961,7 @@ export default {
         DonateFrom: '聯邦網通科技股份有限公司'
       },
       donateList: []
+      // release: true // ? for 9/1 00:00 上線
     }
   },
   watch: {
@@ -1006,7 +1004,7 @@ export default {
       ).length
       this.isLove = findLove > 0
       if (this.isLove) {
-        localStorage.setItem('isLove', 'true')
+        sessionStorage.setItem('isLove', 'true')
       }
       // *===愛心捐結束
       // ? 檢查是否為滿額出貨購物車
@@ -1261,6 +1259,17 @@ export default {
               this.$router.push('/checkoutboard/checkoutcartlist')
               return
             }
+            // *===此段為愛心捐特殊活動，活動結束可移除
+            const findLove = this.cartData.items.filter(item =>
+              item?.isLoveProduct
+            ).length
+            this.isLove = findLove > 0
+            if (this.isLove) {
+              sessionStorage.setItem('isLove', 'true')
+            } else {
+              sessionStorage.removeItem('isLove')
+            }
+            // *===愛心捐結束
             await this.calculateCart()
             setTimeout(() => {
               if (this.cartData.activities.canUse.length !== 0 && this.cartData.activities.canUse[0].isConform) {
@@ -1461,11 +1470,17 @@ export default {
       this.donate.DonatePercent = this.transNumber(this.donate.DonatePercent)
       // ?若會員選擇捐出購物金，無論有沒有愛心品
       if (this.donate.IsDonate) {
-        localStorage.setItem('pointToDonate', 'true')
+        sessionStorage.setItem('pointToDonate', 'true')
       }
-      // // await this.$refs.myForm.validateField('捐贈者')
-      // const ers = await this.$refs.myForm.validate()
-      // console.log(ers)
+      if (!this.donate.IsDonate) {
+        this.donate.DonatePercent = 0
+      }
+      // if (!this.release) {
+      //   sessionStorage.removeItem('isLove')
+      //   sessionStorage.removeItem('pointToDonate')
+      //   this.donate.IsDonate = false
+      //   this.donate.DonatePercent = 0
+      // }
       this.postToInfo.paidAmount = this.cartData.amountResult.paidAmount
       this.postToInfo.paymentMethod = this.cartData.paymentMethods.used
       // if (this.cartData.amountResult.paidAmount === 0) {
@@ -1677,12 +1692,16 @@ export default {
     }
   },
   mounted () {
-    localStorage.removeItem('isLove')
-    localStorage.removeItem('pointToDonate')
+    sessionStorage.removeItem('isLove')
+    sessionStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
     }
+    // const now = moment().format('YYYY/MM/DD HH:mm:ss')
+    // if (moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore('2023-08-22 00:00:00')) {
+    //   this.release = false
+    // }
     this.getData()
     this.checkCookie()
     this.getNewToken()
@@ -1833,8 +1852,13 @@ svg g {
   border-left-color: transparent;
   border-right-color: transparent;
 }
-.text-grary {
-  color: #CED4DA;
+.text-gray-dark {
+  // color: #CED4DA;
+  color: #6c757d;
+}
+
+.inline-center {
+  vertical-align: middle;
 }
 
 </style>
