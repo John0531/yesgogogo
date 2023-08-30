@@ -95,6 +95,35 @@
               <p class="mt-2">A：下單時系統不會顯示紅利點數，如需確認紅利點數可至聯邦銀行網站查詢。若已確認有紅利點數，結帳付款方式請點選「聯邦紅利折抵」選項，過卡時系統會扣除全額紅利點數，不足金額則將由信用卡刷卡支付！</p>
             </div>
           </div>
+          <h4 class="text-primary">八、關於愛心捐</h4>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：如果沒買到愛心品，請問還有愛心捐嗎?</h4>
+              <p class="mt-2">A：有的，全站商品均可產出【愛心捐】(部分商品除外，例如票券、大型家電、或其他專案商品)。每筆訂單消費回饋10%購物金，如果你願意可於結帳時選擇將購物金轉作愛心捐。只是當你購買到【愛心品】時，平台再加碼捐10%。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：如何辨識平台內的商品為愛心品?</h4>
+              <p class="mt-2">A：可以從商品頁顯示的【愛心品】標誌確認。另，商品加入購物車後，結帳頁面的商品明細下方也有【愛心品】標誌。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：我自己會員帳戶中的購物金，也可以轉作愛心捐嗎?</h4>
+              <p class="mt-2">A：不行，如欲將購物金轉作愛心捐，需在訂單結帳時選擇是否捐出。訂單結帳完成後，無法再異動愛心捐。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：請問愛心捐會有收據嗎?</h4>
+              <p class="mt-2">A：因應營所稅之規範，本公司需取得對應匯出愛心捐金額之收據，方能符合財務作業需求。同時，非營利組織之標準作業流程不可重複開立收據，因此無法提供消費者捐款證明，感謝您的體諒。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：請問我的愛心捐明細，可以由哪裡查詢?</h4>
+              <p class="mt-2">A：請登入帳戶後，至會員中心＞我的愛心捐中確認。愛心捐紀錄將於訂單完成後10日後匯入系統，即可查詢。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：請問將購物金轉作愛心捐，我會獲得贈品嗎?</h4>
+              <p class="mt-2">A：非常感謝您的愛心捐。我們將以每月愛心捐總額，於單筆匯款方式附上消費者愛心捐明細，代表全部參與愛心捐的每一位消費者捐贈非營利組織，以資感謝。</p>
+            </div>
+            <div class="mb-5">
+              <h4 class="border-bottom border-dark pb-1">Q：若結帳時選擇將購物金轉作愛心捐後，是否還可以修改為保留購物金?</h4>
+              <p class="mt-2">A：訂單結帳完成後，恕無法再異動愛心捐選項。</p>
+            </div>
           <div class="mb-5">
             <p class="mt-2">若您有其他問題或建議，請您加入<a href="http://line.me/ti/p/@yesgogogo">【LINE官方帳號】</a>或至<a href="#" @click.prevent="contactUs">【線上客服】</a>提問留言，我們將儘速回覆您。</p>
           </div>
