@@ -14,19 +14,39 @@
       </h1>
     </div>
     <div class="col border-bottom pb-4"></div>
-    <div class="container">
-      <div class="row py-3 border-bottom" v-for="item in donation" :key="item.orderNo">
-        <div class="col-10">
-          <p>訂單日期: {{item.shoppingDate.split('T')[0]}}</p>
-          <h5>訂單編號: {{item.orderNo}}</h5>
-          <h5>捐款描述: <span v-if="item.description===1">購物金轉愛心捐</span><span v-if="item.description===2">平台加碼愛心捐</span></h5>
-          <h5>受贈單位: {{item.unit}}</h5>
-        </div>
-        <div class="col-2 d-flex align-items-center justify-content-end">
-          <h5>${{$currency.currency(item.amount)}}</h5>
-        </div>
-      </div>
-    </div>
+    <table class="table ms-md-1">
+      <tbody v-for="item in donation" :key="item">
+        <tr>
+          <th width="60%" style="border-bottom: none;" class="fs-4">
+            <span v-if="item.description===1">購物金轉作愛心捐</span>
+            <span v-if="item.description===2">愛心品平台加碼捐</span>
+          </th>
+          <td
+            colspan="5"
+            align="right"
+            style="border-bottom-color: white;"
+            class="fw-bold fs-4"
+          >
+            +{{ item.amount }}
+          </td>
+        </tr>
+        <tr>
+          <td class="py-0" style="border-bottom: none;">
+            <span>訂單日期: {{ item.shoppingDate.split('T')[0] }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="py-0" style="border-bottom: none;">
+            <span>訂單編號: {{ item.orderNo }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td class="ps-2 pt-0"><span>受贈單位: {{ item.unit }}</span></td>
+          <td class="pe-2 pt-0" colspan="7" align="right" width="40%">
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
   <DonativeModal ref="donativeModal"></DonativeModal>
 </template>
@@ -45,7 +65,7 @@ async function getWelfare () {
   const url = `${process.env.VUE_APP_API}/api/members/LoveDonate`
   const res = await axios.get(url)
   if (res.data.rtnCode === 0) {
-    donation.value = res.data.info
+    donation.value = res.data.info.reverse()
     donation.value.forEach((item) => {
       sumDonation.value += item.amount
     })

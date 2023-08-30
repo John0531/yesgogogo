@@ -25,6 +25,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/js/all.js'
 
 import { currency } from './assets/js/currency.js'
+import { alert } from './assets/js/alert.js'
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import VueSweetalert2 from 'vue-sweetalert2'
@@ -111,6 +112,12 @@ axios.interceptors.response.use(
               // ? 取得 token 後，重新整理頁面
               router.go()
               return Promise.reject(err)
+            })
+            .catch((error) => {
+              store.commit('refreshIsLogOut', true)
+              localStorage.removeItem('refreshyesgo')
+              localStorage.removeItem('refreshyesgotime')
+              return Promise.reject(error)
             })
           return Promise.all([rftk])
         }
@@ -217,9 +224,13 @@ setLocale('zh_TW')
 SwiperCore.use([Autoplay, Virtual, Navigation, Pagination, EffectCube])
 
 const app = createApp(App)
+// ?自訂全域屬性
 app.config.globalProperties.$currency = {
   currency
-}// ?自訂全域屬性
+}
+app.config.globalProperties.$custom = {
+  alert
+}
 
 app.use(router)
 app.use(store)

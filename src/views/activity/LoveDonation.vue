@@ -1,0 +1,737 @@
+<template>
+    <div class="bg" style="overflow:hidden">
+
+         <!-- PC XL版 banner -->
+         <a href="#detail"  > <div class="banner-pc img-bg-noRepeat d-none d-xl-block"></div></a>
+
+         <a href="#detail"  > <!-- PC LG版 banner -->
+          <div  class="banner-pc img-bg-noRepeat d-none d-lg-block d-xl-none "></div></a>
+
+          <!-- 手機版 banner -->
+         <a href="#detail"  > <div class="banner-mb img-bg-noRepeat  d-lg-none  "></div></a>
+
+            <!-- 十分好運福氣旺 圖片入稿 luckyProductList -->
+          <div class="bg-lucky img-bg-repeat pt-4 pb-5 position-relative">
+
+                <div class="container"  v-if="luckyProductList.length>0" >
+                    <div style="z-index:10">
+                        <div class="row justify-content-center "  >
+                            <div class="col-12 col-lg-10">
+                                <div class="row lucky-title img-bg-noRepeat justify-content-center "></div>
+                                <div class="container">
+                                    <div class="row lucky-box g-3" >
+                                    <!-- 十分好運福氣旺-卡片區 不輪播-->
+                                        <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
+                                          <a :href="luckyProductList[0].targetUrl" v-if="luckyProductList[0]">
+                                            <img :src="luckyProductList[0].image" class="img-fluid" alt="">
+                                          </a>
+
+                                        </div>
+
+                                        <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center">
+                                             <a :href="luckyProductList[1].targetUrl"  v-if="luckyProductList[1]" >
+                                             <img :src="luckyProductList[1].image" class="img-fluid" alt="" >  </a>
+                                        </div>
+                                        <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
+                                             <a :href="luckyProductList[2].targetUrl"  v-if="luckyProductList[2]" >
+                                             <img :src="luckyProductList[2].image" class="img-fluid" alt="" > </a>
+                                             </div>
+                                        <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
+                                             <a :href="luckyProductList[3].targetUrl"  v-if="luckyProductList[3]" >
+                                             <img :src="luckyProductList[3].image" class="img-fluid" alt="" ></a>
+                                             </div>
+                                        <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
+                                             <a :href="luckyProductList[4].targetUrl"  v-if="luckyProductList[4]" >
+                                             <img :src="luckyProductList[4].image" class="img-fluid" alt="" ></a>
+                                             </div>
+                                        <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
+                                             <a :href="luckyProductList[5].targetUrl"  v-if="luckyProductList[5]" >
+                                             <img :src="luckyProductList[5].image" class="img-fluid" alt="" ></a>
+                                             </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_01.png" class="heart-left d-none d-lg-block" alt="heart-L">
+                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_02.png" class="heart-right d-none d-lg-block" alt="heart-R">
+
+          </div>
+
+             <!-- 品號入稿 start -->
+        <div class="position-relative bg-yellow img-bg-repeat" v-if="allProductList.length>0" >
+
+            <!-- bg-eat 愈吃愈有福 (零食/糕點)   -->
+            <div class="py-5">
+
+                <div class="container" v-if="productList01" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row eat-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList01 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}} </div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- bg-drinks 好果報喜來 (果汁/飲品/咖啡)  -->
+             <div class="pb-5">
+
+               <div class="container" v-if="productList02" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row drinks-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList02 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+             <!-- bg-rice 財源不間斷(米/油/南北貨)  -->
+             <div class="pb-5">
+
+                 <div class="container" v-if="productList03" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row rice-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList03 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- bg-fresh 日日好吉祥(生鮮/即食/小吃)  -->
+             <div class="pb-5">
+
+                <div class="container" v-if="productList04" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row fresh-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList04 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+             <!-- bg-health 福祿與天齊(保健/保養)  -->
+             <div class="pb-5">
+
+                 <div class="container" v-if="productList05" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row health-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList05 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+             <!-- bg-clean 納福日無疆(個清/日用)  -->
+              <div class="pb-5">
+
+               <div class="container" v-if="productList06" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row clean-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList06 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- bg-cool 東風生利市(涼夏/療癒/旅用)  -->
+              <div class="pb-5">
+
+               <div class="container" v-if="productList07" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row cool-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center  g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList07 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+             <!-- bg-kitchen 炊煙生財氣(廚房好物)  -->
+              <div class="pb-5">
+
+                <div class="container" v-if="productList08" >
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row kitchen-title img-bg-noRepeat justify-content-center"> </div>
+
+                            <div class="row  justify-content-center g-3">
+
+                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList08 " :key="eatItem.productId" >
+                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                            <router-link
+                                                :to="`/productboard/product/${eatItem.productId}`"
+                                                class="prd-link text-secondary text-decoration-none"
+                                            >
+                                            <div class="p-1 p-md-2">
+                                            <div class="ratio ratio-1x1">
+                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                            </div>
+                                            </div>
+
+                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}}</div>
+                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                    >
+                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                    </del>
+                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+
+                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                        </span
+                                                    ></span
+                                                    >
+                                                </div>
+                                                </div>
+                                            </router-link>
+                                        </div>
+                                    </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+             <!-- 品號入稿 end ▲ -->
+
+             <!-- 愛! 即刻總動員 圖片入稿 -->
+            <div class="bg-red position-relative ">
+                <div class="container position-relative" style="z-index:2;" v-if="movementProductList.length>0" >
+
+                     <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_MB.png" class="movement-title img-fluid d-lg-none"   alt="愛! 集購總動員-MB標題">
+
+                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_PC.png" class="movement-title img-fluid d-none d-lg-block"   alt="愛! 集購總動員-PC標題">
+
+                    <div class="row  justify-content-center">
+                        <div class="col-12 col-lg-10">
+
+                            <div class="row justify-content-center movement-box g-1">
+                                <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center" v-for="product in movementProductList" :key="product.targetUrl"  >
+                                    <a :href="product.targetUrl" v-if="product">
+                                        <img :src="product.image" class="img-fluid" alt="">
+                                    </a>
+                               </div>
+
+                            </div>
+
+                       </div>
+                   </div>
+
+               </div>
+
+                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_MB.png" alt="hands_MB" class="mb-hand img-fluid  d-lg-none">
+
+                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_PC_01.png" alt="hands_PC-L" class="left-hand img-fluid d-none d-lg-block">
+                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_PC_02.png" alt="hands_PC-R" class="right-hand img-fluid d-none d-lg-block">
+
+            </div>
+
+            <div class="bg-decoline"  ></div>
+
+            <!-- 受贈單位 -->
+            <div class="bg-donee"  >
+                <div class="container"  >
+                    <div class="row justify-content-center" >
+                        <div class="col-12 col-lg-11"  >
+                            <div class="text-center my-3 my-lg-5">
+                             <p class="donee-text-title">受 贈 單 位</p>
+                           </div>
+
+                            <div class="row row-cols-3 row-cols-lg-4 g-1 ">
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-01.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-02.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-03.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-04.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-05.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-06.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-07.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-08.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-09.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-10.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-11.jpg" class="img-fluid border border-1 " alt=""> </div>
+                                <div class="col d-flex align-items-center justify-content-center "> <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/logo-12.jpg" class="img-fluid border border-1 " alt=""> </div>
+
+                            </div>
+                        </div>
+                     </div>
+
+                </div>
+
+            </div>
+
+            <div style="background-color:#ca171d;" >
+                 <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_MB.png" class="img-fluid  d-lg-none" alt="wave-MB">
+
+                 <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_PC.png" class="img-fluid d-none d-lg-block" alt="wave-PC">
+
+           </div>
+
+            <!-- 活動詳情文字 -->
+            <div class="bg-red-end position-relative">
+
+                <div class="container" ref="detail" id="detail" >
+                    <div class="row">
+                        <div class="text-center mb-5">
+                            <p class="h4 detail-text"> 活 動 詳 情 </p>
+                        </div>
+                        <div class="col-10 text-light" >
+                            活動內容 <br>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At officiis vel quibusdam expedita impedit, cum dolor inventore adipisci, numquam iure sint? Veniam, reiciendis non minima omnis hic quia? Praesentium quaerat iste, doloribus cumque culpa nulla necessitatibus dolores similique aliquid, iure atque animi sequi? Quo blanditiis necessitatibus possimus minus suscipit libero rerum doloribus aspernatur soluta numquam vel commodi ab, quaerat iste ut temporibus cumque a sequi obcaecati harum aperiam debitis incidunt pariatur enim. Recusandae sint dicta a facilis, nihil, tempore dolores quam accusamus aspernatur cumque voluptate, esse enim ex rem voluptates? Molestias placeat delectus ipsam accusamus laudantium, officiis praesentium dolore non.<br>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At officiis vel quibusdam expedita impedit, cum dolor inventore adipisci, numquam iure sint? Veniam, reiciendis non minima omnis hic quia? Praesentium quaerat iste, doloribus cumque culpa nulla necessitatibus dolores similique aliquid, iure atque animi sequi? Quo blanditiis necessitatibus possimus minus suscipit libero rerum doloribus aspernatur soluta numquam vel commodi ab, quaerat iste ut temporibus cumque a sequi obcaecati harum aperiam debitis incidunt pariatur enim. Recusandae sint dicta a facilis, nihil, tempore dolores quam accusamus aspernatur cumque voluptate, esse enim ex rem voluptates? Molestias placeat delectus ipsam accusamus laudantium, officiis praesentium dolore non.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+    </div>
+</template>
+
+<script >
+
+//! 愛心週應該不需要(沒有領劵活動) import checkToken from '@/assets/js/checkToken.js'
+
+export default {
+
+  data () {
+    return {
+      luckyProductList: [],
+
+      allProductList: [],
+      productList01: [],
+      productList02: [],
+      productList03: [],
+      productList04: [],
+      productList05: [],
+      productList06: [],
+      productList07: [],
+      productList08: [],
+
+      movementProductList: []
+
+    }
+  },
+  watch: {
+    $route (to, from) {
+      if (
+        to.fullPath.match('/productboard/product/') ||
+        to.fullPath.match('/productboard/productList/')
+      ) {
+        const recordHeight = window.scrollY
+        this.$store.commit('getEventRecordHeight', recordHeight)
+      } else {
+        this.$store.commit('getEventRecordHeight', '')
+      }
+    }
+
+  },
+
+  methods: {
+
+    getAllProductList () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=loveDonation_B`
+
+      this.axios.get(url).then((res) => {
+        if (res.data.rtnCode === 0) {
+          this.allProductList = res.data.info
+
+          this.allProductList.forEach(item => {
+            if (item.code === 'loveDonation_B_1') {
+              this.productList01 = item.products
+            } else if (item.code === 'loveDonation_B_2') {
+              this.productList02 = item.products
+            } else if (item.code === 'loveDonation_B_3') {
+              this.productList03 = item.products
+            } else if (item.code === 'loveDonation_B_4') {
+              this.productList04 = item.products
+            } else if (item.code === 'loveDonation_B_5') {
+              this.productList05 = item.products
+            } else if (item.code === 'loveDonation_B_6') {
+              this.productList06 = item.products
+            } else if (item.code === 'loveDonation_B_7') {
+              this.productList07 = item.products
+            } else if (item.code === 'loveDonation_B_8') {
+              this.productList08 = item.products
+            }
+          })
+        }
+      })
+    },
+    getLuckyAreaData () {
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=loveDonation_A`
+      this.axios.get(url).then((res) => {
+        if (res.data.rtnCode === 0) {
+          this.luckyProductList = res.data.info
+        }
+      })
+    },
+    getMovementData () {
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=loveDonation_C`
+      this.axios.get(url).then((res) => {
+        if (res.data.rtnCode === 0) {
+          this.movementProductList = res.data.info
+        }
+      })
+    },
+    // ?點擊產品觸發紀錄瀏覽高度
+    recordHeight () {
+      if (this.$store.state.recordEventReadHeight) {
+        setTimeout(
+          () => [
+            // ?資料高度生成需要時間，利用setTimeOut讓視窗滑動不同步，才能順利執行
+            window.scrollTo(0, this.$store.state.recordEventReadHeight)
+          ],
+          500
+        )
+      }
+    },
+    // ?點擊產品觸發紀錄瀏覽高度於LocalStorage並前往產品連結
+    async recordClickHeight (url) {
+      var scrollYHeight = window.scrollY
+      await window.localStorage.setItem('clickHeight', scrollYHeight)
+      setTimeout(() => {
+        window.location = url
+      }, 500)
+    },
+    // ?檢查LocalStorage是否有紀錄
+    async checkLocalHeight () {
+      if (window.localStorage.getItem('clickHeight')) {
+        var globalheight = await window.localStorage.getItem('clickHeight')
+        setTimeout(() => {
+          window.scrollTo(0, globalheight)
+          //  !scroll之後的行為會直接被忽略不執行
+        }, 300)
+        await window.localStorage.removeItem('clickHeight')
+      }
+    }
+
+  },
+
+  mounted () {
+    this.getAllProductList()
+    this.getLuckyAreaData()
+    this.getMovementData()
+    if (this.$store.state.recordEventReadHeight) {
+      // ? 若有點擊產品紀錄，則記錄高度供上一頁返回
+      setTimeout(
+        () => [
+          // ?資料高度生成需要時間，利用setTimeOut讓視窗滑動不同步，才能順利執行
+          window.scrollTo(0, this.$store.state.recordEventReadHeight)
+        ],
+        500
+      )
+    }
+    this.checkLocalHeight()
+  },
+  updated () {}
+
+}
+
+</script>
+
+<style lang="scss" scoped>
+
+@import '@/assets/scss/activity/loveDonation/_site.scss';
+@import '@/assets/scss/activity/_hover.min.scss';
+
+</style>
