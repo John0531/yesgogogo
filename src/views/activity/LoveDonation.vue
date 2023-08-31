@@ -11,15 +11,15 @@
          <a href="#detail"  > <div class="banner-mb img-bg-noRepeat  d-lg-none  "></div></a>
 
             <!-- 十分好運福氣旺 圖片入稿 luckyProductList -->
-          <div class="bg-lucky img-bg-repeat pt-4 pb-5 position-relative">
+          <div class="bg-lucky img-bg-repeat pt-4 pb-5 ">
 
-                <div class="container"  v-if="luckyProductList.length>0" >
-                    <div style="z-index:10">
+                <div class="container position-relative"  v-if="luckyProductList.length>0" >
+
                         <div class="row justify-content-center "  >
                             <div class="col-12 col-lg-10">
                                 <div class="row lucky-title img-bg-noRepeat justify-content-center "></div>
-                                <div class="container">
-                                    <div class="row lucky-box g-3" >
+
+                                    <div class="row lucky-box g-1   g-lg-3" >
                                     <!-- 十分好運福氣旺-卡片區 不輪播-->
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
                                           <a :href="luckyProductList[0].targetUrl" v-if="luckyProductList[0]">
@@ -49,17 +49,17 @@
                                              <img :src="luckyProductList[5].image" class="img-fluid" alt="" ></a>
                                              </div>
                                     </div>
-                                </div>
 
                             </div>
                         </div>
-                    </div>
+
+                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_01.png" class="heart-left d-none d-lg-block" alt="heart-L">
+
+                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_02.png" class="heart-right d-none d-lg-block" alt="heart-R">
+
                 </div>
 
-                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_01.png" class="heart-left d-none d-lg-block" alt="heart-L">
-                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_02.png" class="heart-right d-none d-lg-block" alt="heart-R">
-
-          </div>
+        </div>
 
              <!-- 品號入稿 start -->
         <div class="position-relative bg-yellow img-bg-repeat" v-if="allProductList.length>0" >
@@ -73,7 +73,7 @@
 
                             <div class="row eat-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList01 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -126,7 +126,7 @@
 
                             <div class="row drinks-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList02 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -179,7 +179,7 @@
 
                             <div class="row rice-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList03 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -232,7 +232,7 @@
 
                             <div class="row fresh-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList04 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -285,7 +285,7 @@
 
                             <div class="row health-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList05 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -338,7 +338,7 @@
 
                             <div class="row clean-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList06 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -391,7 +391,7 @@
 
                             <div class="row cool-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center  g-3">
+                            <div class="row  justify-content-center  g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList07 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -444,7 +444,7 @@
 
                             <div class="row kitchen-title img-bg-noRepeat justify-content-center"> </div>
 
-                            <div class="row  justify-content-center g-3">
+                            <div class="row  justify-content-center g-2 g-lg-3">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList08 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -493,17 +493,17 @@
 
              <!-- 愛! 即刻總動員 圖片入稿 -->
             <div class="bg-red position-relative ">
-                <div class="container position-relative" style="z-index:2;" v-if="movementProductList.length>0" >
+                <div class="container  position-relative " style="z-index:2;" v-if="movementProductList.length>0" >
 
                      <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_MB.png" class="movement-title img-fluid d-lg-none"   alt="愛! 集購總動員-MB標題">
 
                     <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_PC.png" class="movement-title img-fluid d-none d-lg-block"   alt="愛! 集購總動員-PC標題">
 
                     <div class="row  justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-12 col-lg-10 ">
 
-                            <div class="row justify-content-center movement-box g-1">
-                                <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center" v-for="product in movementProductList" :key="product.targetUrl"  >
+                            <div class="row justify-content-center movement-box g-0">
+                                <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center " v-for="product in movementProductList" :key="product.targetUrl"  >
                                     <a :href="product.targetUrl" v-if="product">
                                         <img :src="product.image" class="img-fluid" alt="">
                                     </a>
@@ -571,10 +571,23 @@
                         <div class="text-center mb-5">
                             <p class="h4 detail-text"> 活 動 詳 情 </p>
                         </div>
-                        <div class="col-10 text-light" >
-                            活動內容 <br>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At officiis vel quibusdam expedita impedit, cum dolor inventore adipisci, numquam iure sint? Veniam, reiciendis non minima omnis hic quia? Praesentium quaerat iste, doloribus cumque culpa nulla necessitatibus dolores similique aliquid, iure atque animi sequi? Quo blanditiis necessitatibus possimus minus suscipit libero rerum doloribus aspernatur soluta numquam vel commodi ab, quaerat iste ut temporibus cumque a sequi obcaecati harum aperiam debitis incidunt pariatur enim. Recusandae sint dicta a facilis, nihil, tempore dolores quam accusamus aspernatur cumque voluptate, esse enim ex rem voluptates? Molestias placeat delectus ipsam accusamus laudantium, officiis praesentium dolore non.<br>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. At officiis vel quibusdam expedita impedit, cum dolor inventore adipisci, numquam iure sint? Veniam, reiciendis non minima omnis hic quia? Praesentium quaerat iste, doloribus cumque culpa nulla necessitatibus dolores similique aliquid, iure atque animi sequi? Quo blanditiis necessitatibus possimus minus suscipit libero rerum doloribus aspernatur soluta numquam vel commodi ab, quaerat iste ut temporibus cumque a sequi obcaecati harum aperiam debitis incidunt pariatur enim. Recusandae sint dicta a facilis, nihil, tempore dolores quam accusamus aspernatur cumque voluptate, esse enim ex rem voluptates? Molestias placeat delectus ipsam accusamus laudantium, officiis praesentium dolore non.
+                        <div class="col-12 col-lg-11 text-light " >
+                            <div class="ms-3 mb-1">活動期間: 2023/9/1-2023/12/31 (每月7天愛心週)</div>
+                            <ol>
+                                <li class="mb-1">於活動期間每筆訂單將獲得結帳總金額10%購物金的消費回饋。會員可選擇該筆訂單的消費回饋10%購物金，(1) 10%購物金全部保留在自己帳戶中，或(2) 5%轉作「愛心捐」+ 保留5%購物金，或(3) 10%轉作「愛心捐」。 </li>
+                                <li class="mb-1">「愛心捐」：消費者於訂單結帳當下可選擇將購物金轉作「愛心捐」捐予指定之非營利組織，或保留購物金在自己的帳戶中。如購物金轉作「愛心捐」，yesgogogo將捐出等值現金予非營利組織。
+                                ．愛心捐計算舉例：A會員訂單金額$5,000，整筆訂單未包含指定愛心品，折價券折抵$200，實際支付結帳金額$4,800，獲得10%消費回饋($480購物金)。結帳時如選擇購物金10%轉作「愛心捐 」，共捐出$480愛心捐+獲得$0購物金。</li>
+                                <li class="mb-1">凡購買指定愛心品，平台加碼捐愛心品結帳總金額10%給非營利組織。如購買愛心品，平台加碼捐10%且您選擇消費回饋10%購物金也全部轉作「愛心捐」，將捐出最高20%愛心捐。
+                                 ．愛心捐計算舉例：A會員訂單金額$5,000，整筆訂單皆為愛心品，購物金折抵$750，實際支付結帳金額$4,250，如獲得10%消費回饋($425購物金)。當結帳時選擇購物金的5%轉作「愛心捐」+保留5%購物金，將捐出5%「愛心捐」($212愛心捐)+保留($213購物金)+愛心品平台加碼捐10%「愛心捐」($425愛心捐)，共捐出$637愛心捐+獲得$213購物金。 </li>
+                                <li class="mb-1">為配合非營利組織標準作業流程，本公司將每月愛心捐總額，以單筆匯款方式附上消費者愛心捐明細，代表全部參與愛心捐的每一位消費者捐贈非營利組織。</li>
+                                <li class="mb-1">因應營所稅之規範，本公司需取得對應匯出愛心捐金額之收據，方能符合財務作業需求。同時，非營利組織之標準作業流程不可重複開立收據，因此無法提供消費者捐款證明，感謝您的體諒。</li>
+                                <li class="mb-1">「愛心捐」以實際支付結帳金額計算，實際支付結帳金額為該筆訂單結帳總金額扣除折價券、購物金、滿額折扣等優惠折抵後的「實付金額」。</li>
+                                <li class="mb-1">須完成訂單始符合認列資格，若因訂單取消、退貨、非商品瑕疵之換貨，則該筆訂單不得要求列入計算。</li>
+                                <li class="mb-1">活動事項載明於活動網頁中，參加本活動者，視為同意接受本活動注意事項之規範，參加人不符合或違反本活動規定事項者，本公司保有取消其參加資格之權利，並對於任何破壞本活動之行為保留相關權利。</li>
+                                <li class="mb-1">本公司保留隨時變更、修改、暫停或終止及解釋本活動相關事項及約定條款之權利，若有其他未盡事宜，悉依本公司相關規定或決定辦理。</li>
+                                <li class="mb-1">本活動若有異動，修改後的活動內容及約定條款將公佈在 yesgogogo 購物網官方網站上，若您於任何修改或變更後繼續使用本服務時，視為您已閱讀、瞭解並同意接受該等修改或變更。</li>
+                                <li class="mb-1">更多「愛心捐 」相關資訊請前往 <a class="text-light border-bottom " href="/questions">  常見問題</a> 。</li>
+                            </ol>
 
                         </div>
 
