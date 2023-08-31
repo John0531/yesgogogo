@@ -133,6 +133,11 @@
                 <tr v-for="item in userOrder.product" :key="item">
                   <td class="ps-3 ps-md-4 text-start">
                     {{ item.productNo }}
+                    <br>
+                    <a v-if="item.isLoveProduct" class="d-inline-block py-1" @click="openDonativeModal()" href="#">
+                      <a  class="d-inline-block bg-primary text-white fs-6 rounded rounded-3 py-lg-1 px-2 h-50 flex-shrink-0" href="#">愛心品</a>
+                      <p class="d-inline-block fs-6 px-1 text-gray-dark text-center" ><span class="inline-center ">平台加碼捐10%</span><img src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="inline-center info-icon-style ms-1"></p>
+                    </a>
                   </td>
                   <td class="d-none d-md-table-cell">{{ item.option }}</td>
                   <td>${{ $currency.currency(item.price / item.quantity) }}</td>
@@ -274,6 +279,8 @@
       </div>
     </div>
   </div>
+  <DonativeModalVue ref="donativeModal"></DonativeModalVue>
+  <AddPurchaseModalVue ref="addModal" :imgAdd="addImg" :imgAddm="addImgm"></AddPurchaseModalVue>
   <!-- <div class="modal animate-Modal fade" id="animateModal" tabindex="-1" aria-labelledby="animateModalLabel"
         aria-hidden="true">
     <div class="modal-dialog modal-fullscreen">
@@ -292,12 +299,16 @@
 import countryName from '@/assets/country.json'
 import checkToken from '@/assets/js/checkToken.js'
 import CardProgress from '@/components/CardProgress.vue'
+import DonativeModalVue from '@/components/DonativeModal.vue'
+import AddPurchaseModalVue from '@/components/AddPurchaseModal.vue'
 // import anime from '@/assets/js/anime.min.js'
 // import Modal from 'bootstrap/js/dist/modal'
 
 export default {
   components: {
-    CardProgress
+    CardProgress,
+    DonativeModalVue,
+    AddPurchaseModalVue
   },
   data () {
     return {
@@ -308,7 +319,9 @@ export default {
       event: '', // ?活動廣告 pc
       event_m: '', // ?活動廣告 mobile
       status: '3',
-      isLove: false
+      isLove: false,
+      addImg: [],
+      addImgm: []
       // animateModal: null
     }
   },
@@ -318,6 +331,7 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/members/orders?orderno=${this.orderId}`
       this.$http.get(url)
         .then((res) => {
+          console.log(res)
           if (res.data.rtnCode === 0) {
             this.userOrder = res.data.info[0]
             // ?轉換縣市、鄉鎮代碼為中文
@@ -329,6 +343,7 @@ export default {
             this.purchaseGA()
             // *將購物車icon清零
             this.$store.dispatch('getCartNum')
+            this.getAddDate()
           } else {
             // ?未成功回傳訂單明細
             this.$router.push({ name: 'notfound', params: { msg: `${res.data.rtnMsg}(${res.data.rtnCode})` } })
@@ -463,8 +478,49 @@ export default {
         this.isLove = true
         // this.openHeart()
       }
+    },
+    //* 加價購
+    getAddDate () {
+      const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=add_date`
+      this.$http.get(url)
+        .then((res) => {
+          console.log(res)
+          if (res.data.rtnCode === 0) {
+            this.addBuy(res.data.info)
+          }
+        })
+      const urlm = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=add_m_date`
+      this.$http.get(urlm)
+        .then((res) => {
+          console.log(res)
+          if (res.data.rtnCode === 0) {
+            this.addBuym(res.data.info)
+          }
+        })
+    },
+    openDonativeModal () {
+      // console.log(this.$refs.donativeModal)
+      this.$refs.donativeModal.openModal()
+    },
+    //* 加價購PC
+    addBuy (info) {
+      if (this.finalAmount >= 3000) {
+        const imgs = info.map((item) => item.image)
+        this.addImg = imgs
+        this.openAddOrderModal()
+      }
+    },
+    //* 加價購MB
+    addBuym (info) {
+      if (this.finalAmount >= 3000) {
+        const imgs = info.map((item) => item.image)
+        this.addImgm = imgs
+        this.openAddOrderModal()
+      }
+    },
+    openAddOrderModal () {
+      this.$refs.addModal.openModal()
     }
-
   },
   watch: {
     isOverTime (newQuestion, oldQuestion) {
@@ -495,6 +551,7 @@ export default {
     this.isHeart()
   },
   computed: {
+  // ? 愛心捐明細計算
     isLoveTotal () {
       if (this.userOrder && this.userOrder.donates) {
         return this.userOrder.donates.reduce((total, donate) => total + donate.donateAmt, 0)
@@ -528,6 +585,9 @@ export default {
       }
 
       return totalShopHeart
+    },
+    finalAmount () {
+      return this.userOrder.paidAmount + this.userOrder.rewardMoney
     }
 
   }

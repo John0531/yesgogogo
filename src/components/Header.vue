@@ -7,18 +7,9 @@
       <nav class="headerNavbar navbar navbar-expand-lg navbar-light position-relative width: 100%; bg-white">
         <div class="container w-100">
           <div class="d-flex justify-content-between align-items-center w-100">
-            <router-link to="/" class="navbar-brand">
-            <!-- 小電視只能上jpg的檔案，所以沒有辦法換成小電視上,隨著節慶會有不同的logo -->
-              <img v-if="isNotExpired"
-                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo.png?${getRandomString(8)}`"
-                alt="yesgo logo"
-                class="yesgoLogo"
-              />
-              <img v-else
-                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/logo/yesgo_logo_ny.gif?${getRandomString(8)}`"
-                alt="yesgo logo"
-                class="yesgoLogo"
-              />
+            <!-- logo寫成小電視，有時候為因應節慶活動有所變化 -->
+            <router-link to="/">
+              <img :src="`${logo.link}?${getRandomString(8)}`" alt="yesgo logo" class="yesgoLogo">
             </router-link>
             <!-- 網頁版 search bar -->
             <div
@@ -587,7 +578,8 @@ export default {
       show: true,
       count: 0,
       memberImg: '', //* 舊會員登入圖片
-      eventbonus: ''
+      eventbonus: '',
+      logo: ''
     }
   },
   created () {
@@ -602,6 +594,16 @@ export default {
     closeMenu () {
       this.$refs.menuCollapse.classList.remove('show')
       this.$refs.searchbar.classList.remove('show')
+    },
+    getLogo () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=yesgo_logo`
+      this.$http.get(url)
+        .then((res) => {
+          console.log(res)
+          if (res.data.rtnCode === 0) {
+            this.logo = res.data.info[0]
+          }
+        })
     },
     addActive (id) {
       this.isActive = id
@@ -1112,6 +1114,7 @@ export default {
     // 畫面載入
     this.getRandomNum()
     this.checkFromApp()
+    this.getLogo()
     /* this.encryption() */
     this.$store.commit('getLoginModalDom', this.$refs.loginDom)
     this.myModal = new bootstrap.Modal(this.$refs.loginDom, { backdrop: 'static' })
