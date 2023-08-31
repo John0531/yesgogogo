@@ -783,6 +783,9 @@ export default {
       }
     }
   },
+  unmounted () {
+    this.adModal.hide()
+  },
   watch: {
     /* 當路由為 /productboard/productList/時，清空瀏覽紀錄 */
     '$route' (to) {
