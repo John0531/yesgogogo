@@ -16,7 +16,7 @@
   background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/kv_PC_bg.jpg');
   background-repeat: no-repeat;
   background-position: center top;
-  background-size: 100% 100%;
+  /* background-size: 100% 100%; */
 }
 // 手機板主視覺
 .headerMb {
@@ -167,12 +167,12 @@
 
 /* 熱門品牌 */
 .menuCategory{
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_PC_8_bg.jpg');
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_PC_8_bg_v2.jpg');
   background-position: center top;
   background-repeat:repeat;
   background-size: contain;
   @media (max-width:991px) {
-    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_MB_8_bg.jpg');
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_MB_8_bg_v2.jpg');
   }
 }
 

@@ -43,7 +43,7 @@
                     </swiper-slide>
                     <swiper-slide>
                       <img
-                        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/kv_PC_item-T3-1.png"
+                        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/kv_PC_item-T3-2.png"
                         alt="大標題"
                       />
                     </swiper-slide>
@@ -99,7 +99,7 @@
                     <swiper-slide>
                       <img
                         class="img-fluid d-block mx-auto"
-                        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/kv_PC_item-T3-1.png"
+                        src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/kv_PC_item-T3-2.png"
                         alt="大標題"
                       />
                     </swiper-slide>
