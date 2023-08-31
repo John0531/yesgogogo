@@ -38,6 +38,15 @@
   }
 }
 
+.subtitle{
+  bottom: 16px;
+  height: 60px;
+  @media (max-width:685px) {
+    height: calc(100%*60/148); /* 計算等比例下，縮放時的高 */
+    bottom: 2.2vw;
+  }
+}
+
 // 活動按鈕專區
 .activitiesArea {
   background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_PC_2_bg.jpg');
@@ -164,6 +173,13 @@
   background-size: contain;
   @media (max-width:991px) {
     background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_MoomFest/layout_MB_8_bg.jpg');
+  }
+}
+
+.notice{
+  color: #003366;
+  a{
+    color: #ffeb3b;
   }
 }
 
@@ -305,9 +321,6 @@
   border-radius: 30px;
   overflow: hidden;
   white-space: nowrap;
-  @media (max-width:768px) {
-    border-radius: 8px;
-  }
 }
 //動畫綁定區域
 #confetti {
@@ -326,101 +339,6 @@ canvas {
   width: 100%;
   z-index: 1;
 }
-
-
-.bg-hot{
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/zongziSummer/layout_PC_44.png');
-  background-size: 100% 100%;
-  @media (max-width: 992px) {
-    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/zongziSummer/layout_MB_44.png');
-  }
-}
-
-// * 動畫區 決定掉下來的主視覺高度***
-
-@keyframes bunceFadeInXXl {
-  from { top: -10%;z-index: 1;}
-  to   { top: 18%;z-index: 1!important; }
-}
-@keyframes bunceFadeIn1750 {
-  from { top: -10%;z-index: 1;}
-  to   { top: 20%;z-index: 1!important; }
-}
-@keyframes bunceFadeInXl {
-  from { top: -10%;z-index: 1;}
-  to   { top: 10%;z-index: 1!important; }
-}
-@keyframes bunceFadeIn {
-from { top: -10%;z-index: 1;}
-  to   { top: 50%;z-index: 1!important; }
-}
-@keyframes bunceFadeInLg {
-from { top: -10%;z-index: 1;}
-  to   { top: 1.05%;z-index: 1!important; }
-}
-@keyframes bunceFadeInMd {
-  from { top: -5%;z-index: 1;}
-  to   { top: 1.2%;z-index: 1!important;}
-}
-@keyframes bunceFadeInSm {
-  from { top: -5%;z-index: 1;}
-  to   { top: 0.8%;z-index: 1!important;}
-}
-@keyframes bunceFadeInMb {
-  from { top: -5%;z-index: 1;}
-  to   { top: 0.6%;z-index: 1!important;}
-}
-@keyframes bunceFadeInMbSM {
-  from { top: -5%;z-index: 1;}
-  to   { top: 0.4%;z-index: 1!important;}
-}
-.animate-this-element-xl {
-  z-index: -1;
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  animation-duration: 1s;
-  animation-delay: 0s;
-  animation-name: bunceFadeInXXl ;
-  @media (max-width:1750px) {
-    animation-name: bunceFadeIn1750 ;
-  }
-  @media (max-width:1500px) {
-    animation-name: bunceFadeInXl ;
-  }
-}
-
-.animate-this-element {
-  z-index: -1;
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  animation-duration: 1s;
-  // animation-timing-function: cubic-bezier(.18,2,0,2);
-  animation-delay: 0s;
-  animation-name: bunceFadeIn ;
-  @media (max-width:920px) {
-    animation-name: bunceFadeInLg ;
-  }
-}
-.animate-this-element-mb {
-  z-index: -1;
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  animation-duration: 1s;
-  animation-delay: 0s;
-  animation-name: bunceFadeInMb ;
-  @media (min-width:890px) {
-    animation-name: bunceFadeInMd ;
-  }
-  @media (min-width:768px) {
-    animation-name: bunceFadeInSm ;
-  }
-  @media (max-width:368px) {
-    animation-name: bunceFadeInMbSM ;
-  }
-}
-
-
-
 
 .prd-item.sold-out:after {
   content: '';

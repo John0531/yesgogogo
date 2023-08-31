@@ -24,7 +24,7 @@
                 />
                 <swiper
                     :direction="'vertical'"
-                    class="position-absolute top-0 h-100"
+                    class="position-absolute subtitle"
                     :loop="true"
                     :spaceBetween="0"
                     :initialSlide="1"
@@ -78,7 +78,7 @@
                 />
                 <swiper
                     :direction="'vertical'"
-                    class="position-absolute top-0 h-100 w-100"
+                    class="position-absolute subtitle w-100"
                     :loop="true"
                     :spaceBetween="0"
                     :initialSlide="1"
@@ -679,83 +679,36 @@
             />
           </router-link>
         </div>
-        <div class="py-3" style="color: #006633">
+        <div class="py-3 notice">
           <div class="container">
             <div class="col-sm-auto mb-2 flex-column">
               <div class="fs-5 py-1 text-start d-block fw-bold mb-2">
                 活動詳情
               </div>
-              <div class="fs-5">活動期間：2023/5/18 00:00-6/15 23:59</div>
+              <div class="fs-5">活動期間：2023/9/5 00:00-10/02 23:59</div>
               <!-- ==下錨點1== -->
               <a id="event1" name="event1" ref="event1"></a>
               <div class="fw-bold fs-5 py-1 text-start d-flex">
-                <div>一、全站滿$1680送$200購物金</div>
+                <div>一、全站滿$2000送$200折價券</div>
               </div>
             </div>
             <ol class="">
               <li>
                 <span
-                  >全站商品單筆消費滿$1680送$200購物金，一筆訂單回饋一次，買愈多送愈多。例如:有3筆訂單金額滿$1680，即可獲得$600購物金。</span
+                  >全站商品單筆消費滿$2000送$200折價券，一筆訂單回饋一次，買愈多送愈多。例如:有3筆訂單金額滿$2000，即可獲得$600折價券。</span
                 >
               </li>
-              <li>回饋將於7/31前發送至會員帳戶內。</li>
+              <li>回饋將於10/31前發送至會員帳戶內。</li>
             </ol>
-            <!-- ==下錨點2== -->
-            <a id="event2" name="event2" ref="event2"></a>
-            <div class="col-sm-auto mb-2 flex-column">
-              <div class="fw-bold fs-5 py-1 text-start d-flex">
-                <div>二、筆筆消費回饋10%無上限</div>
-              </div>
-            </div>
-            <ol class="">
-              <li>
-                <span
-                  >全站商品不限消費金額，筆筆訂單送10%購物金，回饋無上限。</span
-                >
-              </li>
-              <li>回饋將於所有商品出貨後15日發送至會員帳戶內。</li>
-              <li>
-                活動詳情：
-                <a
-                  href="https://www.yesgogogo.com/activity/2023_memberbonus/tenpercent"
-                  class="hvr-grow fw-bold"
-                  style="color: #ffff00"
-                  >【10%回饋大方送】
-                </a>
-              </li>
-            </ol>
-            <!-- ==下錨點3== -->
-            <a id="event3" name="event3" ref="event3"></a>
-            <div class="col-sm-auto mb-2 flex-column">
-              <div class="fw-bold fs-5 py-1 text-start d-flex">
-                <div>三、拿優惠! 領券現折$300</div>
-              </div>
-            </div>
-            <ol class="">
-              <li>於本活動頁面可領取折價券300元，活動期間每會員限領乙次。</li>
-              <li>
-                折價券面額為
-                $100×3張(消費滿$101可使用)、$200×1張(消費滿$1,800可使用)。全站商品適用，限票券與部分專案商品不得使用。
-              </li>
-              <li>
-                折價券使用期限及規範，可至 yesgogogo
-                購物網登入會員中心的「我的優惠券」→「折價券」內查看券面說明。
-              </li>
-              <li>
-                使用折價券時，若訂單取消、退貨或任何不可歸咎於 yesgogogo
-                購物網之因素導致訂單未成立，恕不補發。
-              </li>
-            </ol>
-            <!-- 注意事項 -->
             <div class="col-sm-auto mb-2 flex-column">
               <div class="fs-5 py-1 text-start d-block fw-bold">注意事項</div>
             </div>
             <ol class="">
               <li>
-                $1購物金=1元新台幣，可於下次消費折抵訂單金額25%。(票券商品與部分專案商品不適用)。
+                回饋折價券為面額100元*2張，單筆訂單滿額1000元可使用一張，依此類推。
               </li>
               <li>
-                上述活動1、活動2回饋，以該筆訂單結帳金額計算(扣除折價券、購物金等優惠活動)。
+                上述活動1回饋，以該筆訂單結帳金額計算(扣除折價券、購物金等優惠活動)。
               </li>
               <li>
                 參加活動者須為完成訂單始符合認列資格，若因訂單取消、退貨，則該筆訂單不得要求列入計算，不符合活動資格。
@@ -768,9 +721,6 @@
               </li>
               <li>
                 活動事項皆載明於網頁中，參加本活動者視為同意接受本活動注意事項之規範，參加人不符合或違反本活動規定事項者，不可歸責於本公司，本公司保有取消其參加資格之權利，並對於任何破壞本活動之行為保留相關權利。
-              </li>
-              <li>
-                參加者若因會員資料填寫不完整者，或活動後變更資料(如姓名、手機、地址等)，或手機收訊不良、電信業者遺漏或阻擋企業訊息等情況，導致無法收到商品或簡訊，信件無人領取等，恕不補發。
               </li>
               <li>
                 如有其他未盡事宜，修改後的活動內容及約定條款將公佈在yesgogogo網站上，若您於任何修改或變更後繼續使用本服務時，視為您已閱讀、瞭解並同意接受該等修改或變更。
