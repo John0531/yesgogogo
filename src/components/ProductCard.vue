@@ -57,11 +57,11 @@
                 style="display:flex;align-items:center;justify-content:start;"
               >
                 <small
-                  class="card-text fs-lg-6 fs-md-7 fs-7 text-nowrap"
+                  class="card-text me-1 me-lg-2 fs-lg-6 fs-md-7 fs-7 text-nowrap"
                   style="text-decoration:line-through;width:3.5rem;"
                   >${{  cardData.oldPrice.toLocaleString() }}</small
                 >
-                <p class="text-primary mb-0 fs-lg-8 fs-md-6 fs-6">
+                <p class=" text-primary mb-0 fs-lg-8 fs-md-6 fs-6">
                   ${{ cardData.price.toLocaleString() }}
                 </p>
                 <br>
