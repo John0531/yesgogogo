@@ -331,7 +331,6 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/members/orders?orderno=${this.orderId}`
       this.$http.get(url)
         .then((res) => {
-          console.log(res)
           if (res.data.rtnCode === 0) {
             this.userOrder = res.data.info[0]
             // ?轉換縣市、鄉鎮代碼為中文
@@ -484,7 +483,6 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=add_date`
       this.$http.get(url)
         .then((res) => {
-          console.log(res)
           if (res.data.rtnCode === 0) {
             this.addBuy(res.data.info)
           }
@@ -492,14 +490,12 @@ export default {
       const urlm = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=add_m_date`
       this.$http.get(urlm)
         .then((res) => {
-          console.log(res)
           if (res.data.rtnCode === 0) {
             this.addBuym(res.data.info)
           }
         })
     },
     openDonativeModal () {
-      // console.log(this.$refs.donativeModal)
       this.$refs.donativeModal.openModal()
     },
     //* 加價購PC

@@ -599,7 +599,6 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=yesgo_logo`
       this.$http.get(url)
         .then((res) => {
-          console.log(res)
           if (res.data.rtnCode === 0) {
             this.logo = res.data.info[0]
           }
