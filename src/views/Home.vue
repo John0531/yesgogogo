@@ -30,7 +30,7 @@
         <div class="container">
           <div class="d-flex align-items-center align-items-sm-end justify-content-between mb-4 mb-md-7">
             <h2 class="bg-festival bg-center title w-75 w-md-80 w-lg-90"></h2>
-            <a :href="festivalList.link" class="d-block text-end w-25 w-md-20 w-lg-10">
+            <a :href="`${festivalList.link}?${getRandomString(8)}`" class="d-block text-end w-25 w-md-20 w-lg-10">
               <img src="../assets/img/yesgo_icon_hotproduct_button.svg" alt="節日主打活動看更多" class="ps-2">
             </a>
           </div>
@@ -436,6 +436,7 @@ import moment from 'moment'
 import getGiftEvent from '@/assets/js/giftevent.js'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js'
 import checkToken from '@/assets/js/checkToken.js'
+import { getRandomString } from '@/assets/js/randomString.js'
 const Footer = defineAsyncComponent(() => import(/* webpackChunkName: "footer" */'@/components/Footer.vue'))
 const Banner = defineAsyncComponent(() => import(/* webpackChunkName: "Banner" */'@/components/Banner.vue'))
 const LoadingHome = defineAsyncComponent(() => import(/* webpackChunkName: "loadingHome" */'@/views/LoadingHome.vue'))
@@ -480,6 +481,7 @@ export default {
     LoadingHome
   },
   methods: {
+    getRandomString, //* 產生亂數
     getActivities () {
       // ? 優惠活動
       // ?取得活動廣告
