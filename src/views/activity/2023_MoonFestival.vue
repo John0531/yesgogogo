@@ -196,7 +196,6 @@
               <a
                 v-if="activitiesImgsMb[1]"
                 :href="activitiesImgsMb[1].targetUrl"
-                @click.prevent="goHyperText($refs.event2)"
                 class="col-6 d-block hvr-bob mb-1"
                 ><img
                   v-if="activitiesImgsMb[1]"
