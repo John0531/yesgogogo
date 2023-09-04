@@ -796,7 +796,7 @@
                     class="ms-3 p-2 form-check-input"
                     type="radio"
                     >
-                    <label for="ten-percent" class="fs-6 py-2 py-md-0 ms-3">10℅購物金全數捐出</label>
+                    <label for="ten-percent" class="fs-6 py-2 py-md-0 ms-3">10%購物金全數捐出</label>
                   </div>
                 </div>
                 <div class="d-flex">

@@ -121,23 +121,22 @@
                     v-if="activitiesImgs[0]"
                     :href="activitiesImgs[0].targetUrl"
                     class="col-6 d-block hvr-bob"
-                    @click.prevent="goHyperText($refs.event2)"
+                    @click.prevent="goHyperText($refs.event1)"
                     ><img
                       v-if="activitiesImgs[0]"
                       :src="activitiesImgs[0].image"
                       class="img-fluid w-100"
-                      alt=""
+                      alt="滿2000送200"
                   /></a>
                   <a
                     v-if="activitiesImgs[1]"
                     :href="activitiesImgs[1].targetUrl"
                     class="col-6 d-block hvr-bob"
-                    @click.prevent="goHyperText($refs.event1)"
                     ><img
                       v-if="activitiesImgs[1]"
                       :src="activitiesImgs[1].image"
                       class="img-fluid w-100"
-                      alt=""
+                      alt="筆筆10%"
                   /></a>
                   <a
                     v-if="activitiesImgs[3]"
@@ -147,7 +146,7 @@
                       v-if="activitiesImgs[3]"
                       :src="activitiesImgs[3].image"
                       class="img-fluid w-100"
-                      alt=""
+                      alt="滿5000送100"
                   /></a>
                 </div>
               </div>
@@ -161,7 +160,7 @@
                       v-if="activitiesImgs[2]"
                       :src="activitiesImgs[2].image"
                       class="img-fluid w-100"
-                      alt=""
+                      alt="新會員現領"
                   /></a>
                   <a
                     v-if="activitiesImgs[4]"
@@ -171,7 +170,7 @@
                       v-if="activitiesImgs[4]"
                       :src="activitiesImgs[4].image"
                       class="img-fluid w-100"
-                      alt=""
+                      alt="週二聯邦日送咖啡"
                   /></a>
                 </div>
               </div>
@@ -186,23 +185,24 @@
             <div class="row g-2">
               <a
                 v-if="activitiesImgsMb[0]"
-                @click.prevent="goHyperText($refs.event2)"
+                @click.prevent="goHyperText($refs.event1)"
                 class="col-6 d-block hvr-bob mb-1"
                 ><img
                   v-if="activitiesImgsMb[0]"
                   :src="activitiesImgsMb[0].image"
                   class="img-fluid w-100"
-                  alt=""
+                  alt="滿2000送200"
               /></a>
               <a
                 v-if="activitiesImgsMb[1]"
-                @click.prevent="goHyperText($refs.event1)"
+                :href="activitiesImgsMb[1].targetUrl"
+                @click.prevent="goHyperText($refs.event2)"
                 class="col-6 d-block hvr-bob mb-1"
                 ><img
                   v-if="activitiesImgsMb[1]"
                   :src="activitiesImgsMb[1].image"
                   class="img-fluid w-100"
-                  alt=""
+                  alt="筆筆消費10%"
               /></a>
               <a
                 v-if="activitiesImgsMb[2]"
@@ -212,7 +212,7 @@
                   v-if="activitiesImgsMb[2]"
                   :src="activitiesImgsMb[2].image"
                   class="img-fluid w-100"
-                  alt=""
+                  alt="新會員現領800"
               /></a>
               <a
                 v-if="activitiesImgsMb[3]"
@@ -222,7 +222,7 @@
                   v-if="activitiesImgsMb[3]"
                   :src="activitiesImgsMb[3].image"
                   class="img-fluid w-100"
-                  alt=""
+                  alt="週二聯邦日"
               /></a>
               <a
                 v-if="activitiesImgsMb[4]"
@@ -232,7 +232,7 @@
                   v-if="activitiesImgsMb[4]"
                   :src="activitiesImgsMb[4].image"
                   class="img-fluid w-100"
-                  alt=""
+                  alt="滿5000送100"
               /></a>
             </div>
           </div>
@@ -685,30 +685,72 @@
               <div class="fs-5 py-1 text-start d-block fw-bold mb-2">
                 活動詳情
               </div>
-              <div class="fs-5">活動期間：2023/9/5 00:00-10/02 23:59</div>
               <!-- ==下錨點1== -->
               <a id="event1" name="event1" ref="event1"></a>
               <div class="fw-bold fs-5 py-1 text-start d-flex">
                 <div>一、全站滿$2000送$200折價券</div>
               </div>
+              <div class="fs-5">活動期間：<span class="fs-6">2023/9/5 00:00-10/02 23:59</span></div>
+              <div class="fs-5 d-block">活動內容：</div>
             </div>
             <ol class="">
               <li>
-                <span
-                  >全站商品單筆消費滿$2000送$200折價券，一筆訂單回饋一次，買愈多送愈多。例如:有3筆訂單金額滿$2000，即可獲得$600折價券。</span
-                >
+                全站商品單筆消費滿$2000送$200折價券，一筆訂單回饋一次，買愈多送愈多。例如:有3筆訂單金額滿$2000，即可獲得$600折價券。
+              </li>
+              <li>
+                回饋折價券為面額100元*2張，單筆訂單滿額1000元可使用一張，以此類推。
               </li>
               <li>回饋將於10/31前發送至會員帳戶內。</li>
+            </ol>
+            <!-- ==下錨點2== -->
+            <a id="event2" name="event2" ref="event2"></a>
+            <div class="col-sm-auto mb-2 flex-column">
+              <div class="fw-bold fs-5 py-1 text-start d-flex">
+                <div class="text-nowrap">二、</div>
+                <div >聯邦卡友雙重送</div>
+              </div>
+              <div class="fs-5">活動期間：<span class="fs-6">2023/9/5 00:00-9/15 23:59</span></div>
+              <div class="fs-5 d-block">活動內容：</div>
+            </div>
+            <div class="fw-bold">好禮一 來客奉茶</div>
+            <ol class="" >
+              <li>
+                刷聯邦卡，全站商品買就送7-11超商茶飲一杯。
+              </li>
+              <li>
+                本活動限定使用聯邦信用卡消費付款，排除Visa金融卡、LINE pay、ATM轉帳之交易。
+              </li>
+              <li>
+                活動期間每會員限回饋一次。
+              </li>
+            </ol>
+            <!-- ==下錨點3== -->
+            <a id="event3" name="event3" ref="event23"></a>
+            <div class="col-sm-auto mb-2 flex-column">
+              <div class="fw-bold fs-6 py-1 text-start d-flex">
+                <div >好禮二 冰冰有禮</div>
+              </div>
+            </div>
+            <ol class="" >
+              <li>
+                刷聯邦卡，全站商品單筆消費滿$1200，加碼送冰涼巾2條。
+              </li>
+              <li>
+                本活動限定使用聯邦信用卡消費付款，排除Visa金融卡、LINE pay、ATM轉帳之交易。
+              </li>
+              <li>
+                贈品回饋將於10/31前陸續寄出至會員帳戶登記之地址。
+              </li>
+              <li>
+                活動期間每會員限回饋一次。
+              </li>
             </ol>
             <div class="col-sm-auto mb-2 flex-column">
               <div class="fs-5 py-1 text-start d-block fw-bold">注意事項</div>
             </div>
             <ol class="">
               <li>
-                回饋折價券為面額100元*2張，單筆訂單滿額1000元可使用一張，依此類推。
-              </li>
-              <li>
-                上述活動1回饋，以該筆訂單結帳金額計算(扣除折價券、購物金等優惠活動)。
+                回饋資格以實際支付結帳金額計算，實際支付結帳金額為該筆訂單結帳總金額扣除折價券、購物金、滿額折扣等優惠折抵後的「實付金額」。
               </li>
               <li>
                 參加活動者須為完成訂單始符合認列資格，若因訂單取消、退貨，則該筆訂單不得要求列入計算，不符合活動資格。
@@ -953,7 +995,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/scss/activity/2023_moomFest/_site.scss";
 @import "@/assets/scss/activity/_hover.min.scss";
-//
 img {
   object-fit: fill;
   vertical-align: middle;
