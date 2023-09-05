@@ -23,13 +23,13 @@ module.exports = {
       })
 
       // gzip壓縮
-      config.plugin('CompressionPlugin').use('compression-webpack-plugin', [{
-        filename: '[path][base].gz',
-        algorithm: 'gzip',
-        test: /\.js$|\.html$|\.css$/, // 要套用的文件類型
-        threshold: 10240, // 對超過10k的檔案壓縮
-        minRatio: 0.8 // 壓缩率小於0.8才會壓縮
-      }])
+      // config.plugin('CompressionPlugin').use('compression-webpack-plugin', [{
+      //   filename: '[path][base].gz',
+      //   algorithm: 'gzip',
+      //   test: /\.js$|\.html$|\.css$/, // 要套用的文件類型
+      //   threshold: 10240, // 對超過10k的檔案壓縮
+      //   minRatio: 0.8 // 壓缩率小於0.8才會壓縮
+      // }])
     }
   },
   productionSourceMap: process.env.NODE_ENV !== 'production'
