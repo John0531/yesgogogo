@@ -40,6 +40,7 @@ import { createMetaManager } from 'vue-meta'
 import VueGtag from 'vue-gtag-next'
 
 import checkToken from '@/assets/js/checkToken.js'
+import VueLazyload from 'vue-lazyload' // 圖片懒加载插件
 
 AOS.init({
   delay: 500,
@@ -231,6 +232,15 @@ app.config.globalProperties.$currency = {
 app.config.globalProperties.$custom = {
   alert
 }
+
+app.use(VueLazyload, {
+  preLoad: 1.3,
+  // error: 'error.png',
+  // loading: 'loading.gif',
+  attempt: 1,
+  listenEvents: ['scroll', 'mousewheel'],
+  lazyComponent: true
+})
 
 app.use(router)
 app.use(store)

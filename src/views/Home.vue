@@ -14,13 +14,13 @@
           <!-- PC -->
           <div class="col-4 d-none d-lg-block" v-for="list in themeList" :key="list">
             <a :href="list.targetUrl" class="theme-hover d-block">
-              <img class="img-fluid" :src="list.image" alt="event image">
+              <img class="img-fluid" v-lazy="list.image" :key="list.image" alt="event image">
             </a>
           </div>
           <!-- 手機 -->
           <div class="col-4 d-lg-none" v-for="list in themeList_m" :key="list">
             <a :href="list.targetUrl" class="theme-hover d-block">
-              <img class="img-fluid" :src="list.image" alt="event image">
+              <img class="img-fluid" v-lazy="list.image" :key="list.image" alt="event image">
             </a>
           </div>
         </div>
@@ -64,7 +64,8 @@
                     <div class="ratio ratio-1x1 position-relative">
                       <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/outline_mid.png" alt="節日主打活動" class="outline-img position-absolute top-0 start-0 z-index-3">
                       <img
-                        :src="`${fes.productImage}`"
+                        v-lazy="`${fes.productImage}`"
+                        :key="`${fes.productImage}`"
                         class="card-img-top"
                         alt="product image"
                         />
@@ -129,7 +130,8 @@
                   >
                     <div class="ratio ratio-1x1">
                       <img
-                        :src="`${hot.productImage}`"
+                        v-lazy="`${hot.productImage}`"
+                        :key="`${hot.productImage}`"
                         class="card-img-top"
                         alt="product image"
                       />
@@ -162,7 +164,7 @@
           <div class="row mt-3 mt-md-4 g-lg-4">
             <div class="col-md-6 mt-1" v-for="top in top2activities" :key="top+'1'">
               <div class="text-center">
-                <a :href="top.targetUrl" target="_blank" class="d-block"><img :src="top.image" alt="activity" style="max-width: 100%;"></a>
+                <a :href="top.targetUrl" target="_blank" class="d-block"><img v-lazy="top.image" :key="top.image" alt="activity" style="max-width: 100%;"></a>
               </div>
             </div>
           </div>
@@ -185,7 +187,7 @@
               v-for="act in activities"
               :key="act"
             >
-              <a :href="act.targetUrl" target="_blank"><img :src="act.image" alt="activity" class="w-100"></a>
+              <a :href="act.targetUrl" target="_blank"><img v-lazy="act.image" :key="act.image" alt="activity" class="w-100"></a>
             </swiper-slide>
           </swiper>
         </div>
@@ -239,7 +241,8 @@
                     >
                       <div class="ratio ratio-1x1">
                         <img
-                          :src="`${list.productImage}`"
+                          v-lazy="`${list.productImage}`"
+                          :key="`${list.productImage}`"
                           class="card-img-top"
                           alt="product image"
                         />
@@ -320,7 +323,8 @@
                 >
                   <div class="ratio ratio-1x1">
                     <img
-                      :src="`${subCategory.productImage}`"
+                      v-lazy="`${subCategory.productImage}`"
+                      :key="`${subCategory.productImage}`"
                       class="card-img-top"
                       alt="product image"
                     />
@@ -363,7 +367,8 @@
                 >
                   <img
                     class="w-100"
-                    :src="brand.image"
+                    v-lazy="brand.image"
+                    :key="brand.image"
                     alt="人氣品牌圖片"
                   />
                 </a>
@@ -417,10 +422,10 @@
             <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/advOnSaleinfo/ad_close.png" alt="關閉廣告" class="closeEventIcon img-fluid ad">
           </a>
           <a v-if="advertise_m" :href="advertise_m.targetUrl" class="d-lg-none">
-            <img :src="advertise_m.image" alt="蓋板廣告" class="img-fluid">
+            <img v-lazy="advertise_m.image" :key="advertise_m.image" alt="蓋板廣告" class="img-fluid">
           </a>
           <a v-if="advertise" :href="advertise.targetUrl" class="d-none d-lg-block">
-            <img :src="advertise.image" alt="蓋板廣告" class="img-fluid">
+            <img v-lazy="advertise.image" :key="advertise.image" alt="蓋板廣告" class="img-fluid">
           </a>
         </div>
       </div>
