@@ -261,7 +261,7 @@ const yggevent = {
       }
     },
     {
-      path: 'activity/2023moonFestival',
+      path: 'activity/2023_moonFestival',
       name: '中秋美食賞',
       component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/2023_MoonFestival.vue'),
       meta: {
