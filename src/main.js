@@ -41,7 +41,7 @@ import VueGtag from 'vue-gtag-next'
 
 import checkToken from '@/assets/js/checkToken.js'
 
-import lazyPlugin from 'vue3-lazy' // 圖片懒加载插件
+import VueLazyload from 'vue-lazyload' // 圖片懒加载插件
 
 AOS.init({
   delay: 500,
@@ -234,7 +234,7 @@ app.config.globalProperties.$custom = {
   alert
 }
 
-app.use(lazyPlugin, {
+app.use(VueLazyload, {
   preLoad: 1.3,
   // error: 'error.png',
   // loading: 'loading.gif',
