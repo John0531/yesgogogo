@@ -6,7 +6,7 @@ const yggevent = {
     {
       path: 'activity/2022_birthday',
       name: '2022聯邦生日禮',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/2022_Birthday.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/2022_Birthday.vue'),
       meta: {
         title: '2022聯邦生日禮'
       }
@@ -14,7 +14,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2022',
       name: '2022聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2022.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2022.vue'),
       meta: {
         title: '2022聯邦刷卡優惠'
       }
@@ -22,7 +22,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_January',
       name: '2023一月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_January.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_January.vue'),
       meta: {
         title: '2023一月聯邦刷卡優惠'
       }
@@ -30,7 +30,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_February',
       name: '2023二月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_February.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_February.vue'),
       meta: {
         title: '2023二月聯邦刷卡優惠'
       }
@@ -38,7 +38,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_March',
       name: '2023三月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_March.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_March.vue'),
       meta: {
         title: '2023二月聯邦刷卡優惠'
       }
@@ -46,7 +46,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_April',
       name: '2023四月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_April.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_April.vue'),
       meta: {
         title: '2023四月聯邦刷卡優惠'
       }
@@ -54,7 +54,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_May',
       name: '2023五月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_May.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_May.vue'),
       meta: {
         title: '2023五月聯邦刷卡優惠'
       }
@@ -62,7 +62,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_June',
       name: '2023六月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_June.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_June.vue'),
       meta: {
         title: '2023六月聯邦刷卡優惠'
       }
@@ -70,7 +70,7 @@ const yggevent = {
     {
       path: 'activity/UITCCardDiscount2023_July',
       name: '2023七月聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/UITCCardDiscount2023_July.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/UITCCardDiscount2023_July.vue'),
       meta: {
         title: '2023七月聯邦刷卡優惠'
       }
@@ -78,7 +78,7 @@ const yggevent = {
     {
       path: 'activity/cardpromotionSecondHalf',
       name: '2022下卡友開卡禮',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/CardPromotionSecondHalf.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard-past" */ '../views/activity/CardPromotionSecondHalf.vue'),
       meta: {
         title: '2022下卡友開卡禮'
       }
@@ -118,7 +118,7 @@ const yggevent = {
     {
       path: 'activity/treatMommy',
       name: 'yesgogogo寵愛媽媽節',
-      component: () => import(/* webpackChunkName: "group-treatMommy" */ '../views/activity/TreatMommy.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/TreatMommy.vue'),
       meta: {
         title: 'yesgogogo寵愛媽媽節'
       }
@@ -126,7 +126,7 @@ const yggevent = {
     {
       path: 'activity/againstvirus',
       name: '全民防疫YESGO',
-      component: () => import(/* webpackChunkName: "group-againstvirus" */ '../views/activity/AgainstVirus.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/AgainstVirus.vue'),
       meta: {
         title: '全民防疫YESGO'
       }
@@ -134,7 +134,7 @@ const yggevent = {
     {
       path: 'activity/zongziselected',
       name: '萬粽選物節',
-      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/Zongziselected.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/Zongziselected.vue'),
       meta: {
         title: '萬粽選物節'
       }
@@ -142,7 +142,7 @@ const yggevent = {
     {
       path: 'activity/zongzi',
       name: '粽子大集合',
-      component: () => import(/* webpackChunkName: "group-zongzi" */ '../views/activity/Zongzi.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/Zongzi.vue'),
       meta: {
         title: '粽子大集合'
       }
@@ -150,7 +150,7 @@ const yggevent = {
     {
       path: 'activity/zongzilottery',
       name: '端午金好禮',
-      component: () => import(/* webpackChunkName: "group-zongzilottery" */ '../views/activity/ZongZiLottery.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/ZongZiLottery.vue'),
       meta: {
         title: '端午金好禮'
       }
@@ -158,7 +158,7 @@ const yggevent = {
     {
       path: 'activity/7daysmenu',
       name: '7天儲食清單',
-      component: () => import(/* webpackChunkName: "group-7daysmenu" */ '../views/activity/7daysMenu.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/7daysMenu.vue'),
       meta: {
         title: '7天儲食清單'
       }
@@ -174,7 +174,7 @@ const yggevent = {
     {
       path: 'activity/zhongyuan',
       name: '澎湃慶中元',
-      component: () => import(/* webpackChunkName: "group-zhongyuan" */ '../views/activity/ZhongYuan.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/ZhongYuan.vue'),
       meta: {
         title: '澎湃慶中元'
       }
@@ -182,7 +182,7 @@ const yggevent = {
     {
       path: 'activity/chungYuanPuTuBizCard',
       name: '你普渡我贊助',
-      component: () => import(/* webpackChunkName: "group-chungYuanPuTuBizCard" */ '../views/activity/ShowMeUrBizCard.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/ShowMeUrBizCard.vue'),
       meta: {
         title: '你普渡我贊助'
       }
@@ -198,7 +198,7 @@ const yggevent = {
     {
       path: 'activity/newyeargift',
       name: '福兔迎祥_新春禮盒',
-      component: () => import(/* webpackChunkName: "group-chungYuanPuTuBizCard" */ '../views/activity/NewYearGift.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/NewYearGift.vue'),
       meta: {
         title: '福兔迎祥 新春禮盒'
       }
@@ -206,7 +206,7 @@ const yggevent = {
     {
       path: 'activity/newYearDishes',
       name: '福氣年菜預購',
-      component: () => import(/* webpackChunkName: "group-newYearDishes" */ '../views/activity/NewYearDishes.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/NewYearDishes.vue'),
       meta: {
         title: '福氣年菜預購'
       }
@@ -247,7 +247,7 @@ const yggevent = {
     {
       path: 'activity/momCelebrate',
       name: '寵愛女王節',
-      component: () => import(/* webpackChunkName: "group-ubcard" */ '../views/activity/MommyCelebrate.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/MommyCelebrate.vue'),
       meta: {
         title: '寵愛女王節'
       }
@@ -255,7 +255,7 @@ const yggevent = {
     {
       path: 'activity/zongziSummer',
       name: '粽夏慶端午',
-      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/zongziSummer.vue'),
+      component: () => import(/* webpackChunkName: "group-past" */ '../views/activity/zongziSummer.vue'),
       meta: {
         title: '粽夏慶端午'
       }
@@ -263,7 +263,7 @@ const yggevent = {
     {
       path: 'activity/2023_moonFestival',
       name: '中秋美食賞',
-      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/2023_MoonFestival.vue'),
+      component: () => import(/* webpackChunkName: "group-moonFestival" */ '../views/activity/2023_MoonFestival.vue'),
       meta: {
         title: '中秋美食賞'
       }
@@ -271,7 +271,7 @@ const yggevent = {
     {
       path: 'activity/:fileName',
       name: '聯邦刷卡優惠',
-      component: () => import(/* webpackChunkName: "group-zongziselected" */'../views/activity/UITCCardDiscount.vue'),
+      component: () => import(/* webpackChunkName: "group-ubcard" */'../views/activity/UITCCardDiscount.vue'),
       meta: {
         title: '每月聯邦刷卡優惠'
       }
@@ -279,7 +279,7 @@ const yggevent = {
     {
       path: 'activity/loveDonation',
       name: '愛心週',
-      component: () => import(/* webpackChunkName: "group-zongziselected" */ '../views/activity/LoveDonation.vue'),
+      component: () => import(/* webpackChunkName: "group-loveDonation" */ '../views/activity/LoveDonation.vue'),
       meta: {
         title: '愛心週'
       }
