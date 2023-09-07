@@ -14,14 +14,77 @@
           <!-- PC -->
           <div class="col-4 d-none d-lg-block" v-for="list in themeList" :key="list">
             <a :href="list.targetUrl" class="theme-hover d-block">
-              <img class="img-fluid" :src="list.image" alt="event image">
+              <img class="img-fluid" v-lazy="list.image" :key="list.image" alt="event image">
             </a>
           </div>
           <!-- 手機 -->
           <div class="col-4 d-lg-none" v-for="list in themeList_m" :key="list">
             <a :href="list.targetUrl" class="theme-hover d-block">
-              <img class="img-fluid" :src="list.image" alt="event image">
+              <img class="img-fluid" v-lazy="list.image" :key="list.image" alt="event image">
             </a>
+          </div>
+        </div>
+      </div>
+      <!-- 愛心週專區 -->
+      <div v-if="loveWeek" class="bg-primary-light py-3 py-md-4 py-lg-5">
+        <div class="container">
+          <div class="d-flex align-items-center align-items-sm-end justify-content-between mb-4 mb-md-7">
+            <h2 class="bg-love bg-center title w-75 w-md-80 w-lg-90"></h2>
+            <a :href="`${loveWeek.link}?${getRandomString(8)}`" class="d-block text-end w-25 w-md-20 w-lg-10">
+              <img src="../assets/img/yesgo_icon_hotproduct_button.svg" alt="節日主打活動看更多" class="ps-2">
+            </a>
+          </div>
+          <div class="hotProducts">
+            <swiper
+              class="hotSwiper mt-3 mt-md-3"
+              :slidesPerView="2.3"
+              :spaceBetween="15"
+              :breakpoints="{
+                576: {
+                  slidesPerView: 2.3,
+                  spaceBetween: 15,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 24,
+                }
+              }"
+              :navigation="{
+                nextEl: '#fes-next1',
+                prevEl: '#fes-prev1'
+              }"
+            >
+              <swiper-slide v-for="love in loveWeek.products" :key="love.productId">
+                <div class="card card-hover border-0 bg-transparent h-100">
+                  <router-link
+                    :to="`/productboard/product/${love.productId}`"
+                    class="d-block text-secondary"
+                    @click.prevent="sendCategoryId(love.categoryCode  ,love.subCategoryCode )"
+                  >
+                    <div class="ratio ratio-1x1 position-relative">
+                      <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/outline_love.png" alt="愛心週活動" class="outline-img position-absolute top-0 start-0 z-index-3">
+                      <img
+                        :src="`${love.productImage}`"
+                        class="card-img-top"
+                        alt="product image"
+                        />
+                    </div>
+                    <div class="card-body p-1">
+                      <h5 class="card-title fw-medium homeCard-title-height lh-base fs-lg-5 fs-6">
+                        {{ love.productName }}
+                      </h5>
+                      <div class="d-flex align-items-center">
+                        <p class="border border-primary py-1 px-2 text-primary me-2 lh-1">{{ love.discount }}折</p>
+                        <p class="card-text fw-medium fs-md-8 fs-5 text-primary">${{ $currency.currency(love.price) }}</p>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </swiper-slide>
+            </swiper>
+            <!-- navigation buttons -->
+            <div id="fes-prev1" class="swiper-button-prev"></div>
+            <div id="fes-next1" class="swiper-button-next"></div>
           </div>
         </div>
       </div>
@@ -64,7 +127,8 @@
                     <div class="ratio ratio-1x1 position-relative">
                       <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/outline_mid.png" alt="節日主打活動" class="outline-img position-absolute top-0 start-0 z-index-3">
                       <img
-                        :src="`${fes.productImage}`"
+                        v-lazy="`${fes.productImage}`"
+                        :key="`${fes.productImage}`"
                         class="card-img-top"
                         alt="product image"
                         />
@@ -129,7 +193,8 @@
                   >
                     <div class="ratio ratio-1x1">
                       <img
-                        :src="`${hot.productImage}`"
+                        v-lazy="`${hot.productImage}`"
+                        :key="`${hot.productImage}`"
                         class="card-img-top"
                         alt="product image"
                       />
@@ -162,7 +227,7 @@
           <div class="row mt-3 mt-md-4 g-lg-4">
             <div class="col-md-6 mt-1" v-for="top in top2activities" :key="top+'1'">
               <div class="text-center">
-                <a :href="top.targetUrl" target="_blank" class="d-block"><img :src="top.image" alt="activity" style="max-width: 100%;"></a>
+                <a :href="top.targetUrl" target="_blank" class="d-block"><img v-lazy="top.image" :key="top.image" alt="activity" style="max-width: 100%;"></a>
               </div>
             </div>
           </div>
@@ -185,7 +250,7 @@
               v-for="act in activities"
               :key="act"
             >
-              <a :href="act.targetUrl" target="_blank"><img :src="act.image" alt="activity" class="w-100"></a>
+              <a :href="act.targetUrl" target="_blank"><img v-lazy="act.image" :key="act.image" alt="activity" class="w-100"></a>
             </swiper-slide>
           </swiper>
         </div>
@@ -239,7 +304,8 @@
                     >
                       <div class="ratio ratio-1x1">
                         <img
-                          :src="`${list.productImage}`"
+                          v-lazy="`${list.productImage}`"
+                          :key="`${list.productImage}`"
                           class="card-img-top"
                           alt="product image"
                         />
@@ -320,7 +386,8 @@
                 >
                   <div class="ratio ratio-1x1">
                     <img
-                      :src="`${subCategory.productImage}`"
+                      v-lazy="`${subCategory.productImage}`"
+                      :key="`${subCategory.productImage}`"
                       class="card-img-top"
                       alt="product image"
                     />
@@ -363,7 +430,8 @@
                 >
                   <img
                     class="w-100"
-                    :src="brand.image"
+                    v-lazy="brand.image"
+                    :key="brand.image"
                     alt="人氣品牌圖片"
                   />
                 </a>
@@ -417,10 +485,10 @@
             <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/advOnSaleinfo/ad_close.png" alt="關閉廣告" class="closeEventIcon img-fluid ad">
           </a>
           <a v-if="advertise_m" :href="advertise_m.targetUrl" class="d-lg-none">
-            <img :src="advertise_m.image" alt="蓋板廣告" class="img-fluid">
+            <img v-lazy="advertise_m.image" :key="advertise_m.image" alt="蓋板廣告" class="img-fluid">
           </a>
           <a v-if="advertise" :href="advertise.targetUrl" class="d-none d-lg-block">
-            <img :src="advertise.image" alt="蓋板廣告" class="img-fluid">
+            <img v-lazy="advertise.image" :key="advertise.image" alt="蓋板廣告" class="img-fluid">
           </a>
         </div>
       </div>
@@ -471,7 +539,8 @@ export default {
       adModal: '', // ?蓋板廣告 DOM
       advertise: '', // ?蓋板廣告(PC)
       advertise_m: '', // ?蓋板廣告(手機)
-      festivalList: '' // ?節日活動商品
+      festivalList: '', // ?節日活動商品
+      loveWeek: '' // ?愛心週活動
     }
   },
   components: {
@@ -560,6 +629,22 @@ export default {
           if (res.data.rtnCode === 0) {
             this.festivalList = res.data.info[0]
             this.festivalList.products.forEach((item) => {
+              //* 計算折扣，如果可以整除10，就只要顯示個位數，例如 80折，只要顯示 8折
+              const quo = Math.ceil(item.price / item.oldPrice * 100)
+              item.discount = quo % 10 === 0 ? quo / 10 : quo
+            })
+          }
+        })
+    },
+    // ? 愛心週專區
+    getLove () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=yesgo_love`
+      this.$http.get(url)
+        .then((res) => {
+          console.log(res)
+          if (res.data.rtnCode === 0) {
+            this.loveWeek = res.data.info[0]
+            this.loveWeek.products.forEach((item) => {
               //* 計算折扣，如果可以整除10，就只要顯示個位數，例如 80折，只要顯示 8折
               const quo = Math.ceil(item.price / item.oldPrice * 100)
               item.discount = quo % 10 === 0 ? quo / 10 : quo
@@ -723,6 +808,7 @@ export default {
     this.$store.dispatch('getMenu')
     this.getThemeList()
     this.getFestival()
+    this.getLove()
     this.getHotProduct()
     this.getActivities()
     this.getCategories()
@@ -938,6 +1024,19 @@ export default {
 .bg-festival{
   height: 32px;
   background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/yesgo_icon_festival.svg');
+  background-position-x: 53%;
+  @media (min-width: 768px) {
+    height: 35px;
+    background-position-x: 50%;
+  }
+  @media (min-width: 992px) {
+    height: 40px;
+  }
+}
+
+.bg-love{
+  height: 32px;
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/yesgo_icon-love.svg');
   background-position-x: 53%;
   @media (min-width: 768px) {
     height: 35px;

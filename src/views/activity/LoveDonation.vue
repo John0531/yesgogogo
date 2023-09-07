@@ -23,30 +23,30 @@
                                     <!-- 十分好運福氣旺-卡片區 不輪播-->
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
                                           <a :href="luckyProductList[0].targetUrl" v-if="luckyProductList[0]">
-                                            <img :src="luckyProductList[0].image" class="img-fluid" alt="">
+                                            <img v-lazy="luckyProductList[0].image" :key="luckyProductList[0].image" class="img-fluid" alt="">
                                           </a>
 
                                         </div>
 
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center">
                                              <a :href="luckyProductList[1].targetUrl"  v-if="luckyProductList[1]" >
-                                             <img :src="luckyProductList[1].image" class="img-fluid" alt="" >  </a>
+                                             <img v-lazy="luckyProductList[1].image" :key="luckyProductList[1].image" class="img-fluid" alt="" >  </a>
                                         </div>
                                         <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
                                              <a :href="luckyProductList[2].targetUrl"  v-if="luckyProductList[2]" >
-                                             <img :src="luckyProductList[2].image" class="img-fluid" alt="" > </a>
+                                             <img v-lazy="luckyProductList[2].image" class="img-fluid" alt="" > </a>
                                              </div>
                                         <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
                                              <a :href="luckyProductList[3].targetUrl"  v-if="luckyProductList[3]" >
-                                             <img :src="luckyProductList[3].image" class="img-fluid" alt="" ></a>
+                                             <img v-lazy="luckyProductList[3].image" :key="luckyProductList[3].image" class="img-fluid" alt="" ></a>
                                              </div>
                                         <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
                                              <a :href="luckyProductList[4].targetUrl"  v-if="luckyProductList[4]" >
-                                             <img :src="luckyProductList[4].image" class="img-fluid" alt="" ></a>
+                                             <img v-lazy="luckyProductList[4].image" :key="luckyProductList[4].image" class="img-fluid" alt="" ></a>
                                              </div>
                                         <div class="col-6 col-lg-3 hvr-bob d-flex align-items-center justify-content-center ">
                                              <a :href="luckyProductList[5].targetUrl"  v-if="luckyProductList[5]" >
-                                             <img :src="luckyProductList[5].image" class="img-fluid" alt="" ></a>
+                                             <img v-lazy="luckyProductList[5].image" :key="luckyProductList[5].image" class="img-fluid" alt="" ></a>
                                              </div>
                                     </div>
 
@@ -83,7 +83,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -136,7 +136,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -189,7 +189,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -242,7 +242,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -295,7 +295,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -348,7 +348,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -401,7 +401,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -454,7 +454,7 @@
                                             >
                                             <div class="p-1 p-md-2">
                                             <div class="ratio ratio-1x1">
-                                                <img :src="eatItem.productImage" class=" img-fluid  " >
+                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
                                             </div>
                                             </div>
 
@@ -505,7 +505,7 @@
                             <div class="row justify-content-center movement-box g-0">
                                 <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center " v-for="product in movementProductList" :key="product.targetUrl"  >
                                     <a :href="product.targetUrl" v-if="product">
-                                        <img :src="product.image" class="img-fluid" alt="">
+                                        <img v-lazy="product.image" :key="product.image" class="img-fluid" alt="">
                                     </a>
                                </div>
 
