@@ -1036,7 +1036,7 @@ export default {
 
 .bg-love{
   height: 32px;
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/yesgo_icon-love.svg');
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/yesgo_icon_love.svg');
   background-position-x: 53%;
   @media (min-width: 768px) {
     height: 35px;
