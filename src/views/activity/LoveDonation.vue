@@ -1,4 +1,9 @@
 <template>
+<div v-if="!donationOpen">
+      <DonationComingsoon></DonationComingsoon>
+    </div>
+
+  <div v-if="donationOpen">
     <div class="bg" style="overflow:hidden">
 
          <!-- PC XL版 banner -->
@@ -628,16 +633,26 @@
             </div>
 
     </div>
+ </div>
 </template>
 
 <script >
 
-//! 愛心週應該不需要(沒有領劵活動) import checkToken from '@/assets/js/checkToken.js'
+import moment from 'moment'
+import DonationComingsoon from '@/views/activity/LoveDonationComingsoon.vue'
 
 export default {
 
+  components: {
+    DonationComingsoon
+  },
+
   data () {
     return {
+
+      openDate: [],
+      donationOpen: false,
+
       luckyProductList: [],
 
       allProductList: [],
@@ -670,6 +685,32 @@ export default {
   },
 
   methods: {
+    // * 取得活動時間起訖
+    getDate () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=donation_date`
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            this.openDate = [res.data.info[0].title, res.data.info[0].description]
+            this.showEvent()
+          }
+        })
+    },
+
+    showEvent () {
+      const now = moment().format('YYYY/MM/DD HH:mm:ss')
+
+      this.idx = this.openDate.findIndex((item) => {
+        return moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore(item)
+      })
+      this.deadline = this.openDate[this.idx]
+      if ((moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore(this.deadline) && this.idx % 2 !== 0 && this.idx !== -1) || (Object.keys(this.$route.query).length !== 0 && this.$route.query.isOpen === 'false')) {
+        this.donationOpen = true
+        this.getAllProductList()
+        this.getLuckyAreaData()
+        this.getMovementData()
+      }
+    },
 
     getAllProductList () {
       const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=loveDonation_B`
@@ -751,9 +792,16 @@ export default {
   },
 
   mounted () {
-    this.getAllProductList()
-    this.getLuckyAreaData()
-    this.getMovementData()
+    this.getDate()
+
+    // 網址若包含?isOpen=false可看頁面
+    if (Object.keys(this.$route.query).length !== 0 && this.$route.query.isOpen === 'false') {
+      this.donationOpen = true
+      this.getAllProductList()
+      this.getLuckyAreaData()
+      this.getMovementData()
+    }
+
     if (this.$store.state.recordEventReadHeight) {
       // ? 若有點擊產品紀錄，則記錄高度供上一頁返回
       setTimeout(
