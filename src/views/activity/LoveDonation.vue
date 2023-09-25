@@ -16,18 +16,18 @@
          <a href="#detail"  > <div class="banner-mb img-bg-noRepeat  d-lg-none  "></div></a>
 
             <!-- 順手必買 圖片入稿 luckyProductList -->
-          <div class="bg-lucky img-bg-repeat pt-0  pb-6 ">
+          <div class="bg-lucky img-bg-repeat pt-0 pb-md-4  pb-lg-6 ">
 
-                <div class="container "  v-if="luckyProductList.length>0" >
+                <div class="container"  v-if="luckyProductList.length>0" >
 
-                        <div class="row justify-content-center  "  >
-                            <div class="col-11 col-lg-11 g-lg-0">
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-11">
                                 <div class="row lucky-title img-bg-noRepeat   "></div>
 
                                 <div class="row lucky-middle  img-bg-repeat " >
                                     <!-- -卡片區 -->
-                                    <div class="col-12 col-lg-11 mx-auto">
-                                      <div class="row mt-3 g-1 g-lg-2">
+                                    <div class="col-12 col-md-10 col-lg-11 mx-auto">
+                                      <div class="row mt-3 g-2 g-sm-2 g-lg-3">
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
                                           <a :href="luckyProductList[0].targetUrl" v-if="luckyProductList[0]">
                                             <img v-lazy="luckyProductList[0].image" :key="luckyProductList[0].image" class="img-fluid" alt="">
@@ -81,13 +81,13 @@
 
                   <div class="container " v-if="productList01" >
                       <div class="row justify-content-center ">
-                        <div class="col-11 col-lg-11 g-1 g-lg-0">
+                        <div class="col-11   g-1 g-lg-0">
 
                               <div class="row productBox-title01 img-bg-noRepeat "> </div>
 
                               <div class="row  productBox-middle img-bg-repeat py-3">
                                     <!-- 下為商品區 -->
-                                   <div class="col-12 col-lg-11 mx-auto ">
+                                   <div class="col-12 col-md-11 mx-auto ">
                                       <div class=" row justify-content-center g-1 g-lg-2">
 
                                               <div class="col-6 col-lg-3 " v-for="eatItem in  productList01 " :key="eatItem.productId" >
@@ -148,7 +148,7 @@
                             <div class="row productBox-title02 img-bg-noRepeat "> </div>
 
                             <div class="row productBox-middle img-bg-repeat py-3">
-                               <div class="col-12 col-lg-11 mx-auto ">
+                               <div class="col-12 col-md-11 mx-auto ">
                                   <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList02 " :key="eatItem.productId" >
@@ -207,7 +207,7 @@
                            <div class="row productBox-title03 img-bg-noRepeat "> </div>
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
-                               <div class="col-12 col-lg-11 mx-auto ">
+                               <div class="col-12 col-md-11 mx-auto ">
                                   <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList03 " :key="eatItem.productId" >
@@ -268,7 +268,7 @@
                             <div class="row productBox-title04 img-bg-noRepeat "> </div>
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
-                              <div class="col-12 col-lg-11 mx-auto ">
+                              <div class="col-12 col-md-11 mx-auto ">
                                       <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList04 " :key="eatItem.productId" >
@@ -329,7 +329,7 @@
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
                                     <!-- 下為商品區 -->
-                                   <div class="col-12 col-lg-11 mx-auto ">
+                                   <div class="col-12 col-md-11 mx-auto ">
 
                             <div class="row  justify-content-center  g-1 g-lg-2">
 
@@ -390,7 +390,7 @@
                             <div class="row productBox-title06 img-bg-noRepeat "> </div>
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
-                              <div class="col-12 col-lg-11 mx-auto ">
+                              <div class="col-12 col-md-11 mx-auto ">
                                   <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList06 " :key="eatItem.productId" >
@@ -451,7 +451,7 @@
                             <div class="row productBox-title07 img-bg-noRepeat "> </div>
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
-                               <div class="col-12 col-lg-11 mx-auto ">
+                               <div class="col-12 col-md-11 mx-auto ">
                                   <div class=" row justify-content-center g-1 g-lg-2">
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList07 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -510,7 +510,7 @@
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
                                     <!-- 下為商品區 -->
-                                <div class="col-12 col-lg-11 mx-auto ">
+                                <div class="col-12 col-md-11 mx-auto ">
                                       <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList08 " :key="eatItem.productId" >
@@ -563,16 +563,16 @@
         </div>
              <!-- 品號入稿 end ▲ -->
 
-             <!-- 愛! 即刻總動員 圖片入稿 -->
+             <!-- 愛! 集購總動員 圖片入稿 -->
             <div class="bg-love  py-5 ">
                 <div class="container " v-if="movementProductList.length>0" >
                     <div class="row  justify-content-center">
-                        <div class="col-11 col-lg-11 g-1 g-lg-0 ">
+                        <div class="col-11 col-lg-11  ">
                            <div class="row movement-title img-bg-noRepeat "></div>
-                            <div class="row movement-middle img-bg-repeat">
+                            <div class="row movement-middle img-bg-repeat ">
                               <div class="col-12 col-lg-11 mx-auto">
 
-                                <div class="row justify-content-center  g-0">
+                                <div class="row justify-content-center g-1 d-md-2 g-lg-3">
                                     <!-- 商品區 -->
                                     <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center " v-for="product in movementProductList" :key="product.targetUrl"  >
                                         <a :href="product.targetUrl" v-if="product">
@@ -624,7 +624,7 @@
 
             </div>
 
-            <div style="background-color:#ca171d;" >
+            <div style="background-color:#f84121;" >
                  <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_MB.png" class="img-fluid  d-lg-none" alt="wave-MB">
 
                  <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_PC.png" class="img-fluid d-none d-lg-block" alt="wave-PC">
