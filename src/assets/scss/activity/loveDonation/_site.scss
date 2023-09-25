@@ -205,6 +205,7 @@
 
 .bg-love{
   background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/bg_01_05.jpg);
+  background-position:  bottom;
 
 }
 
@@ -258,7 +259,7 @@
     .lucky-title::after{
       content: "";
       display: block;
-      padding-top: 9.45%;
+      padding-top: 9.44%;
     }
   }
 
@@ -362,7 +363,7 @@
         &::after{
           content: "";
           display: block;
-          padding-top: 15.92%;
+          padding-top: 15.91%;
         }}
         
         .productBox-title04{
@@ -371,7 +372,7 @@
           &::after{
             content: "";
             display: block;
-            padding-top: 16.02%;
+            padding-top: 15.91%;
           }}
           
         .productBox-title05{
@@ -549,287 +550,7 @@
 
 
 
-  .eat-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_02_MB.png);
   
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_02_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .eat-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-
-  // 要換圖 改padding-top數值
-  .box-top-bg{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_MB_box_01-btn_more.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 6.65%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_PC_box_01-btn_more.png);
-      // background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .box-top-bg::after{
-      content: "";
-      display: block;
-      padding-top: 7.33%;
-    }
-  }
-
-   // 要換圖 改padding-top數值
-
-   .box-middle-bg{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_MB_box_bg.png);
-     
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 2%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_PC_box_03.png);     
-    }
-  }
-  
-  
-  @media screen and (min-width:992px) {
-    .box-middle-bg::after{
-      content: "";
-      display: block;
-      padding-top:45.7%;
-    }
-  }
-
-
-  // 要換圖 改padding-top數值
-  .box-end-bg{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_MB_box_03.png);
-    
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 6.08%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_momCelebrate/layout_PC_box_05.png);  
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .box-end-bg::after{
-      content: "";
-      display: block;
-      padding-top:6.5%;
-    }
-  }
-
-
-
-
-  .drinks-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_03_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_03_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .drinks-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-  .rice-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_04_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_04_MB.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .rice-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-  .fresh-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_05_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_05_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .fresh-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-
-  .health-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_06_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_06_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .health-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-  .clean-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_07_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_07_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .clean-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-
-  .cool-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_08_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_08_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .cool-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
-
-  .kitchen-title{
-    background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_09_MB.png);
-  
-    &::after{
-      content: "";
-      display: block;
-      padding-top: 17.9%;
-    }
-  
-    @media screen and (min-width:992px) {
-      background-image: url(https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_09_PC.png);
-      background-size: 75% auto;  
-      margin-bottom: -2.5rem;
-    }
-  }
-  
-  @media screen and (min-width:992px) {
-    .kitchen-title::after{
-      content: "";
-      display: block;
-      padding-top: 16.78%;
-    }
-  }
-
-
 
 
 /* 商品-卡片 */
