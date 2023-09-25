@@ -84,7 +84,7 @@
                       </div>
                       <div class="col-lg-9 ps-3 ps-lg-4">
                         <a href="#" @click.prevent="toProduct(item)" class="text-dark product-name"
-                          >{{item.productName}}-{{item.optionName}}<br>
+                          ><span v-if="item.optionName">{{item.productName}}-{{item.optionName}}</span><br>
                           <div class="d-flex align-items-center mt-2" v-if="item.gift!==null">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19.63" height="20.13" viewBox="0 0 19.63 20.13">
                               <g id="yesgo_icon元件-32" transform="translate(-0.435 -0.435)">
@@ -95,7 +95,7 @@
                                 <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
                               </g>
                             </svg>
-                            <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
+                            <small class="text-muted ms-1 ms-md-0" v-if="item.gift.giftName">{{item.gift.giftName}}</small>
                           </div>
                         </a>
                         <a v-if="item.isLoveProduct  " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
@@ -266,10 +266,10 @@
           </div>
           <div class="bg-white px-5 py-3">
             <div class="col-12 d-flex justify-content-between">
-              <router-link
+              <a
                 href="#"
-                to="/checkoutboard/checkoutcartlist"
-                > &lt; 回上一步</router-link
+                @click="setAddOnParams"
+                > &lt; 回上一步</a
               >
               <a
                 href="#"
@@ -519,10 +519,10 @@
           </div>
           <div class="bg-white px-5 py-3">
             <div class="col-12 d-flex justify-content-between">
-              <router-link
+              <a
                 href="#"
-                to="/checkoutboard/checkoutcartlist"
-                > &lt; 回上一步</router-link
+                @click="setAddOnParams"
+                > &lt; 回上一步</a
               >
               <a
                 href="#"
@@ -538,7 +538,7 @@
       <div class="col-md-10 w-100" v-if="!isEmpty">
         <div>
           <h4 class="bg-gray px-4 py-3">
-            我要折抵會員優惠 <span class="text-primary">※ 僅可擇一使用</span>
+            我要折抵會員優惠 <span class="text-primary"><br class="d-sm-none" />※ 僅可擇一使用</span>
           </h4>
           <div class="bg-white text-center" v-if="isLimitShipping">
             <h4 class="py-4 text-primary">滿額出貨商品不適用折價券與購物金</h4>
@@ -621,7 +621,7 @@
               <label for="rewards" class="fs-5 text-primary text-nowrap" :class="{'disabled':cartData.rewardPoint.canUse===0}">購物金&nbsp;&nbsp;|&nbsp;&nbsp;</label>
               <span class="w-60 w-sm-70 w-xxl-auto"
               ><span class="text-primary me-md-2">本次可使用 {{$currency.currency(cartData.rewardPoint.canUse)}} 元</span
-              >(目前共有 {{cartData.rewardPoint.total}} 元，最高折抵商品總金額25%)
+              ><br class="d-md-none" />(目前共有 {{cartData.rewardPoint.total}} 元，最高折抵商品總金額25%)
               <br>
               <span>本次剩餘 {{$currency.currency(cartData.rewardPoint.canUse-rewards)}} 元可使用</span>
               </span>
@@ -680,7 +680,7 @@
           <div
             class="bg-white d-flex justify-content-between flex-column flex-md-row pb-1 pb-md-0"
           >
-            <span class="ps-md-5 py-md-3 ps-3 pt-2"><span class="text-primary">福利金 : 本次可使用 {{$currency.currency(cartData.rewardMoney.canUse)}} 元</span> (目前共有 {{$currency.currency(cartData.rewardMoney.total)}} 元)<br>本次剩餘 {{$currency.currency(cartData.rewardMoney.canUse-eMoney)}} 元可使用</span>
+            <span class="ps-md-5 py-md-3 ps-3 pt-2"><span class="text-primary">福利金 : 本次可使用 {{$currency.currency(cartData.rewardMoney.canUse)}} 元</span><br class="d-md-none" /> (目前共有 {{$currency.currency(cartData.rewardMoney.total)}} 元)<br>本次剩餘 {{$currency.currency(cartData.rewardMoney.canUse-eMoney)}} 元可使用</span>
             <span class="pe-md-5 py-md-3 ps-3 py-2 text-end">
               本次使用 <input @change="useEmoney()" type="number" ref="eMoneyInputDom" v-model="eMoney" class="w-50 mx-2 text-end" /> 元
             </span>
@@ -756,7 +756,7 @@
                         v-model="donate.IsDonate"
                         rules="required"
                         ></Field>
-                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作「愛心捐<img @click="openDonativeModal()" src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"> 」</label>
+                        <label for="love" class="fs-6  py-2 py-md-0 ms-3">我願意將部分/全部購物金轉作<br class="d-sm-none" />「愛心捐<img @click="openDonativeModal()" src="@/assets/img/yesgo_icon-info.svg" alt="愛心品info" class="info-icon-style ms-1"> 」</label>
                       </div>
                       <div class="d-flex flex-column flex-md-row py-1">
                         <Field
@@ -850,7 +850,7 @@
                   </div> -->
                 <div>
                 <span class="fs-7 fs-md-6 px-0 py-1 py-md-2 text-gray-dark" v-if="donate.IsDonate === 'true'">
-                  本站將捐出「愛心捐 」給您指定的非營利組織，感謝您的參與!
+                  本站將捐出「愛心捐 」給您指定的非營利組織，<br class="d-md-none" />感謝您的參與!
                 </span>
                 </div>
             </div>
@@ -889,12 +889,16 @@
           </div>
         </div>
       </div>
+      <AddOnItems
+      v-if="this.$store.state.checkoutCartList.amountResult"
+      @push-cart="handleAddon"
+      />
       <div class="col-md-5 my-5 w-100"  v-if="!isEmpty">
         <button
           type="submit"
           class="btn btn-primary text-light w-100 py-2"
         >
-          確定
+          下一步
         </button>
       </div>
       </Form>
@@ -904,15 +908,18 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
 import checkToken from '@/assets/js/checkToken.js'
-import CardProgress from '@/components/CardProgress.vue'
+import CardProgress from '@/components/Product/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
+
 // import moment from 'moment'
 
 export default {
   components: {
     CardProgress,
-    DonativeModalVue
+    DonativeModalVue,
+    AddOnItems: defineAsyncComponent(() => import('@/components/Product/AddOnItems'))
   },
   data () {
     return {
@@ -1391,6 +1398,7 @@ export default {
             }
           }
           this.checkCart(res)
+          // this.$store.commit('cartStore', this.cartData.amountResult.paidAmount)
         })
     },
     // *GA追蹤碼(查看購物車)
@@ -1478,12 +1486,6 @@ export default {
       if (!this.donate.IsDonate) {
         this.donate.DonatePercent = 0
       }
-      // if (!this.release) {
-      //   sessionStorage.removeItem('isLove')
-      //   sessionStorage.removeItem('pointToDonate')
-      //   this.donate.IsDonate = false
-      //   this.donate.DonatePercent = 0
-      // }
       this.postToInfo.paidAmount = this.cartData.amountResult.paidAmount
       this.postToInfo.paymentMethod = this.cartData.paymentMethods.used
       // if (this.cartData.amountResult.paidAmount === 0) {
@@ -1692,12 +1694,75 @@ export default {
           title: 'text-class'
         }
       })
+    },
+    async handleAddon (productObject) {
+      try {
+        // console.log(productObject)
+        console.log(Object.values(productObject))
+        const post = {
+          productId: Object.values(productObject)[0],
+          productName: Object.values(productObject)[2],
+          imageUrl: Object.values(productObject)[9],
+          price: Object.values(productObject)[7],
+          optionId: Object.values(productObject)[1],
+          quantity: 1
+        }
+        console.log(post)
+        this.cartData.items.push(post)
+        // console.log(this.cartData.items)
+        const cartItems = this.cartData.items.map((item) => {
+          return {
+            productId: item.productId,
+            optionId: item.optionId,
+            quantity: item.quantity
+          }
+        })
+        const calculateData = {
+          items: cartItems,
+          useRewardPoint: this.rewards,
+          useCoupon: this.radioselect ? this.radioselect.split('-')[0] : '',
+          useActivities: this.discountSelect === 'event' ? [this.cartData.activities.canUse[0].activityId] : [],
+          useRewardMoney: this.eMoney,
+          usePaymentMethod: this.paymentMethod
+        }
+        // this.$store.state.checkoutCartList.items.push(post)
+        // console.log(this.$store.state.checkoutCartList)
+        const url = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
+        this.axios.post(url, calculateData)
+          .then((res) => {
+            if (res.data.rtnCode !== 0) {
+              this.$swal.fire({
+                title: `${res.data.rtnMsg}(${res.data.rtnCode})`,
+                allowOutsideClick: true,
+                confirmButtonColor: '#F8412E',
+                confirmButtonText: '確認',
+                width: 400,
+                customClass: {
+                  title: 'text-class',
+                  confirmButton: 'confirm-btn-class'
+                }
+              })
+              if (!res.data.info.paymentMethods.used) {
+                this.paymentMethod = ''
+              }
+            }
+            this.checkCart(res)
+            window.scrollTo({ top: 10, behavior: 'smooth' })
+          })
+      } catch (error) {
+      }
+    },
+    setAddOnParams () {
+      sessionStorage.setItem('back', true)
+      this.$router.push('/checkoutboard/checkoutcartlist')
     }
   },
   mounted () {
+    // *愛心捐重置
     sessionStorage.removeItem('isLove')
     sessionStorage.removeItem('pointToDonate')
     if (this.$store.state.checkoutCartList.items.length === 0) {
+      // * vuex值被重新整理清空將返回
       this.$router.push('/checkoutboard/checkoutcartlist')
       return
     }
@@ -1857,6 +1922,10 @@ svg g {
 }
 .text-gray-dark {
   // color: #CED4DA;
+  color: #6c757d;
+}
+
+::v-deep(.text-gray-dark) {
   color: #6c757d;
 }
 
