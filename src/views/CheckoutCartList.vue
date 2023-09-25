@@ -796,7 +796,6 @@ export default {
         allProductNum += item.quantity
       })
       this.$store.commit('getcartIconNum', allProductNum)
-      console.log(123)
       this.filterAddOn()
     },
     // ? 前往購物車第一頁，將資料透過 vuex 傳遞
@@ -1063,7 +1062,7 @@ export default {
     },
     deleteFilterNormal () {
       if (sessionStorage.getItem('back')) {
-        if (this.normalCartNum !== this.$store.state.checkoutCartList.items.length) {
+        if (this.normalCart.length !== this.$store.state.checkoutCartList.items.length) {
           // *先打calculate產生差異
           const normalCartItems = this.normalCart.map((item) => {
             return {
@@ -1130,7 +1129,7 @@ export default {
     },
     deleteFilterCold () {
       if (sessionStorage.getItem('back')) {
-        if (this.coldCartNum.length !== this.$store.state.checkoutCartList.items.length) {
+        if (this.coldCart.length !== this.$store.state.checkoutCartList.items.length) {
           // *先打calculate產生差異
           const coldCartItems = this.coldCart.map((item) => {
             return {
