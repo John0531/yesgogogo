@@ -25,7 +25,7 @@
                                 <div class="row lucky-title img-bg-noRepeat   "></div>
 
                                 <div class="row lucky-middle  img-bg-repeat " >
-                                    <!-- 十分好運福氣旺-卡片區 -->
+                                    <!-- -卡片區 -->
                                     <div class="col-12 col-lg-11 mx-auto">
                                       <div class="row mt-3 g-1 g-lg-2">
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
