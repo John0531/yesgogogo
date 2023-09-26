@@ -1051,9 +1051,8 @@ export default {
           break
         case 'S3':
           // *冷凍過濾
-          if (this.coldCartNum.length !== this.$store.state.checkoutCartList.items.length) {
-            //
-          }
+          this.deleteFilterCold()
+          // *更新UI
           break
 
         default:

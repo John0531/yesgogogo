@@ -7,8 +7,8 @@
       <div>
         <div class="bg-white px-2 py-2 py-md-3 border-bottom">
             <div class="d-inline text-gray-dark">
-              <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品</h6>
-              <h6 class="d-inline" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">，您還少${{store.state.checkoutCartList.amountResult.paidAmount - 3000}}</h6>
+              <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品，</h6>
+              <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{store.state.checkoutCartList.amountResult.paidAmount - 3000}}</h4>
               <h6 class="d-inline" v-else>，您可加購</h6>
             </div>
             <div class="form-check px-2 px-md-4 py-3">
@@ -37,6 +37,9 @@
                 }"
               >
                 <swiper-slide v-for="dishes in productsList" :key="dishes.productId">
+                  <!-- <div class="d-flex justify-content-center">
+                    <input class="form-check-input ms-0 my-2 " type="radio" name="flexRadioDefault2" id="P11" value="" @click.prevent="addOn(dishes)">
+                  </div> -->
                   <div class="prd-item  bg-gray h-100 p-0" :class="{'d-none': productsList.length === 0}">
                     <div :class="{'overlay-close': store.state.checkoutCartList.amountResult.payableAmount < 3000}" >
                       <div class="text-center text-gray fw-bold">
@@ -46,27 +49,27 @@
                       </div>
                     </div>
                     <a
-                      href="#"
-                      class="d-block prd-link text-secondary card-add overlay"
                       @click.prevent="addOn(dishes)"
+                      to="#"
+                      class="d-block prd-link text-secondary card-add overlay"
                     >
-                        <div class="card-below overflow-hidden w-100 d-flex">
-                          <img :src="dishes.productImage" class="img-fluid card-below" :alt="dishes.productName">
+                      <div class="card-below overflow-hidden w-100 d-flex">
+                        <img :src="dishes.productImage" class="img-fluid card-below" :alt="dishes.productName">
+                      </div>
+                      <div class="px-2 pb-1 px-md-3 pb-md-2 pt-0">
+                        <p class="card-text text-dark text-start prd-name fs-6 pt-2">{{ dishes.name }}</p>
+                        <div class="d-flex flex-column justify-content-center align-items-start mb-1 mb-md-2">
+                          <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" data-v-66ededbc="">市價${{ dishes.price }}</del>
+                          <span
+                              class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >
+                              加購價
+                              <span class="sell-price" data-v-e149e506="">{{ dishes.price &lt; 0 ? 'xxx': $currency.currency(dishes.price) }}</span>
+                            </span>
+                            <div class="d-flex justify-content-center w-100">
+                              <span class="d-block prd-limited m-spc w-100" data-v-66ededbc="">加入購物車</span>
+                            </div>
                         </div>
-                        <div class="px-2 pb-1 px-md-3 pb-md-2 pt-0">
-                          <p class="card-text text-dark text-start prd-name fs-6 pt-2">{{ dishes.name }}</p>
-                          <div class="d-flex flex-column justify-content-center align-items-start mb-1 mb-md-2">
-                            <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" data-v-66ededbc="">市價${{ dishes.price }}</del>
-                            <span
-                                class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >
-                                加購價
-                                <span class="sell-price" data-v-e149e506="">{{ dishes.price &lt; 0 ? 'xxx': $currency.currency(dishes.price) }}</span>
-                              </span>
-                              <div class="d-flex justify-content-center w-100">
-                                <span class="d-block prd-limited m-spc w-100" data-v-66ededbc="">加入購物車</span>
-                              </div>
-                          </div>
-                        </div>
+                      </div>
                     </a>
                   </div>
                 </swiper-slide>
@@ -99,12 +102,12 @@ onMounted(() => {
 const productsList = ref([])
 // * 加價購API
 async function getProductList () {
-  // * S3暫時沒開
   const url = `${process.env.VUE_APP_API}/api/product/AddPriceProdList?shipType=${store.state.checkoutCartList.shippingInfo[0].shippingType}`
   await axios.get(url).then((res) => {
     if (res.data.rtnCode === 0) {
-      console.log(res)
       productsList.value = res.data.info.results
+      // !存在vuex供比對
+      store.commit('getAddOnProducts', productsList.value)
     }
   })
 }

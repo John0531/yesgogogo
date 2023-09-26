@@ -1697,6 +1697,7 @@ export default {
     },
     async handleAddon (productObject) {
       try {
+        // 處理加購品資訊
         // console.log(productObject)
         console.log(Object.values(productObject))
         const post = {
@@ -1708,8 +1709,55 @@ export default {
           quantity: 1
         }
         console.log(post)
+        // *打計價前過濾舊品比較API
+        const filteredKeywords = this.$store.state.AddOnProdList.filter((product) =>
+          this.cartData.items.some((filterItems) =>
+            product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
+          )
+        )
+        console.log(filteredKeywords)
+        // *若已有加購品，刪除舊品
+        if (filteredKeywords.length !== 0) {
+          const deleteData = {
+            productId: filteredKeywords[0].productId,
+            optionId: filteredKeywords[0].optionId
+          }
+          this.cartData.items.forEach((item, index) => {
+            if (item.productId === deleteData.productId) {
+              this.cartData.items.splice(index, 1)
+              console.log(index)
+            }
+          })
+          this.$swal.fire({
+            title: '僅能購買一項加購品!',
+            allowOutsideClick: true,
+            confirmButtonColor: '#F8412E',
+            confirmButtonText: '確認',
+            width: 400,
+            customClass: {
+              title: 'text-class',
+              confirmButton: 'confirm-btn-class'
+            }
+          })
+          // *移除購物車舊品
+          const url = `${process.env.VUE_APP_API}/api/newCart/remove`
+          this.axios.post(url, deleteData)
+            .then((res) => {
+              if (res.data.rtnCode === 0) {
+                this.getCartData()
+                sessionStorage.removeItem('back')
+              } else {
+                this.$store.commit('getcartIconNum', 0)
+                this.cartData.items = []
+                this.normalCart = []
+                this.coldCart = []
+                this.fullShipmentCart = []
+              }
+            })
+        }
+        // *打計價API並加入新加購品
+        console.log(post)
         this.cartData.items.push(post)
-        // console.log(this.cartData.items)
         const cartItems = this.cartData.items.map((item) => {
           return {
             productId: item.productId,
@@ -1725,8 +1773,6 @@ export default {
           useRewardMoney: this.eMoney,
           usePaymentMethod: this.paymentMethod
         }
-        // this.$store.state.checkoutCartList.items.push(post)
-        // console.log(this.$store.state.checkoutCartList)
         const url = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
         this.axios.post(url, calculateData)
           .then((res) => {
@@ -1799,42 +1845,42 @@ export default {
 .accordion-button:not(.collapsed) {
   box-shadow: none;
 }
-.form-check-input:checked[type='radio'] {
+::v-deep(.form-check-input:checked[type='radio']) {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
-.form-check-input:checked[type='radio'] {
+::v-deep(.form-check-input:checked[type='radio']) {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
-.form-check-input[type='radio'] {
+::v-deep(.form-check-input[type='radio']) {
   border-radius: 0;
 }
-.form-check-input[type='checkbox'] {
+::v-deep(.form-check-input[type='checkbox'] ){
   border-radius: 0;
 }
-.form-check-input:focus {
+::v-deep(.form-check-input:focus) {
   border-color: rgba(0, 0, 0, 0.25);
 }
-.form-check-input {
+::v-deep(.form-check-input) {
   width: 25px;
   height: 25px;
   margin-top: 0;
 }
-.form-check-input.discount-input{
+::v-deep(.form-check-input.discount-input){
   position:relative;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   border: 1px solid #F8412E;
 }
-.form-check-input:disabled{
+::v-deep(.form-check-input:disabled){
   pointer-events: initial;
 }
-.form-check-input.discount-input:disabled{
+::v-deep(.form-check-input.discount-input:disabled){
   border: 1px solid #6c757d;
   cursor: not-allowed !important;
 }
 
-label.disabled{
+::v-deep(label.disabled){
   color: #6c757d !important
 }
 .card-staging {
