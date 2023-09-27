@@ -8,8 +8,8 @@
         <div class="bg-white px-2 py-2 py-md-3 border-bottom">
             <div class="d-inline text-gray-dark">
               <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品，</h6>
-              <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{store.state.checkoutCartList.amountResult.paidAmount - 3000}}</h4>
-              <h6 class="d-inline" v-else>，您可加購</h6>
+              <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{3000 - store.state.checkoutCartList.amountResult.paidAmount }}</h4>
+              <h6 class="d-inline" v-else>您可加購:</h6>
             </div>
             <div class="form-check px-2 px-md-4 py-3">
               <div class="hotProducts">
@@ -106,14 +106,13 @@ async function getProductList () {
   await axios.get(url).then((res) => {
     if (res.data.rtnCode === 0) {
       productsList.value = res.data.info.results
-      // !存在vuex供比對
+      // !存在vuex供唯一加購品比對
       store.commit('getAddOnProducts', productsList.value)
     }
   })
 }
 
 const emit = defineEmits({})
-
 function addOn (productId) {
   emit('push-cart', productId)
 }

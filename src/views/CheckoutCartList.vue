@@ -1038,11 +1038,10 @@ export default {
       localStorage.removeItem('cartErrorStatus')
     },
     openDonativeModal () {
-      // console.log(this.$refs.donativeModal)
       this.$refs.donativeModal.openModal()
     },
     filterAddOn () {
-      console.log(this.$store.state.checkoutCartList.shippingInfo[0].shippingType)
+      // console.log(this.$store.state.checkoutCartList.shippingInfo[0].shippingType)
       switch (this.$store.state.checkoutCartList.shippingInfo[0].shippingType) {
         case 'S2':
           // *常溫過濾
@@ -1069,13 +1068,15 @@ export default {
               optionId: item.optionId
             }
           })
+          // !整理為API格式
           const postData = {
             items: normalCartItems
           }
-          console.log(postData)
+          // console.log(postData)
           const exurl = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
           this.axios.post(exurl, postData)
             .then((res) => {
+              // !整理res格視為可供簡易比對格式
               const resItems = res.data.info.items.map((item) => {
                 return {
                   productId: item.productId,
@@ -1087,12 +1088,13 @@ export default {
                   product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
                 )
               )
-              console.log(filteredKeywords)
+              // console.log(filteredKeywords)
+              // !濾出要移除的加購品，整理為API格式
               const deleteData = {
                 productId: filteredKeywords[0].productId,
                 optionId: filteredKeywords[0].optionId
               }
-              console.log(deleteData)
+              // console.log(deleteData)
               const url = `${process.env.VUE_APP_API}/api/newCart/remove`
               this.axios.post(url, deleteData)
                 .then((res) => {
@@ -1139,7 +1141,7 @@ export default {
           const postData = {
             items: coldCartItems
           }
-          console.log(postData)
+          // console.log(postData)
           const exurl = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
           this.axios.post(exurl, postData)
             .then((res) => {
@@ -1154,12 +1156,12 @@ export default {
                   product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
                 )
               )
-              console.log(filteredKeywords)
+              // console.log(filteredKeywords)
               const deleteData = {
                 productId: filteredKeywords[0].productId,
                 optionId: filteredKeywords[0].optionId
               }
-              console.log(deleteData)
+              // console.log(deleteData)
               const url = `${process.env.VUE_APP_API}/api/newCart/remove`
               this.axios.post(url, deleteData)
                 .then((res) => {

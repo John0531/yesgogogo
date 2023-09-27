@@ -910,7 +910,7 @@
 <script>
 import { defineAsyncComponent } from 'vue'
 import checkToken from '@/assets/js/checkToken.js'
-import CardProgress from '@/components/Product/CardProgress.vue'
+import CardProgress from '@/components/Cart/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
 
 // import moment from 'moment'
@@ -919,7 +919,7 @@ export default {
   components: {
     CardProgress,
     DonativeModalVue,
-    AddOnItems: defineAsyncComponent(() => import('@/components/Product/AddOnItems'))
+    AddOnItems: defineAsyncComponent(() => import('@/components/Cart/AddOnItems'))
   },
   data () {
     return {
@@ -1698,8 +1698,7 @@ export default {
     async handleAddon (productObject) {
       try {
         // 處理加購品資訊
-        // console.log(productObject)
-        console.log(Object.values(productObject))
+        // console.log(Object.values(productObject))
         const post = {
           productId: Object.values(productObject)[0],
           productName: Object.values(productObject)[2],
@@ -1708,14 +1707,14 @@ export default {
           optionId: Object.values(productObject)[1],
           quantity: 1
         }
-        console.log(post)
+        // console.log(post)
         // *打計價前過濾舊品比較API
         const filteredKeywords = this.$store.state.AddOnProdList.filter((product) =>
           this.cartData.items.some((filterItems) =>
             product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
           )
         )
-        console.log(filteredKeywords)
+        // console.log(filteredKeywords)
         // *若已有加購品，刪除舊品
         if (filteredKeywords.length !== 0) {
           const deleteData = {
@@ -1799,6 +1798,7 @@ export default {
       }
     },
     setAddOnParams () {
+      // !有加購品的返回事件
       sessionStorage.setItem('back', true)
       this.$router.push('/checkoutboard/checkoutcartlist')
     }
