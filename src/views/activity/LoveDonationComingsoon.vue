@@ -6,7 +6,7 @@
 
         <img class="img-fluid d-lg-none " src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/previewLoveDonation/preview_KV_MB.jpg" alt="">
 
-        <router-link to="/" class="btn btn-outline-primary btn-lg  my-4 my-lg-5" > 回首頁</router-link>
+        <router-link to="/" class="btn  goHomeBtn  my-4 my-lg-5 " > 回首頁</router-link>
 </div>
       <div class="bg-light pb-5">
         <div class="container "  >
@@ -38,3 +38,20 @@
       </div>
 
 </template>
+
+<style scoped>
+.goHomeBtn{
+border: 2px solid #e8740d;
+color:#e8740d ;
+border-radius: 50px;
+padding: 0.2rem 2rem;
+font-size: 1.3rem;
+font-weight: 700;
+}
+
+.goHomeBtn:hover{
+background-color:#e8740d ;
+color:white;
+}
+
+</style>
