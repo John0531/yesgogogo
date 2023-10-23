@@ -644,7 +644,7 @@
 
                             <div class="ms-2 mb-1">活動期間: 2023/9/1-2023/12/31 (自2023年9月起，每月7天愛心週) </div>
                             <ol>
-                                <li class="mb-1">凡於 10/1-10/7 購買愛心週活動頁商品，如您一起參與愛心捐，本活動最高捐結帳金額20%贈與非營利組織。 </li>
+                                <li class="mb-1">凡於11/1-11/7購買愛心週活動頁商品，邀您一同參與愛心捐，本活動最高捐結帳金額20%贈與非營利組織。 </li>
 
                                 <li class="mb-1">活動期間每筆訂單將獲得結帳總金額10%購物金的消費回饋。會員可選擇該筆訂單的消費回饋10%購物金，(1) 10%購物金全部保留在自己帳戶中，或(2) 5%轉作「愛心捐」+ 保留5%購物金，或(3) 10%轉作「愛心捐」。</li>
 
@@ -669,15 +669,15 @@
 
                                 <ol>
 
-                                  <li class="mb-1">10/1-10/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P230830000039" class="text-light border-bottom" target="_blank" >樂米穀場台東新月艷姬6入組 </a>、<a href="/productboard/product/P230912000080" class="text-light border-bottom" target="_blank" >南苗市場40年老店屏東萬巒豬腳3包組</a>、<a href="/productboard/product/P230817000016" class="text-light border-bottom" target="_blank" >奇美20L全自動轉盤微波爐</a>。 </li>
+                                  <li class="mb-1">11/1-11/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P231016000001" class="text-light border-bottom" target="_blank" >【勝崎生鮮】美國安格斯藍帶牛排 </a>、<a href="/productboard/product/P231023000011" class="text-light border-bottom" target="_blank" >【紅布朗】五行堅果總匯超值組</a>、<a href="/productboard/product/P230925000019" class="text-light border-bottom" target="_blank" >【日本製】DRIPO咖啡焙煎所黑咖啡</a>。 </li>
 
-                                    <li class="mb-1">回饋購物金將於10/31前發送至yesgogogo平台會員帳戶內。 </li>
+                                    <li class="mb-1">回饋購物金將於11/30前發送至yesgogogo平台會員帳戶內。 </li>
                                     <li class="mb-1">1購物金=1元，可於下次消費折抵結帳金額25%。購物金可至會員中心的「我的優惠券」→「購物金回饋」內查詢明細。 </li>
 
                                 </ol>
-                             <div class=" mb-1 fs-5">【點擊捐贈與勵馨基金會】</div>
+                             <div class=" mb-1 fs-5">【點擊捐贈與中華育幼兒童關懷協會】</div>
                              <ol>
-                                <li class="mb-1">2023/10/1-10/7於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與勵馨基金會。點擊捐贈與金額最高上限$20,000。</li>
+                                <li class="mb-1">2023/11/1-11/7於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與中華育幼兒童關懷協會。點擊捐贈與金額最高上限$10,000。</li>
                                 <li class="mb-1">點擊捐以點擊進站的有效流量計算點擊數。(排除無效流量，例如:自動點擊工具、對用戶毫無意義的連續二次點擊等)。</li>
                              </ol>
 
