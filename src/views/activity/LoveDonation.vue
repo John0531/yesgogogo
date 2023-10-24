@@ -669,7 +669,7 @@
 
                                 <ol>
 
-                                  <li class="mb-1">11/1-11/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P231016000001" class="text-light border-bottom" target="_blank" >【勝崎生鮮】美國安格斯藍帶牛排 </a>、<a href="/productboard/product/P231023000011" class="text-light border-bottom" target="_blank" >【紅布朗】五行堅果總匯超值組</a>、<a href="/productboard/product/P230925000019" class="text-light border-bottom" target="_blank" >【日本製】DRIPO咖啡焙煎所黑咖啡</a>。 </li>
+                                  <li class="mb-1">11/1-11/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P231016000001" class="text-light border-bottom" target="_blank" >【勝崎生鮮】美國安格斯藍帶牛排 </a>、<a href="/productboard/product/P230918000004" class="text-light border-bottom" target="_blank" >【Joyoung九陽】可口可樂多功能煎烤盤</a>、<a href="/productboard/product/P230925000019" class="text-light border-bottom" target="_blank" >【日本製】DRIPO咖啡焙煎所黑咖啡</a>。 </li>
 
                                     <li class="mb-1">回饋購物金將於11/30前發送至yesgogogo平台會員帳戶內。 </li>
                                     <li class="mb-1">1購物金=1元，可於下次消費折抵結帳金額25%。購物金可至會員中心的「我的優惠券」→「購物金回饋」內查詢明細。 </li>
