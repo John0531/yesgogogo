@@ -117,7 +117,7 @@ export default {
     const now = moment().format('YYYY/MM/DD HH:mm:ss')
     const eventIcon = sessionStorage.getItem('closeEvent')
     // ? 超過2023/11/1 50元 反之 100元
-    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isAfter('2023/10/24 23:00:00')) {
+    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isAfter('2023/10/31 23:59:59')) {
       this.is100 = false
     } else {
       this.is100 = true
