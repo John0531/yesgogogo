@@ -730,8 +730,7 @@ export default {
       // TODO 低溫配送購物車運費資訊
       coldCartShipInfo: {},
       clickCartType: '',
-      trackList: [], // ? 追蹤清單商品
-      filteredKeywords: {}
+      trackList: [] // ? 追蹤清單商品
     }
   },
   methods: {
@@ -811,7 +810,6 @@ export default {
         const postData = {
           items: normalCartItems
         }
-        console.log(postData)
         const url = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
         this.axios.post(url, postData)
           .then((res) => {

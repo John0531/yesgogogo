@@ -7,9 +7,12 @@
       <div>
         <div class="bg-white px-2 py-2 py-md-3 border-bottom">
             <div class="d-inline text-gray-dark">
-              <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品，</h6>
-              <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{3000 - store.state.checkoutCartList.amountResult.paidAmount }}</h4>
-              <h6 class="d-inline" v-else>您可加購:</h6>
+              <!-- <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品，</h6> -->
+              <h6 class="d-inline">可加價購以下超優惠商品，</h6>
+              <!-- 20231017更改加購限制為1，或加購金額限制更改再開啟 -->
+              <!-- <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{3000 - store.state.checkoutCartList.amountResult.paidAmount }}</h4>
+              <h6 class="d-inline" v-else>您可加購:</h6> -->
+              <h6 class="d-inline" >您可加購:</h6>
             </div>
             <div class="form-check px-2 px-md-4 py-3">
               <div class="hotProducts">
@@ -41,7 +44,7 @@
                     <input class="form-check-input ms-0 my-2 " type="radio" name="flexRadioDefault2" id="P11" value="" @click.prevent="addOn(dishes)">
                   </div> -->
                   <div class="prd-item  bg-gray h-100 p-0" :class="{'d-none': productsList.length === 0}">
-                    <div :class="{'overlay-close': store.state.checkoutCartList.amountResult.payableAmount < 3000}" >
+                    <div :class="{'overlay-close': store.state.checkoutCartList.amountResult.payableAmount < 1}" >
                       <div class="text-center text-gray fw-bold">
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="50%" height="50%" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16" >
                           <path d="M15 8a6.973 6.973 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8ZM2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0Z"/>

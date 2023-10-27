@@ -95,7 +95,7 @@
                                 <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
                               </g>
                             </svg>
-                            <small class="text-muted ms-1 ms-md-0" v-if="item.gift.giftName">{{item.gift.giftName}}</small>
+                            <small class="text-muted ms-1 ms-md-0" v-if="item.gift?.giftName">{{item.gift.giftName}}</small>
                           </div>
                         </a>
                         <a v-if="item.isLoveProduct  " class="d-inline-block  py-1" @click="openDonativeModal()" href="#">
@@ -199,7 +199,7 @@
                             <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
                           </g>
                         </svg>
-                        <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
+                        <small class="text-muted ms-1 ms-md-0">{{item.gift?.giftName}}</small>
                       </div>
                     </a>
 
@@ -370,7 +370,7 @@
                                 <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
                               </g>
                             </svg>
-                            <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
+                            <small class="text-muted ms-1 ms-md-0">{{item.gift?.giftName}}</small>
                           </div>
                         </a>
                         <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用部分折價券</span>
@@ -462,7 +462,7 @@
                             <path id="Path_4" data-name="Path 4" d="M10.25,4.41h2.19a2.06,2.06,0,0,0,2.24-1.75c0-.94-1.06-1.69-2.29-1.59C10.46,1.23,10.25,3.47,10.25,4.41Z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25"/>
                           </g>
                         </svg>
-                        <small class="text-muted ms-1 ms-md-0">{{item.gift.giftName}}</small>
+                        <small class="text-muted ms-1 ms-md-0">{{item.gift?.giftName}}</small>
                       </div>
                     </a>
                     <span class="text-primary" v-if="!item.canUseCoupon">*本商品不適用部分折價券</span>
@@ -1697,8 +1697,7 @@ export default {
     },
     async handleAddon (productObject) {
       try {
-        // 處理加購品資訊
-        // console.log(Object.values(productObject))
+        // *處理來自加購品API的產品資訊
         const post = {
           productId: Object.values(productObject)[0],
           productName: Object.values(productObject)[2],
@@ -1707,56 +1706,62 @@ export default {
           optionId: Object.values(productObject)[1],
           quantity: 1
         }
-        // console.log(post)
-        // *打計價前過濾舊品比較API
-        const filteredKeywords = this.$store.state.AddOnProdList.filter((product) =>
-          this.cartData.items.some((filterItems) =>
-            product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
-          )
-        )
-        // console.log(filteredKeywords)
-        // *若已有加購品，刪除舊品
-        if (filteredKeywords.length !== 0) {
-          const deleteData = {
-            productId: filteredKeywords[0].productId,
-            optionId: filteredKeywords[0].optionId
-          }
+        // //打計價前過濾舊品比較API 20231017關閉for不限單品
+        // this.filteredKeywords = this.$store.state.AddOnProdList.filter((product) =>
+        //   this.cartData.items.some((filterItems) =>
+        //     product.productId === filterItems.productId && product.optionId === filterItems.optionId
+        //   )
+        // )
+        // *只比對加購項目，若重複便+1，非重複加入購物車
+        if (this.cartData.items.some((product) => product.productId === post.productId && product.optionId === post.optionId)) {
           this.cartData.items.forEach((item, index) => {
-            if (item.productId === deleteData.productId) {
-              this.cartData.items.splice(index, 1)
-              console.log(index)
+            if (item.productId === post.productId && item.optionId === post.optionId) {
+              this.cartData.items[index].quantity = this.cartData.items[index].quantity + 1
             }
           })
-          this.$swal.fire({
-            title: '僅能購買一項加購品!',
-            allowOutsideClick: true,
-            confirmButtonColor: '#F8412E',
-            confirmButtonText: '確認',
-            width: 400,
-            customClass: {
-              title: 'text-class',
-              confirmButton: 'confirm-btn-class'
-            }
-          })
-          // *移除購物車舊品
-          const url = `${process.env.VUE_APP_API}/api/newCart/remove`
-          this.axios.post(url, deleteData)
-            .then((res) => {
-              if (res.data.rtnCode === 0) {
-                this.getCartData()
-                sessionStorage.removeItem('back')
-              } else {
-                this.$store.commit('getcartIconNum', 0)
-                this.cartData.items = []
-                this.normalCart = []
-                this.coldCart = []
-                this.fullShipmentCart = []
-              }
-            })
+        } else {
+          this.cartData.items.push(post)
         }
-        // *打計價API並加入新加購品
-        console.log(post)
-        this.cartData.items.push(post)
+        // ?永遠只有一筆，濾出已有的加購品
+        // *若已有加購品，刪除舊品20231017關閉for不限單品
+        // if (filteredKeywords.length !== 0) {
+        //   const deleteData = {
+        //     productId: filteredKeywords[0].productId,
+        //     optionId: filteredKeywords[0].optionId
+        //   }
+        //   this.cartData.items.forEach((item, index) => {
+        //     if (item.productId === deleteData.productId) {
+        //       this.cartData.items.splice(index, 1)
+        //       console.log(index)
+        //     }
+        //   })
+        //   this.$swal.fire({
+        //     title: '僅能購買一項加購品!',
+        //     allowOutsideClick: true,
+        //     confirmButtonColor: '#F8412E',
+        //     confirmButtonText: '確認',
+        //     width: 400,
+        //     customClass: {
+        //       title: 'text-class',
+        //       confirmButton: 'confirm-btn-class'
+        //     }
+        //   })
+        //   // *移除購物車舊品
+        //   const url = `${process.env.VUE_APP_API}/api/newCart/remove`
+        //   this.axios.post(url, deleteData)
+        //     .then((res) => {
+        //       if (res.data.rtnCode === 0) {
+        //         this.getCartData()
+        //         sessionStorage.removeItem('back')
+        //       } else {
+        //         this.$store.commit('getcartIconNum', 0)
+        //         this.cartData.items = []
+        //         this.normalCart = []
+        //         this.coldCart = []
+        //         this.fullShipmentCart = []
+        //       }
+        //     })
+        // }
         const cartItems = this.cartData.items.map((item) => {
           return {
             productId: item.productId,
@@ -1795,10 +1800,11 @@ export default {
             window.scrollTo({ top: 10, behavior: 'smooth' })
           })
       } catch (error) {
+        console.log(error)
       }
     },
     setAddOnParams () {
-      // !有加購品的返回事件
+      // *有加購品的返回事件
       sessionStorage.setItem('back', true)
       this.$router.push('/checkoutboard/checkoutcartlist')
     }
