@@ -499,7 +499,7 @@
             </div>
             </div>
              <!--   入室春風靄 後棟要求隱藏 productBox-title08 -->
-             <!-- <div class="bg-group4 img-bg-repeat pb-5" v-if="productList08.length>0">
+             <div class="bg-group4 img-bg-repeat pb-5" v-if="productList08.length>0">
               <div class="py-2">
 
                 <div class="container" v-if="productList08" >
@@ -557,7 +557,7 @@
                  </div>
 
                </div>
-             </div> -->
+             </div>
 
         </div>
              <!-- 品號入稿 end ▲ -->
@@ -799,7 +799,6 @@ export default {
               this.productList07 = item.products
             } else if (item.code === 'loveDonation_B_8') {
               this.productList08 = item.products
-              this.productList08 = []
             }
           })
         }
