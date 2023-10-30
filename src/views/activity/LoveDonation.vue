@@ -498,9 +498,8 @@
 
             </div>
             </div>
-
-             <!-- bg-kitchen 炊煙生財氣(廚房好物) productBox-title08 -->
-             <div class="bg-group4 img-bg-repeat pb-5">
+             <!--   入室春風靄 後棟要求隱藏 productBox-title08 -->
+             <!-- <div class="bg-group4 img-bg-repeat pb-5" v-if="productList08.length>0">
               <div class="py-2">
 
                 <div class="container" v-if="productList08" >
@@ -509,7 +508,7 @@
                             <div class="row productBox-title08 img-bg-noRepeat "> </div>
 
                             <div class="row  productBox-middle img-bg-repeat py-3">
-                                    <!-- 下為商品區 -->
+
                                 <div class="col-12 col-md-11 mx-auto ">
                                       <div class=" row justify-content-center g-1 g-lg-2">
 
@@ -546,19 +545,19 @@
                                         </div>
                                     </div>
 
-                            </div>
-
                                 </div>
+
+                             </div>
                            </div>
 
                             <div class="row productBox-end img-bg-noRepeat  "> </div>
                         </div>
                     </div>
 
-                </div>
+                 </div>
 
-            </div>
-             </div>
+               </div>
+             </div> -->
 
         </div>
              <!-- 品號入稿 end ▲ -->
@@ -800,6 +799,7 @@ export default {
               this.productList07 = item.products
             } else if (item.code === 'loveDonation_B_8') {
               this.productList08 = item.products
+              this.productList08 = []
             }
           })
         }
