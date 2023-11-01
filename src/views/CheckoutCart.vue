@@ -84,7 +84,7 @@
                       </div>
                       <div class="col-lg-9 ps-3 ps-lg-4">
                         <a href="#" @click.prevent="toProduct(item)" class="text-dark product-name"
-                          ><span v-if="item.optionName">{{item.productName}}-{{item.optionName}}</span><br>
+                          ><span v-if="item.optionName" class="break">{{item.productName}}-{{item.optionName}}</span><br>
                           <div class="d-flex align-items-center mt-2" v-if="item.gift!==null">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19.63" height="20.13" viewBox="0 0 19.63 20.13">
                               <g id="yesgo_icon元件-32" transform="translate(-0.435 -0.435)">
@@ -1987,6 +1987,10 @@ svg g {
 
 .bg-donate {
   background-color: #FED034;
+}
+
+.break {
+  word-break: break-all;
 }
 
 </style>

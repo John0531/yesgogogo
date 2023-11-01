@@ -39,9 +39,9 @@
                   prevEl: '#fes-prev1'
                 }"
               >
-                <swiper-slide v-for="dishes in productsList" :key="dishes.productId">
+                <swiper-slide v-for="prod in productsList" :key="prod.productId">
                   <!-- <div class="d-flex justify-content-center">
-                    <input class="form-check-input ms-0 my-2 " type="radio" name="flexRadioDefault2" id="P11" value="" @click.prevent="addOn(dishes)">
+                    <input class="form-check-input ms-0 my-2 " type="radio" name="flexRadioDefault2" id="P11" value="" @click.prevent="addOn(prod)">
                   </div> -->
                   <div class="prd-item  bg-gray h-100 p-0" :class="{'d-none': productsList.length === 0}">
                     <div :class="{'overlay-close': store.state.checkoutCartList.amountResult.payableAmount < 1}" >
@@ -52,21 +52,21 @@
                       </div>
                     </div>
                     <a
-                      @click.prevent="addOn(dishes)"
+                      @click.prevent="addOn(prod)"
                       to="#"
                       class="d-block prd-link text-secondary card-add overlay"
                     >
                       <div class="card-below overflow-hidden w-100 d-flex">
-                        <img :src="dishes.productImage" class="img-fluid card-below" :alt="dishes.productName">
+                        <img :src="prod.productImage" class="img-fluid card-below" :alt="prod.productName">
                       </div>
                       <div class="px-2 pb-1 px-md-3 pb-md-2 pt-0">
-                        <p class="card-text text-dark text-start prd-name fs-6 pt-2">{{ dishes.name }}</p>
+                        <p class="card-text text-dark text-start prd-name fs-6 pt-2">{{ prod.name }}</p>
                         <div class="d-flex flex-column justify-content-center align-items-start mb-1 mb-md-2">
-                          <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >市價${{ dishes.price }}</del>
+                          <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >市價${{ prod.oldPrice }}</del>
                           <span
                               class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >
                               加購價
-                              <span class="sell-price fw-bolder" >{{ dishes.price &lt; 0 ? 'xxx': $currency.currency(dishes.price) }}</span>
+                              <span class="sell-price fw-bolder" >{{ prod.price &lt; 0 ? 'xxx': $currency.currency(prod.price) }}</span>
                             </span>
                             <div class="d-flex justify-content-center w-100">
                               <span class="d-block prd-limited m-spc w-100" >加入購物車</span>
@@ -109,6 +109,7 @@ async function getProductList () {
   await axios.get(url).then((res) => {
     if (res.data.rtnCode === 0) {
       productsList.value = res.data.info.results
+      console.log(productsList.value)
       // !存在vuex供唯一加購品比對
       store.commit('getAddOnProducts', productsList.value)
     }
