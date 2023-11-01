@@ -8,11 +8,11 @@
         <div class="bg-white px-2 py-2 py-md-3 border-bottom">
             <div class="d-inline text-gray-dark">
               <!-- <h6 class="d-inline">若購買全站商品滿額$3000可加價購以下超優惠商品，</h6> -->
-              <h6 class="d-inline">可加價購以下超優惠商品，</h6>
+              <h6 class="d-inline">可加價購以下超優惠商品</h6>
               <!-- 20231017更改加購限制為1，或加購金額限制更改再開啟 -->
               <!-- <h4 class="d-inline prd-price fw-bolder" v-if="store.state.checkoutCartList.amountResult.payableAmount < 3000">您還少${{3000 - store.state.checkoutCartList.amountResult.paidAmount }}</h4>
               <h6 class="d-inline" v-else>您可加購:</h6> -->
-              <h6 class="d-inline" >您可加購:</h6>
+              <!-- <h6 class="d-inline" >您可加購:</h6> -->
             </div>
             <div class="form-check px-2 px-md-4 py-3">
               <div class="hotProducts">
@@ -62,14 +62,14 @@
                       <div class="px-2 pb-1 px-md-3 pb-md-2 pt-0">
                         <p class="card-text text-dark text-start prd-name fs-6 pt-2">{{ dishes.name }}</p>
                         <div class="d-flex flex-column justify-content-center align-items-start mb-1 mb-md-2">
-                          <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" data-v-66ededbc="">市價${{ dishes.price }}</del>
+                          <del class="text-dark me-1 me-xl-2 fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >市價${{ dishes.price }}</del>
                           <span
                               class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-6" >
                               加購價
-                              <span class="sell-price" data-v-e149e506="">{{ dishes.price &lt; 0 ? 'xxx': $currency.currency(dishes.price) }}</span>
+                              <span class="sell-price fw-bolder" >{{ dishes.price &lt; 0 ? 'xxx': $currency.currency(dishes.price) }}</span>
                             </span>
                             <div class="d-flex justify-content-center w-100">
-                              <span class="d-block prd-limited m-spc w-100" data-v-66ededbc="">加入購物車</span>
+                              <span class="d-block prd-limited m-spc w-100" >加入購物車</span>
                             </div>
                         </div>
                       </div>
@@ -196,9 +196,11 @@ function addOn (productId) {
   }
 }
 .prd-name{
-  height: 3rem;
-  line-height: 1.5;
+  height: auto;
+  line-height: 1.3;
   overflow: hidden;
+  word-break: break-all;
+  margin-bottom: 1rem;
 }
 
 .overlay {
