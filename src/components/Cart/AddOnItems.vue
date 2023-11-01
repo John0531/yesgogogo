@@ -211,7 +211,7 @@ function addOn (productId) {
   width: 100%;
   height: 100%;
   opacity: 0.94;
-  background: #ffb15b;
+  background: #ffd2a3;
   // background: linear-gradient(0.35turn, #F8412E, #ffffff, #ffb15b);
   cursor: pointer;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
