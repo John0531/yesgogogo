@@ -197,7 +197,8 @@ function addOn (productId) {
   }
 }
 .prd-name{
-  height: auto;
+  // height: auto;
+  height: 3rem;
   line-height: 1.3;
   overflow: hidden;
   word-break: break-all;
