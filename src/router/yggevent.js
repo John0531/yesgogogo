@@ -283,6 +283,14 @@ const yggevent = {
       meta: {
         title: '愛心週'
       }
+    },
+    {
+      path: 'activity/diamondPod',
+      name: '鑽石鍋',
+      component: () => import(/* webpackChunkName: "group-loveDonation" */ '../views/activity/DiamondPod.vue'),
+      meta: {
+        title: '鑽石鍋'
+      }
     }
     // {
     //   path: 'activity/testnewyeargift/',

@@ -3,6 +3,7 @@ node_modules
 /dist
 /.svn
 /.vscode
+dist.zip
 
 # local env files
 .env.local
