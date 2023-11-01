@@ -210,8 +210,8 @@ function addOn (productId) {
   width: 100%;
   height: 100%;
   opacity: 0.94;
-  // background: linear-gradient(0.35turn, #3f87a6, #ebf8e1, #f69d3c);
-  background: linear-gradient(0.35turn, #F8412E, #ffffff, #ffb15b);
+  background: #ffb15b;
+  // background: linear-gradient(0.35turn, #F8412E, #ffffff, #ffb15b);
   cursor: pointer;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
