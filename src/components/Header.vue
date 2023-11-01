@@ -54,15 +54,15 @@
                 <div v-if="this.$store.state.isLogOut" class="d-flex align-items-center">
                   <a href="#" @click.prevent="mobileLogin"
                     ><img
-                      class="d-sm-none"
+                      class="d-block d-sm-none"
                       src="../assets/img/yesgo_icon02.svg"
                       alt="user login"
                   /></a>
                   <!-- 網頁/平板 登入/註冊連結 -->
                   <img
-                    class="d-none d-sm-inline"
+                    class="d-none d-sm-block"
                     src="../assets/img/yesgo_icon02.svg"
-                    alt="user login"
+                    alt=" user login"
                   />
                   <ul
                     class="list-unstyled d-none d-sm-flex flex-nowrap mb-0 mb-lg-0"
@@ -123,12 +123,12 @@
               </div>
               <a href="#" class="collectBtn" @click.prevent="toMemberCollection"
                 >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20.808" height="18.918" viewBox="0 0 19.808 17.918">
+                <svg xmlns="http://www.w3.org/2000/svg" class="d-block" width="24" height="24" viewBox="0 0 19.808 17.918">
                 <path id="yesgo_icon元件-28" d="M19.44,6a4.8,4.8,0,0,0-9.19-1.9A4.8,4.8,0,1,0,2.51,9.47l7.74,8.29L18,9.47A4.8,4.8,0,0,0,19.44,6Z" transform="translate(-0.307 -0.517)" fill="none" stroke="#4d4d4d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.35"/>
                 </svg>
               </a>
               <a href="#" class="cartBtn" @click.prevent="toCheckoutCartList">
-                <img src="../assets/img/yesgo_icon03.svg" alt="cart" />
+                <img src="../assets/img/yesgo_icon03.svg" class="d-block" alt="cart" />
                 <div class="cartNumber">{{this.$store.state.cartIconNum}}</div>
               </a>
             </div>

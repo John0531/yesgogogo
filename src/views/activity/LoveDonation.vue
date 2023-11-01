@@ -1,4 +1,9 @@
 <template>
+<div v-if="!donationOpen">
+      <DonationComingsoon></DonationComingsoon>
+    </div>
+
+  <div v-if="donationOpen">
     <div class="bg" style="overflow:hidden">
 
          <!-- PC XL版 banner -->
@@ -10,17 +15,19 @@
           <!-- 手機版 banner -->
          <a href="#detail"  > <div class="banner-mb img-bg-noRepeat  d-lg-none  "></div></a>
 
-            <!-- 十分好運福氣旺 圖片入稿 luckyProductList -->
-          <div class="bg-lucky img-bg-repeat pt-4 pb-5 ">
+            <!-- 順手必買 圖片入稿 luckyProductList -->
+          <div class="bg-lucky img-bg-repeat pt-0 pb-md-4  pb-lg-6 ">
 
-                <div class="container position-relative"  v-if="luckyProductList.length>0" >
+                <div class="container"  v-if="luckyProductList.length>0" >
 
-                        <div class="row justify-content-center "  >
-                            <div class="col-12 col-lg-10">
-                                <div class="row lucky-title img-bg-noRepeat justify-content-center "></div>
+                        <div class="row justify-content-center">
+                            <div class="col-12 col-lg-11">
+                                <div class="row lucky-title img-bg-noRepeat   "></div>
 
-                                    <div class="row lucky-box g-1   g-lg-3" >
-                                    <!-- 十分好運福氣旺-卡片區 不輪播-->
+                                <div class="row lucky-middle  img-bg-repeat " >
+                                    <!-- -卡片區 -->
+                                    <div class="col-12 col-md-10 col-lg-11 mx-auto">
+                                      <div class="row mt-3 g-2 g-sm-2 g-lg-3">
                                         <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center ">
                                           <a :href="luckyProductList[0].targetUrl" v-if="luckyProductList[0]">
                                             <img v-lazy="luckyProductList[0].image" :key="luckyProductList[0].image" class="img-fluid" alt="">
@@ -48,85 +55,101 @@
                                              <a :href="luckyProductList[5].targetUrl"  v-if="luckyProductList[5]" >
                                              <img v-lazy="luckyProductList[5].image" :key="luckyProductList[5].image" class="img-fluid" alt="" ></a>
                                              </div>
-                                    </div>
+
+                                     </div>  </div>
+                                </div>
+
+                                <div class="row lucky-end img-bg-noRepeat"></div>
 
                             </div>
                         </div>
 
-                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_01.png" class="heart-left d-none d-lg-block" alt="heart-L">
+                    <!-- <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_01.png" class=" d-none d-lg-block" alt="heart-L">
 
-                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_02.png" class="heart-right d-none d-lg-block" alt="heart-R">
+                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_heart_02.png" class=" d-none d-lg-block" alt="heart-R"> -->
 
                 </div>
 
         </div>
 
              <!-- 品號入稿 start -->
-        <div class="position-relative bg-yellow img-bg-repeat" v-if="allProductList.length>0" >
+        <div class="" v-if="allProductList.length>0" >
 
-            <!-- bg-eat 愈吃愈有福 (零食/糕點)   -->
-            <div class="py-5">
+            <!-- bg-eat 愈吃愈有福 (零食/糕點)  productBox-title01   -->
+            <div class="bg-group1 img-bg-repeat pb-5">
+              <div class="py-2">
 
-                <div class="container" v-if="productList01" >
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                  <div class="container " v-if="productList01" >
+                      <div class="row justify-content-center ">
+                        <div class="col-11   g-1 g-lg-0">
 
-                            <div class="row eat-title img-bg-noRepeat justify-content-center"> </div>
+                              <div class="row productBox-title01 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center g-2 g-lg-3">
+                              <div class="row  productBox-middle img-bg-repeat py-3">
+                                    <!-- 下為商品區 -->
+                                   <div class="col-12 col-md-11 mx-auto ">
+                                      <div class=" row justify-content-center g-1 g-lg-2">
 
-                                    <div class="col-6 col-lg-3 " v-for="eatItem in  productList01 " :key="eatItem.productId" >
-                                        <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
-                                            <router-link
-                                                :to="`/productboard/product/${eatItem.productId}`"
-                                                class="prd-link text-secondary text-decoration-none"
-                                            >
-                                            <div class="p-1 p-md-2">
-                                            <div class="ratio ratio-1x1">
-                                                <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
-                                            </div>
-                                            </div>
+                                              <div class="col-6 col-lg-3 " v-for="eatItem in  productList01 " :key="eatItem.productId" >
+                                                  <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
+                                                      <router-link
+                                                          :to="`/productboard/product/${eatItem.productId}`"
+                                                          class="prd-link text-secondary text-decoration-none"
+                                                      >
+                                                      <div class="p-1 p-md-2">
+                                                      <div class="ratio ratio-1x1">
+                                                          <img v-lazy="eatItem.productImage" :key="eatItem.productImage" class=" img-fluid  " >
+                                                      </div>
+                                                      </div>
 
-                                                <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}} </div>
-                                                <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
-                                                <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
-                                                <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
-                                                    <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
-                                                    >
-                                                    ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
-                                                    </del>
-                                                    <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
-                                                    >特價 <span class="prd-currency">$</span><span class="sell-price">
+                                                          <div class="mt-3 mb-2 text-center slogan-button p-1 fw-bold fs-7 fs-md-6 fs-xxl-5"> {{eatItem.slogan}} </div>
+                                                          <div class="px-1 pb-1 px-md-2 pb-md-2 pt-0">
+                                                          <p class="card-text text-dark text-center mt-0 prd-name fs-6"> {{eatItem.productName}} </p>
+                                                          <div class="d-flex justify-content-center align-items-end mb-1 mb-md-2">
+                                                              <del class="text-dark text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xl-6 fs-xxl-6 mb-1 mb-lg-1 mb-xl-0 mb-xxl-2 me-2 me-md-3"
+                                                              >
+                                                              ${{ eatItem.oldPrice &lt; 0 ? 'xxx': $currency.currency(eatItem.oldPrice)}}
+                                                              </del>
+                                                              <span class="prd-price text-nowrap fs-7 fs-md-6 fs-lg-7 fs-xxl-7"
+                                                              >特價 <span class="prd-currency">$</span><span class="sell-price">
 
-                                                        {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
-                                                        </span
-                                                    ></span
-                                                    >
-                                                </div>
-                                                </div>
-                                            </router-link>
-                                        </div>
+                                                                  {{ eatItem.price &lt; 0 ? 'xxx': $currency.currency(eatItem.price) }}
+                                                                  </span
+                                                              ></span
+                                                              >
+                                                          </div>
+                                                          </div>
+                                                      </router-link>
+                                                  </div>
+                                              </div>
+
+                                      </div>
                                     </div>
+                              </div>
 
-                            </div>
+                              <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
-                    </div>
+                      </div>
 
-                </div>
+                  </div>
 
+              </div>
             </div>
 
-            <!-- bg-drinks 好果報喜來 (果汁/飲品/咖啡)  -->
-             <div class="pb-5">
+            <!-- bg-drinks 好果報喜來 (果汁/飲品/咖啡) productBox-title02 -->
+           <div class="bg-group3 img-bg-repeat pb-5">
+             <div class="py-2">
 
                <div class="container" v-if="productList02" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row drinks-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row productBox-title02 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
+                            <div class="row productBox-middle img-bg-repeat py-3">
+                               <div class="col-12 col-md-11 mx-auto ">
+                                  <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList02 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -161,25 +184,31 @@
                                         </div>
                                     </div>
 
-                            </div>
+                                  </div>
+                              </div>
+                           </div>
+
+                           <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
-
                 </div>
 
             </div>
-
-             <!-- bg-rice 財源不間斷(米/油/南北貨)  -->
-             <div class="pb-5">
+           </div>
+             <!-- bg-rice 財源不間斷(米/油/南北貨) productBox-title03 -->
+          <div class="bg-group2 img-bg-repeat pb-5">
+             <div class="py-2">
 
                  <div class="container" v-if="productList03" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row rice-title img-bg-noRepeat justify-content-center"> </div>
+                           <div class="row productBox-title03 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
+                            <div class="row  productBox-middle img-bg-repeat py-3">
+                               <div class="col-12 col-md-11 mx-auto ">
+                                  <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList03 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -213,8 +242,12 @@
                                             </router-link>
                                         </div>
                                     </div>
+                                  </div>
+                               </div>
 
                             </div>
+
+                            <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
@@ -222,17 +255,21 @@
                 </div>
 
             </div>
+          </div>
 
-            <!-- bg-fresh 日日好吉祥(生鮮/即食/小吃)  -->
-             <div class="pb-5">
+            <!-- bg-fresh 日日好吉祥(生鮮/即食/小吃) productBox-title04 -->
+           <div class="bg-group4 img-bg-repeat pb-5">
+             <div class="py-2">
 
                 <div class="container" v-if="productList04" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row fresh-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row productBox-title04 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
+                            <div class="row  productBox-middle img-bg-repeat py-3">
+                              <div class="col-12 col-md-11 mx-auto ">
+                                      <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList04 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -266,8 +303,11 @@
                                             </router-link>
                                         </div>
                                     </div>
+                                 </div>
+                               </div>
 
                             </div>
+                            <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
@@ -275,17 +315,23 @@
                 </div>
 
             </div>
+           </div>
 
-             <!-- bg-health 福祿與天齊(保健/保養)  -->
-             <div class="pb-5">
+             <!-- bg-health 福祿與天齊(保健/保養) productBox-title05 -->
+             <div class="bg-group1 img-bg-repeat pb-5">
+             <div class="py-2">
 
                  <div class="container" v-if="productList05" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row health-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row productBox-title05 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
+                            <div class="row  productBox-middle img-bg-repeat py-3">
+                                    <!-- 下為商品區 -->
+                                   <div class="col-12 col-md-11 mx-auto ">
+
+                            <div class="row  justify-content-center  g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList05 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -321,6 +367,9 @@
                                     </div>
 
                             </div>
+                          </div>
+                         </div>
+                         <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
@@ -328,17 +377,21 @@
                 </div>
 
             </div>
+             </div>
 
-             <!-- bg-clean 納福日無疆(個清/日用)  -->
-              <div class="pb-5">
+             <!-- bg-clean 納福日無疆(個清/日用) productBox-title06 -->
+             <div class="bg-group3 img-bg-repeat pb-5">
+              <div class="py-2">
 
                <div class="container" v-if="productList06" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row clean-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row productBox-title06 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
+                            <div class="row  productBox-middle img-bg-repeat py-3">
+                              <div class="col-12 col-md-11 mx-auto ">
+                                  <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList06 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -373,7 +426,11 @@
                                         </div>
                                     </div>
 
+                                </div>
+                              </div>
+
                             </div>
+                            <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
@@ -381,18 +438,21 @@
                 </div>
 
             </div>
+             </div>
 
-            <!-- bg-cool 東風生利市(涼夏/療癒/旅用)  -->
-              <div class="pb-5">
+            <!-- bg-cool 東風生利市(涼夏/療癒/旅用) productBox-title07 -->
+            <div class="bg-group2 img-bg-repeat pb-5">
+              <div class="py-2">
 
                <div class="container" v-if="productList07" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
 
-                            <div class="row cool-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row productBox-title07 img-bg-noRepeat "> </div>
 
-                            <div class="row  justify-content-center  g-2 g-lg-3">
-
+                            <div class="row  productBox-middle img-bg-repeat py-3">
+                               <div class="col-12 col-md-11 mx-auto ">
+                                  <div class=" row justify-content-center g-1 g-lg-2">
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList07 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
                                             <router-link
@@ -425,8 +485,11 @@
                                             </router-link>
                                         </div>
                                     </div>
+                                 </div>
+                               </div>
 
                             </div>
+                             <div class="row productBox-end img-bg-noRepeat  "> </div>
 
                         </div>
                     </div>
@@ -434,17 +497,20 @@
                 </div>
 
             </div>
-
-             <!-- bg-kitchen 炊煙生財氣(廚房好物)  -->
-              <div class="pb-5">
+            </div>
+             <!--   入室春風靄 後棟要求隱藏 productBox-title08 -->
+             <div class="bg-group4 img-bg-repeat pb-5" v-if="productList08.length>0">
+              <div class="py-2">
 
                 <div class="container" v-if="productList08" >
                     <div class="row justify-content-center">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-11 col-lg-11 g-1 g-lg-0">
+                            <div class="row productBox-title08 img-bg-noRepeat "> </div>
 
-                            <div class="row kitchen-title img-bg-noRepeat justify-content-center"> </div>
+                            <div class="row  productBox-middle img-bg-repeat py-3">
 
-                            <div class="row  justify-content-center g-2 g-lg-3">
+                                <div class="col-12 col-md-11 mx-auto ">
+                                      <div class=" row justify-content-center g-1 g-lg-2">
 
                                     <div class="col-6 col-lg-3 " v-for="eatItem in  productList08 " :key="eatItem.productId" >
                                         <div class="prd-item hvr-bob  "  :class="{ 'sold-out': eatItem.stock === 0 }">
@@ -479,51 +545,51 @@
                                         </div>
                                     </div>
 
-                            </div>
+                                </div>
 
+                             </div>
+                           </div>
+
+                            <div class="row productBox-end img-bg-noRepeat  "> </div>
                         </div>
                     </div>
 
-                </div>
+                 </div>
 
-            </div>
+               </div>
+             </div>
 
         </div>
              <!-- 品號入稿 end ▲ -->
 
-             <!-- 愛! 即刻總動員 圖片入稿 -->
-            <div class="bg-red position-relative ">
-                <div class="container  position-relative " style="z-index:2;" v-if="movementProductList.length>0" >
-
-                     <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_MB.png" class="movement-title img-fluid d-lg-none"   alt="愛! 集購總動員-MB標題">
-
-                    <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/title_10_PC.png" class="movement-title img-fluid d-none d-lg-block"   alt="愛! 集購總動員-PC標題">
-
+             <!-- 愛! 集購總動員 圖片入稿 -->
+            <div class="bg-love  py-5 ">
+                <div class="container " v-if="movementProductList.length>0" >
                     <div class="row  justify-content-center">
-                        <div class="col-12 col-lg-10 ">
+                        <div class="col-11 col-lg-11  ">
+                           <div class="row movement-title img-bg-noRepeat "></div>
+                            <div class="row movement-middle img-bg-repeat ">
+                              <div class="col-12 col-lg-11 mx-auto">
 
-                            <div class="row justify-content-center movement-box g-0">
-                                <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center " v-for="product in movementProductList" :key="product.targetUrl"  >
-                                    <a :href="product.targetUrl" v-if="product">
-                                        <img v-lazy="product.image" :key="product.image" class="img-fluid" alt="">
-                                    </a>
-                               </div>
+                                <div class="row justify-content-center g-1 d-md-2 g-lg-3">
+                                    <!-- 商品區 -->
+                                    <div class="col-12 col-lg-6 hvr-bob d-flex align-items-center justify-content-center " v-for="product in movementProductList" :key="product.targetUrl"  >
+                                        <a :href="product.targetUrl" v-if="product">
+                                            <img v-lazy="product.image" :key="product.image" class="img-fluid" alt="">
+                                        </a>
+                                  </div>
+                                </div>
 
+                              </div>
                             </div>
+                            <div class="row movement-end img-bg-noRepeat "></div>
 
                        </div>
                    </div>
 
                </div>
 
-                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_MB.png" alt="hands_MB" class="mb-hand img-fluid  d-lg-none">
-
-                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_PC_01.png" alt="hands_PC-L" class="left-hand img-fluid d-none d-lg-block">
-                <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/bg_hands_PC_02.png" alt="hands_PC-R" class="right-hand img-fluid d-none d-lg-block">
-
             </div>
-
-            <div class="bg-decoline"  ></div>
 
             <!-- 受贈單位 -->
             <div class="bg-donee"  >
@@ -531,7 +597,8 @@
                     <div class="row justify-content-center" >
                         <div class="col-12 col-lg-11"  >
                             <div class="text-center my-3 my-lg-5">
-                             <p class="donee-text-title">受 贈 單 位</p>
+                              <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/title_04_PC.png" class="img-fluid mt-3 mt-lg-6 mb-3" alt="受贈單位">
+                             <!-- <p class="donee-text-title">受 贈 單 位</p> -->
                            </div>
 
                             <div class="row row-cols-3 row-cols-lg-4 g-1 ">
@@ -556,7 +623,7 @@
 
             </div>
 
-            <div style="background-color:#ca171d;" >
+            <div style="background-color:#f84121;" >
                  <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_MB.png" class="img-fluid  d-lg-none" alt="wave-MB">
 
                  <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/LoveDonation/decoWave_PC.png" class="img-fluid d-none d-lg-block" alt="wave-PC">
@@ -574,14 +641,14 @@
                         <div class="col-12 col-lg-11 text-light " >
                              <div class=" mb-1 fs-5">【yesgogogo愛心捐】</div>
 
-                            <div class="ms-2 mb-1">活動期間: 2023/9/1-2023/12/31</div>
+                            <div class="ms-2 mb-1">活動期間: 2023/9/1-2023/12/31 (自2023年9月起，每月7天愛心週) </div>
                             <ol>
-                                <li class="mb-1">自2023年9月起，每月7天愛心週。凡於9/1-9/7購買愛心週活動頁商品，如您一起參與愛心捐，本活動最高捐結帳金額20%贈予非營利組織。 </li>
+                                <li class="mb-1">凡於11/1-11/7購買愛心週活動頁商品，邀您一同參與愛心捐，本活動最高捐結帳金額20%贈與非營利組織。 </li>
 
                                 <li class="mb-1">活動期間每筆訂單將獲得結帳總金額10%購物金的消費回饋。會員可選擇該筆訂單的消費回饋10%購物金，(1) 10%購物金全部保留在自己帳戶中，或(2) 5%轉作「愛心捐」+ 保留5%購物金，或(3) 10%轉作「愛心捐」。</li>
 
                                 <li class="mb-1">「愛心捐」：消費者於訂單結帳當下可選擇將購物金轉作「愛心捐」捐予指定之非營利組織，或保留購物金在自己的帳戶中。如購物金轉作「愛心捐」，yesgogogo將捐出等值現金予非營利組織。
-                                ．愛心捐計算舉例：A會員訂單金額$5,000，整筆訂單未包含指定愛心品，折價券折抵$200，實際支付結帳金額$4,800，獲得10%消費回饋($480購物金)。結帳時如選擇購物金10%轉作「愛心捐 」，共捐出$480愛心捐+獲得$0購物金。</li>
+                                ．愛心捐計算舉例：A會員訂單金額$5,000，整筆訂單未包含指定愛心品，購物金折抵$200，實際支付結帳金額$4,800，獲得10%消費回饋($480購物金)。結帳時如選擇購物金10%轉作「愛心捐 」，共捐出$480愛心捐+獲得$0購物金。</li>
 
                                 <li class="mb-1">凡購買指定愛心品，平台加碼捐愛心品結帳總金額10%給非營利組織。如購買愛心品，平台加碼捐10%且您選擇消費回饋10%購物金也全部轉作「愛心捐」，將捐出最高20%愛心捐。
                                 ．愛心捐計算舉例：A會員訂單金額$5,000，整筆訂單皆為愛心品，購物金折抵$750，實際支付結帳金額$4,250，如獲得10%消費回饋($425購物金)。當結帳時選擇購物金的5%轉作「愛心捐」+保留5%購物金，將捐出5%「愛心捐」($212愛心捐)+保留($213購物金)+愛心品平台加碼捐10%「愛心捐」($425愛心捐)，共捐出$637愛心捐+獲得$213購物金。</li>
@@ -597,19 +664,20 @@
                                 <li class="mb-1">更多「愛心捐 」相關資訊請前往 <a class="text-light border-bottom " href="/questions" target="_blank" >  常見問題</a> 。</li>
                             </ol>
 
-                             <div class=" mb-1 fs-5">【滿額加購 Swiss Diamond瑞仕鑽石鍋】</div>
-                                <div class="ms-2 mb-1">活動期間: 2023/9/1-2023/9/7</div>
-                                <div class="ms-2 mb-1">加購品購買期間: 2023/9/1-2023/9/10 (於9/14起陸續出貨)</div>
+                             <div class=" mb-1 fs-5">【聯邦卡友獨享優惠】</div>
+
                                 <ol>
-                                    <li class="mb-1">2023/9/1-9/7全站單筆消費滿3000元(含)以上，即可以市價2折優惠價，購買 <a href="/productboard/productList/S072697" class="text-light border-bottom" target="_blank" >瑞士原裝頂級鑽石鍋</a>  。如欲購買可至 <a href="https://page.line.me/yesgogogo?openQrModal=true" class="text-light border-bottom" target="_blank"> yesgogogo LINE官方帳號 </a> 索取購買連結，或來電洽詢客服人員(02-6601-2888 #3924)。 </li>
-                                    <li class="mb-1">「滿額加購資格」以實際支付結帳金額計算，實際支付結帳金額為該筆訂單結帳總金額扣除折價券、購物金、滿額折扣等優惠折抵後的「實付金額」。 </li>
-                                    <li class="mb-1">須完成訂單始符合認列資格，若因訂單取消、退貨、非商品瑕疵之換貨，則該筆訂單不得要求列入計算。如因原訂單取消、退貨等未達本活動滿額加購資格，您加價購訂單將同步取消，亦不得要求獲得此加購資格。 </li>
-                                    <li class="mb-1">加價購商品限符合活動資格者購買，如購買者未符合活動加購資格，將取消訂單。 </li>
+
+                                  <li class="mb-1">11/1-11/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P231016000001" class="text-light border-bottom" target="_blank" >【勝崎生鮮】美國安格斯藍帶牛排 </a>、<a href="/productboard/product/P230918000004" class="text-light border-bottom" target="_blank" >【Joyoung九陽】可口可樂多功能煎烤盤</a>、<a href="/productboard/product/P230925000019" class="text-light border-bottom" target="_blank" >【日本製】DRIPO咖啡焙煎所黑咖啡</a>。 </li>
+
+                                    <li class="mb-1">回饋購物金將於11/30前發送至yesgogogo平台會員帳戶內。 </li>
+                                    <li class="mb-1">1購物金=1元，可於下次消費折抵結帳金額25%。購物金可至會員中心的「我的優惠券」→「購物金回饋」內查詢明細。 </li>
+
                                 </ol>
-                             <div class=" mb-1 fs-5">【點擊捐贈與唐氏症基金會】</div>
+                             <div class=" mb-1 fs-5">【點擊捐贈與中華育幼兒童關懷協會】</div>
                              <ol>
-                                <li class="mb-1">2023/9/1-9/7於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與唐氏症基金會。點擊捐贈與金額最高上限$49,000。</li>
-                                <li class="mb-1">點擊捐以點擊進站的有效流量計算點擊數。(排除無效流量，例如:自動點擊工具、對用戶毫無意義的連續二次點擊等)</li>
+                                <li class="mb-1">2023/11/1-11/7於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與中華育幼兒童關懷協會。點擊捐贈與金額最高上限$10,000。</li>
+                                <li class="mb-1">點擊捐以點擊進站的有效流量計算點擊數。(排除無效流量，例如:自動點擊工具、對用戶毫無意義的連續二次點擊等)。</li>
                              </ol>
 
                               <div class=" mb-1 h4 mt-2">注意事項</div>
@@ -628,16 +696,26 @@
             </div>
 
     </div>
+ </div>
 </template>
 
 <script >
 
-//! 愛心週應該不需要(沒有領劵活動) import checkToken from '@/assets/js/checkToken.js'
+import moment from 'moment'
+import DonationComingsoon from '@/views/activity/LoveDonationComingsoon.vue'
 
 export default {
 
+  components: {
+    DonationComingsoon
+  },
+
   data () {
     return {
+
+      openDate: [],
+      donationOpen: false,
+
       luckyProductList: [],
 
       allProductList: [],
@@ -670,6 +748,32 @@ export default {
   },
 
   methods: {
+    // * 取得活動時間起訖
+    getDate () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=donation_date`
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            this.openDate = [res.data.info[0].title, res.data.info[0].description]
+            this.showEvent()
+          }
+        })
+    },
+
+    showEvent () {
+      const now = moment().format('YYYY/MM/DD HH:mm:ss')
+
+      this.idx = this.openDate.findIndex((item) => {
+        return moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore(item)
+      })
+      this.deadline = this.openDate[this.idx]
+      if ((moment(now, 'YYYY/MM/DD HH:mm:ss').isBefore(this.deadline) && this.idx % 2 !== 0 && this.idx !== -1) || (Object.keys(this.$route.query).length !== 0 && this.$route.query.isOpen === 'false')) {
+        this.donationOpen = true
+        this.getAllProductList()
+        this.getLuckyAreaData()
+        this.getMovementData()
+      }
+    },
 
     getAllProductList () {
       const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=loveDonation_B`
@@ -751,9 +855,16 @@ export default {
   },
 
   mounted () {
-    this.getAllProductList()
-    this.getLuckyAreaData()
-    this.getMovementData()
+    this.getDate()
+
+    // 網址若包含?isOpen=false可看頁面
+    if (Object.keys(this.$route.query).length !== 0 && this.$route.query.isOpen === 'false') {
+      this.donationOpen = true
+      this.getAllProductList()
+      this.getLuckyAreaData()
+      this.getMovementData()
+    }
+
     if (this.$store.state.recordEventReadHeight) {
       // ? 若有點擊產品紀錄，則記錄高度供上一頁返回
       setTimeout(

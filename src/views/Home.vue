@@ -641,7 +641,7 @@ export default {
       const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=yesgo_love`
       this.$http.get(url)
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.data.rtnCode === 0) {
             this.loveWeek = res.data.info[0]
             this.loveWeek.products.forEach((item) => {

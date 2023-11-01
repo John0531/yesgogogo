@@ -1,15 +1,21 @@
 <template>
   <div class="icons position-fixed bottom-0 end-0 me-3 mb-2">
     <!--line -->
-    <!-- 舊版本的icon,沒有好友送點數的字 -->
-    <a v-if="isOpen && !isJiao" href="http://line.me/ti/p/@yesgogogo" target="_blank"
+    <!-- 舊版本的icon,沒有好友送點數的字 $50-->
+    <div v-if="!is100 && !isJiao && !isClose" class="position-relative">
+      <a  href="http://line.me/ti/p/@yesgogogo" target="_blank"
       ><img
-        src="../assets/img/yesgo_icon22.svg"
+        src="../assets/img/eventline_icon_(1).gif"
         alt="line contact"
-        class="d-block mb-2 social"
+        class="d-block mb-2 socialLine"
     /></a>
-    <!-- event icon Line 好友送點數 -->
-    <div v-if="!isClose && !isJiao" class="position-relative">
+      <a href="#" @click.prevent="closeEvent" class="d-block closeEvent position-absolute">
+        <img src="../assets/img/eventline_close.png" alt="關閉活動" class="closeEventIcon img-fluid">
+      </a>
+    </div>
+
+    <!-- event icon Line 好友送點數 $100-->
+    <div v-if="is100 && !isJiao && !isClose" class="position-relative">
       <a href="http://line.me/ti/p/@yesgogogo" class="d-block" target="_blank"
         ><img
           src="../assets/img/eventline_icon.gif"
@@ -54,8 +60,9 @@ export default {
       showTop: false,
       dataflow: false,
       dataflowSearch: false,
-      isClose: false,
-      isOpen: false
+      is100: false,
+      isOpen: false,
+      isClose: false
     }
   },
   watch: {
@@ -109,11 +116,16 @@ export default {
     // ?是否已關閉過活動 icon & 過 2023/12/31 隱藏
     const now = moment().format('YYYY/MM/DD HH:mm:ss')
     const eventIcon = sessionStorage.getItem('closeEvent')
-    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isAfter('2023/12/31 23:59:59')) {
+    // ? 超過2023/11/1 50元 反之 100元
+    if (moment(now, 'YYYY/MM/DD HH:mm:ss').isAfter('2023/10/31 23:59:59')) {
+      this.is100 = false
+    } else {
+      this.is100 = true
+    }
+    if (eventIcon) {
       this.isClose = true
-      this.isOpen = true
-    } else if (eventIcon) {
-      this.isClose = true
+    } else {
+      this.isClose = false
     }
   },
   unmounted () {

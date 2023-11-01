@@ -46,7 +46,8 @@ export default createStore({
     isLoginFromBirthday: false, // ! 是否從生日活動頁登入
     cartBarInfo: {}, // * 購物車活動資訊
     registerMsgSecond: 0,
-    isLoading: false
+    isLoading: false,
+    AddOnProdList: [] // !加購品清單
   },
   mutations: {
     refreshLoading (state, payload) {
@@ -153,6 +154,9 @@ export default createStore({
     },
     refreshLoginFromBirthday (state, login) {
       state.isLoginFromBirthday = login
+    },
+    getAddOnProducts (state, list) {
+      state.AddOnProdList = list
     }
   },
   actions: {

@@ -661,7 +661,7 @@
 import countryName from '@/assets/country.json'
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js' // ?網頁會認不得要再引入
 import checkToken from '@/assets/js/checkToken.js'
-import CardProgress from '@/components/CardProgress.vue'
+import CardProgress from '@/components/Cart/CardProgress.vue'
 
 export default {
   components: {

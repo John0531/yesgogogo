@@ -731,7 +731,6 @@ export default {
       coldCartShipInfo: {},
       clickCartType: '',
       trackList: [] // ? 追蹤清單商品
-      // release: true // ? for 9/1 00:00 上線
     }
   },
   methods: {
@@ -796,6 +795,7 @@ export default {
         allProductNum += item.quantity
       })
       this.$store.commit('getcartIconNum', allProductNum)
+      this.filterAddOn()
     },
     // ? 前往購物車第一頁，將資料透過 vuex 傳遞
     toCheckoutCart (cartType) {
@@ -1036,8 +1036,162 @@ export default {
       localStorage.removeItem('cartErrorStatus')
     },
     openDonativeModal () {
-      // console.log(this.$refs.donativeModal)
       this.$refs.donativeModal.openModal()
+    },
+    filterAddOn () {
+      // console.log(this.$store.state.checkoutCartList.shippingInfo[0].shippingType)
+      switch (this.$store.state.checkoutCartList.shippingInfo[0].shippingType) {
+        case 'S2':
+          // *常溫過濾
+          this.deleteFilterNormal()
+          // *更新UI
+          break
+        case 'S3':
+          // *冷凍過濾
+          this.deleteFilterCold()
+          // *更新UI
+          break
+
+        default:
+          break
+      }
+    },
+    deleteFilterNormal () {
+      if (sessionStorage.getItem('back')) {
+        if (this.normalCart.length !== this.$store.state.checkoutCartList.items.length) {
+          // *先打calculate產生差異
+          const normalCartItems = this.normalCart.map((item) => {
+            return {
+              productId: item.productId,
+              optionId: item.optionId
+            }
+          })
+          // !整理為API格式
+          const postData = {
+            items: normalCartItems
+          }
+          // console.log(postData)
+          const exurl = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
+          this.axios.post(exurl, postData)
+            .then((res) => {
+              // !整理res格視為可供簡易比對格式
+              const resItems = res.data.info.items.map((item) => {
+                return {
+                  productId: item.productId,
+                  optionId: item.optionId
+                }
+              })
+              const filteredKeywords = normalCartItems.filter((product) =>
+                !resItems.some((filterItems) =>
+                  product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
+                )
+              )
+              // console.log(filteredKeywords)
+              // !濾出要移除的加購品，整理為API格式
+              const deleteData = {
+                productId: filteredKeywords[0].productId,
+                optionId: filteredKeywords[0].optionId
+              }
+              // console.log(deleteData)
+              const url = `${process.env.VUE_APP_API}/api/newCart/remove`
+              this.axios.post(url, deleteData)
+                .then((res) => {
+                  if (res.data.rtnCode === 0) {
+                    this.getCartData()
+                    sessionStorage.removeItem('back')
+                  } else {
+                    this.$store.commit('getcartIconNum', 0)
+                    this.cartData.items = []
+                    this.normalCart = []
+                    this.coldCart = []
+                    this.fullShipmentCart = []
+                  }
+                })
+                .then(
+                  this.$swal.fire({
+                    title: '不符合活動條件，活動產品已移除',
+                    allowOutsideClick: true,
+                    confirmButtonColor: '#F8412E',
+                    confirmButtonText: '確認',
+                    width: 400,
+                    customClass: {
+                      title: 'text-class',
+                      confirmButton: 'confirm-btn-class'
+                    }
+                  })
+                ).then(
+                  sessionStorage.removeItem('back')
+                )
+            })
+        }
+      }
+    },
+    deleteFilterCold () {
+      if (sessionStorage.getItem('back')) {
+        if (this.coldCart.length !== this.$store.state.checkoutCartList.items.length) {
+          // *先打calculate產生差異
+          const coldCartItems = this.coldCart.map((item) => {
+            return {
+              productId: item.productId,
+              optionId: item.optionId
+            }
+          })
+          const postData = {
+            items: coldCartItems
+          }
+          // console.log(postData)
+          const exurl = `${process.env.VUE_APP_API}/api/newCart/cartCalculate`
+          this.axios.post(exurl, postData)
+            .then((res) => {
+              const resItems = res.data.info.items.map((item) => {
+                return {
+                  productId: item.productId,
+                  optionId: item.optionId
+                }
+              })
+              const filteredKeywords = coldCartItems.filter((product) =>
+                !resItems.some((filterItems) =>
+                  product.productId === filterItems.productId && product.optionIdId === filterItems.optionIdId
+                )
+              )
+              // console.log(filteredKeywords)
+              const deleteData = {
+                productId: filteredKeywords[0].productId,
+                optionId: filteredKeywords[0].optionId
+              }
+              // console.log(deleteData)
+              const url = `${process.env.VUE_APP_API}/api/newCart/remove`
+              this.axios.post(url, deleteData)
+                .then((res) => {
+                  if (res.data.rtnCode === 0) {
+                    this.getCartData()
+                    sessionStorage.removeItem('back')
+                  } else {
+                    this.$store.commit('getcartIconNum', 0)
+                    this.cartData.items = []
+                    this.normalCart = []
+                    this.coldCart = []
+                    this.fullShipmentCart = []
+                  }
+                })
+                .then(
+                  this.$swal.fire({
+                    title: '不符合活動條件，活動產品已移除',
+                    allowOutsideClick: true,
+                    confirmButtonColor: '#F8412E',
+                    confirmButtonText: '確認',
+                    width: 400,
+                    customClass: {
+                      title: 'text-class',
+                      confirmButton: 'confirm-btn-class'
+                    }
+                  })
+                ).then(
+                  sessionStorage.removeItem('back')
+                )
+            })
+        }
+      }
     }
   },
   mounted () {

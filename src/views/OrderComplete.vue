@@ -298,7 +298,7 @@
 <script>
 import countryName from '@/assets/country.json'
 import checkToken from '@/assets/js/checkToken.js'
-import CardProgress from '@/components/CardProgress.vue'
+import CardProgress from '@/components/Cart/CardProgress.vue'
 import DonativeModalVue from '@/components/DonativeModal.vue'
 import AddPurchaseModalVue from '@/components/AddPurchaseModal.vue'
 // import anime from '@/assets/js/anime.min.js'
