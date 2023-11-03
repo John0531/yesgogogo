@@ -291,14 +291,6 @@ const yggevent = {
       meta: {
         title: '鑽石鍋1折起'
       }
-    },
-    {
-      path: 'activity/weekendpopup1111',
-      name: '超級閃購雙11',
-      component: () => import(/* webpackChunkName: "group-weekendpopup" */ '../views/activity/SuperPopup1111.vue'),
-      meta: {
-        title: '超級閃購雙11'
-      }
     }
     // {
     //   path: 'activity/testnewyeargift/',
@@ -327,11 +319,11 @@ const yggevent = {
   ]
 }
 
-// if (Date.now() < Date.parse('2022/11/12 23:59:59')) {
-//   yggevent.children.forEach((item) => {
-//     if (item.name === '超級閃購') {
-//       item.component = () => import(/* webpackChunkName: "group-SuperPopup" */ '../views/activity/SuperPopup1111.vue')
-//     }
-//   })
-// }
+if (Date.now() < Date.parse('2023/11/12 23:59:59')) {
+  yggevent.children.forEach((item) => {
+    if (item.name === '超級閃購') {
+      item.component = () => import(/* webpackChunkName: "group-SuperPopup" */ '../views/activity/SuperPopup1111.vue')
+    }
+  })
+}
 export default yggevent
