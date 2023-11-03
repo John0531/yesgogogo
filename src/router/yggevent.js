@@ -286,10 +286,10 @@ const yggevent = {
     },
     {
       path: 'activity/diamondPod',
-      name: '鑽石鍋',
+      name: '鑽石鍋1折起',
       component: () => import(/* webpackChunkName: "group-loveDonation" */ '../views/activity/DiamondPod.vue'),
       meta: {
-        title: '鑽石鍋'
+        title: '鑽石鍋1折起'
       }
     },
     {
