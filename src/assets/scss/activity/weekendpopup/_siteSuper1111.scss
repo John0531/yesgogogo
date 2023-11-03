@@ -3,12 +3,12 @@
 }
 
 .bg-pop{
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg.png'), url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/weekendpopup/bg_02.png');
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg.png'), url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/weekendpopup/bg_02.png');
   background-repeat: no-repeat, no-repeat;
   background-position: center top, center 50%;
   background-size: contain, cover;
   @media (min-width: 992px) {
-    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg.png'), url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/weekendpopup/bg_02.png');
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg.png'), url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/weekendpopup/bg_02.png');
     background-size: contain, auto;
   }
 }
@@ -25,20 +25,29 @@
 }
 
 .bg-popList{
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_a02.png');
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_a02.png');
   background-repeat: repeat-y;
   background-size: contain;
   @media (min-width: 992px) {
-    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_a02.png');
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_a02.png');
   }
 }
 
 .bg-addonList{
-  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_b02.png');
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_b02.png');
   background-repeat: repeat-y;
   background-size: contain;
   @media (min-width: 992px) {
-    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_b02.png');
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_b02.png');
+  }
+}
+
+.bg-diamond{
+  background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb_bg_d02.png'), url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/space_01.png');
+  background-repeat: repeat-y;
+  background-size: contain;
+  @media (min-width: 992px) {
+    background-image: url('https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_d02.png');
   }
 }
 
@@ -50,7 +59,7 @@
 }
 
 .count-color{
-  color: #f91e4b;
+  color: #CE0000;
 }
 
 /* 商品 */

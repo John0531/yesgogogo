@@ -291,6 +291,14 @@ const yggevent = {
       meta: {
         title: '鑽石鍋'
       }
+    },
+    {
+      path: 'activity/weekendpopup1111',
+      name: '超級閃購雙11',
+      component: () => import(/* webpackChunkName: "group-weekendpopup" */ '../views/activity/SuperPopup1111.vue'),
+      meta: {
+        title: '超級閃購雙11'
+      }
     }
     // {
     //   path: 'activity/testnewyeargift/',
