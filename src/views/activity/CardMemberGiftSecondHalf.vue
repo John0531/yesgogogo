@@ -66,7 +66,7 @@
           </div>
           <div class="col-4  p-0 text-end hvr-bob ">
             <!-- 0620要再綁後台連結 -->
-            <router-link target="_self" to="/activity/UITCCardDiscount2023_September">
+            <router-link target="_self" to="/activity/UITCCardDiscount2023_October">
               <img
                 src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/cardMemberGiftSecondHalf/layout_PC_好禮_3.png"
                 alt="週二聯邦日"
