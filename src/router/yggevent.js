@@ -319,11 +319,11 @@ const yggevent = {
   ]
 }
 
-// if (Date.now() < Date.parse('2022/11/12 23:59:59')) {
-//   yggevent.children.forEach((item) => {
-//     if (item.name === '超級閃購') {
-//       item.component = () => import(/* webpackChunkName: "group-SuperPopup" */ '../views/activity/SuperPopup1111.vue')
-//     }
-//   })
-// }
+if (Date.now() < Date.parse('2023/11/12 23:59:59')) {
+  yggevent.children.forEach((item) => {
+    if (item.name === '超級閃購') {
+      item.component = () => import(/* webpackChunkName: "group-SuperPopup" */ '../views/activity/SuperPopup1111.vue')
+    }
+  })
+}
 export default yggevent

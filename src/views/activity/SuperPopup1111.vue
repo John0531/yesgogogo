@@ -6,7 +6,7 @@
     <div v-if="isPopOpen">
       <!-- 主視覺 pc-->
       <div class="d-none d-lg-block text-center position-relative">
-        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/kv01.png" alt="超級閃購" class="img-fluid">
+        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/kv01.png" alt="超級閃購" class="img-fluid">
         <!-- 版頭主打品 輪播 -->
         <div class="popular-prd position-absolute top-0 h-100">
           <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup/kv-right-title.png" class="img-fluid" alt="好康必 buy">
@@ -59,14 +59,14 @@
             <swiper-slide>
               <img
                 class="img-fluid"
-                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup/kv-text01.png?${makeid()}`"
-                alt="11/9-11/12全面25折up"
+                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/kv-text01.png?${makeid()}`"
+                alt="11/7-11/12超狂1折up"
               />
             </swiper-slide>
             <swiper-slide>
               <img
                 class="img-fluid"
-                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup/kv-text02.png"
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/kv-text02.png"
                 alt="筆筆回饋10%無上限"
               />
             </swiper-slide>
@@ -75,7 +75,7 @@
       </div>
       <!-- 主視覺 mobile -->
       <div class="d-lg-none text-center position-relative">
-        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb_kv01.png" alt="超級閃購" class="img-fluid">
+        <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb_kv01.png" alt="超級閃購" class="img-fluid">
         <!-- 版頭主打品 -->
         <div class="popularM position-absolute bottom-0 start-50 translate-middle-x">
           <div class="hotEvents">
@@ -127,14 +127,14 @@
             <swiper-slide>
               <img
                 class="img-fluid"
-                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup/mb_kv-text01.png?${makeid()}`"
-                alt="11/9-11/12全面25折up"
+                :src="`https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-kv-text01.png?${makeid()}`"
+                alt="11/7-11/12超狂1折up"
               />
             </swiper-slide>
             <swiper-slide>
               <img
                 class="img-fluid"
-                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup/mb-kv-text02.png"
+                src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-kv-text02.png"
                 alt="筆筆回饋10%無上限"
               />
             </swiper-slide>
@@ -145,17 +145,17 @@
       <div class="bg-pop">
         <div class="container pt-3 pt-md-5">
           <h2>
-            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_a01.png" alt="爆品限時搶標題" class="img-fluid d-block d-lg-none">
-            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_a01.png" alt="爆品限時搶標題" class="img-fluid d-none d-lg-block">
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_a01.png" alt="爆品限時搶標題" class="img-fluid d-block d-lg-none">
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_a01.png" alt="爆品限時搶標題" class="img-fluid d-none d-lg-block">
           </h2>
           <div class="bg-popList px-3 px-md-4">
             <p v-if="idx !== -1" class="count-color fs-5 fs-md-4 fw-bold text-center pb-3 pb-md-4">剩餘
               <span v-if="days !== 0">
-                <span class="fs-4 fs-md-3">{{ idx !== -1 ? days : 0 }}</span> 天
+                <span class="fs-4 fs-md-3 text-white p-1" style="background-color: #CE0000; border-radius: 5px;">{{ idx !== -1 ? days : 0 }}</span> 天
               </span>
-              <span class="fs-4 fs-md-3">{{ idx !== -1 ? hours: 0 }}</span> 時
-              <span class="fs-4 fs-md-3">{{ idx !== -1 ? minutes: 0 }}</span> 分
-              <span class="fs-4 fs-md-3">{{ idx !== -1 ? seconds: 0 }}</span> 秒
+              <span class="fs-4 fs-md-3 text-white p-1" style="background-color: #CE0000; border-radius: 5px;">{{ idx !== -1 ? hours: 0 }}</span> 時
+              <span class="fs-4 fs-md-3 text-white p-1" style="background-color: #CE0000; border-radius: 5px;">{{ idx !== -1 ? minutes: 0 }}</span> 分
+              <span class="fs-4 fs-md-3 text-white p-1" style="background-color: #CE0000; border-radius: 5px;">{{ idx !== -1 ? seconds: 0 }}</span> 秒
             </p>
             <div class="row gx-2 gx-lg-4">
               <div class="col-6 col-lg-4 mb-2 mb-md-4 mb-lg-5" v-for="pop in popupProducts" :key="pop + '1'">
@@ -165,7 +165,7 @@
                     class="d-block text-secondary"
                   >
                     <div class="ratio ratio-1x1 position-relative bg-white d-flex justify-content-center align-items-center">
-                      <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/time-box.png" alt="搶購活動" class="outline-img position-absolute top-0 start-0 z-index-3">
+                      <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/time-box.png" alt="搶購活動" class="outline-img position-absolute top-0 start-0 z-index-3">
                       <img
                         :src="`${pop.productImage}`"
                         class="prd-img card-img-top"
@@ -192,8 +192,8 @@
               </div>
             </div>
           </div>
-          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_a03.png" alt="爆品限時搶底部" class="img-fluid d-block d-lg-none">
-          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_a03.png" alt="爆品限時搶底部" class="img-fluid d-none d-lg-block">
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_a03.png" alt="爆品限時搶底部" class="img-fluid d-block d-lg-none">
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_a03.png" alt="爆品限時搶底部" class="img-fluid d-none d-lg-block">
           <!-- 品牌活動輪播 PC-->
           <div v-if="eventBannerList.length > 0" class="mt-3 mt-lg-5  d-none d-lg-block">
             <swiper
@@ -240,8 +240,8 @@
         <!-- 這些也帶走 -->
         <div class="container">
           <h2>
-            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_b01.png" alt="這些也帶走標題" class="img-fluid d-block d-lg-none">
-            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_b01.png" alt="這些也帶走標題" class="img-fluid d-none d-lg-block">
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_b01.png" alt="這些也帶走標題" class="img-fluid d-block d-lg-none">
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_b01.png" alt="這些也帶走標題" class="img-fluid d-none d-lg-block">
           </h2>
           <div class="bg-addonList px-3 px-md-4">
             <div class="row gx-2 gx-md-4">
@@ -262,8 +262,41 @@
               </div>
             </div>
           </div>
-          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/mb-bg_b03.png" alt="這些也帶走底部" class="img-fluid d-block d-lg-none">
-          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/superpopup1111/bg_b03.png" alt="這些也帶走底部" class="img-fluid d-none d-lg-block">
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb-bg_b03.png" alt="這些也帶走底部" class="img-fluid d-block d-lg-none">
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_b03.png" alt="這些也帶走底部" class="img-fluid d-none d-lg-block">
+        </div>
+        <!-- 鑽石鍋 加價購 -->
+        <div class="container pt-3 pt-lg-5">
+          <h2>
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb_bg_d01.png" alt="這些也帶走標題" class="img-fluid d-block d-lg-none">
+            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_d01.png" alt="這些也帶走標題" class="img-fluid d-none d-lg-block">
+          </h2>
+          <div class="bg-diamond px-3 px-md-4">
+            <div class="row gx-2 gx-md-4">
+              <div class="col-6 col-lg-4 mb-2 mb-lg-4 mt-0" v-for="addon in diamondList" :key="addon + '1'">
+                <div class="addon-card prd-hover prd-item position-relative" :class="{ 'sold-out': addon.stock === 0 }">
+                  <router-link :to="`/productboard/product/${addon.productId}`" class="d-block text-black">
+                    <div class="card border-0 rounded-0 px-1 px-sm-2 pt-2 pt-md-2">
+                      <img :src="addon.productImage" class="card-img-top" alt="product image">
+                      <div class="card-body text-center px-0 pt-2 pb-0 py-sm-2 overflow-hidden">
+                        <h5 class="card-title fs-6 fs-md-5">{{ addon.productName }}</h5>
+                        <p class="d-inline text-nowrap fs-7 fs-lg-6 fs-xl-5">
+                          <del class="text-black me-2 me-xl-3">${{ addon.oldPrice &lt; 0 ? 'xxx': $currency.currency(addon.oldPrice) }}</del>
+                          <span class="addonPrice-color">特價$<span class="fs-3 fs-md-2">{{ addon.price &lt; 0 ? 'xxx': $currency.currency(addon.price) }}</span></span></p>
+                      </div>
+                    </div>
+                  </router-link>
+                </div>
+              </div>
+              <div v-if="diamondList.length % 2 !== 0" class="col-6 d-lg-none mb-4 mb-md-5">
+                <div class="d-flex justify-content-center align-items-center h-100 px-3">
+                  <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/space_02.png" alt="搶購活動" class="img-fluid">
+                </div>
+              </div>
+            </div>
+          </div>
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/mb_bg_d03.png" alt="這些也帶走底部" class="img-fluid d-block d-lg-none">
+          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/2023_superpopup1111/bg_d03.png" alt="這些也帶走底部" class="img-fluid d-none d-lg-block">
         </div>
         <!-- 熱門活動 -->
         <div class="container py-3 py-md-5">
@@ -335,6 +368,7 @@ export default {
       mainProduct_m: [],
       popupProducts: '',
       addonList: '',
+      diamondList: '',
       hotEventsList: '',
       eventBannerList: [],
       eventBannerList_m: []
@@ -417,6 +451,16 @@ export default {
           }
         })
     },
+    //* 鑽石鍋 加價購
+    getDiamond () {
+      const url = `${process.env.VUE_APP_API}/api/product/eventproducts?code=pop_D`
+      this.$http.get(url)
+        .then((res) => {
+          if (res.data.rtnCode === 0) {
+            this.diamondList = res.data.info[0].products
+          }
+        })
+    },
     // * 熱門活動
     getHotEvents () {
       const url = `${process.env.VUE_APP_API}/api/widgets/activitybanner?code=pop_B`
@@ -494,6 +538,7 @@ export default {
         this.getHotEvents()
         this.getMainProduct()
         this.getEventBanner()
+        this.getDiamond()
       }
     },
     // *搶購倒數計時 end
