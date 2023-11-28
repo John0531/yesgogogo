@@ -15,9 +15,54 @@
           <!-- 手機版 banner -->
          <a href="#detail"  > <div class="banner-mb img-bg-noRepeat  d-lg-none  "></div></a>
 
-            <!-- 順手必買 圖片入稿 luckyProductList -->
           <div class="bg-lucky img-bg-repeat pt-0 pb-md-4  pb-lg-6 ">
 
+            <!-- 優惠3區塊 -->
+           <div class="container mt-3">
+              <div class="row">
+                <div class="col-12 col-md-10  mx-auto">
+                  <div class="row g-2 justify-content-center align-items-center">
+                      <div class="col-12 col-lg-7 ">
+                        <a href="#detail">
+                          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_pc_A_1.png" alt="愛心捐說明" class="img-fluid d-none d-lg-block" >
+
+                          <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_mb_A_1.png" alt="愛心捐說明" class="img-fluid d-block d-lg-none " >
+                        </a>
+
+                      </div>
+                      <div class="col-12 col-lg-5 p-0 p-lg-3 ">
+
+                        <div class="d-flex flex-row flex-lg-column ">
+
+                          <div class=" p-1 p-lg-0">
+                            <a href="#detail">
+                              <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_pc_A_2.png" class="img-fluid d-none d-lg-block mb-2" alt="咖啡活動">
+
+                              <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_mb_A_2.png" alt="咖啡活動" class="img-fluid d-block d-lg-none  " >
+
+                            </a>
+                          </div>
+
+                          <div  class="p-1 p-lg-0">
+                            <a href="/activity/2023_memberbonus" target="_blank" >
+                               <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_pc_A_3.png" class="img-fluid d-none d-lg-block" alt="新會員註冊">
+
+                            <img src="https://yesgoimages.s3.ap-northeast-1.amazonaws.com/yesgoevent/loveDonation_october/add_mb_A_3.png" alt="新會員註冊" class="img-fluid d-block d-lg-none " >
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                     </div>
+                   </div>
+                </div>
+              </div>
+
+           </div>
+
+            <!-- 順手必買 圖片入稿 luckyProductList -->
                 <div class="container"  v-if="luckyProductList.length>0" >
 
                         <div class="row justify-content-center">
@@ -137,7 +182,7 @@
               </div>
             </div>
 
-            <!-- bg-drinks 好果報喜來 (果汁/飲品/咖啡) productBox-title02 -->
+            <!-- bg-drinks 好果報喜來 (果汁/飲品/咖啡) !!要換圖!! productBox-title02 -->
            <div class="bg-group3 img-bg-repeat pb-5">
              <div class="py-2">
 
@@ -317,8 +362,9 @@
             </div>
            </div>
 
-             <!-- bg-health 福祿與天齊(保健/保養) productBox-title05 -->
-             <div class="bg-group1 img-bg-repeat pb-5">
+             <!-- bg-health 福祿壽全榮(保健/保養) 換圖->改成 !!要換圖!! <暖冬喜連連>-2023/12 productBox-title05 -->
+
+             <div class="bg-group1 img-bg-repeat pb-5" v-if="productList05.length>0">
              <div class="py-2">
 
                  <div class="container" v-if="productList05" >
@@ -379,7 +425,7 @@
             </div>
              </div>
 
-             <!-- bg-clean 納福日無疆(個清/日用) productBox-title06 -->
+             <!-- bg-clean 炊煙生財氣(廚房好物) productBox-title06 -->
              <div class="bg-group3 img-bg-repeat pb-5">
               <div class="py-2">
 
@@ -440,7 +486,7 @@
             </div>
              </div>
 
-            <!-- bg-cool 東風生利市(涼夏/療癒/旅用) productBox-title07 -->
+            <!-- bg-cool 納福日無疆(個清/日用) productBox-title07 -->
             <div class="bg-group2 img-bg-repeat pb-5">
               <div class="py-2">
 
@@ -498,7 +544,7 @@
 
             </div>
             </div>
-             <!--   入室春風靄 後棟要求隱藏 productBox-title08 -->
+             <!--   入室春風靄 後棟要求隱藏-2023/11 productBox-title08 -->
              <div class="bg-group4 img-bg-repeat pb-5" v-if="productList08.length>0">
               <div class="py-2">
 
@@ -643,7 +689,7 @@
 
                             <div class="ms-2 mb-1">活動期間: 2023/9/1-2023/12/31 (自2023年9月起，每月7天愛心週) </div>
                             <ol>
-                                <li class="mb-1">凡於11/1-11/7購買愛心週活動頁商品，邀您一同參與愛心捐，本活動最高捐結帳金額20%贈與非營利組織。 </li>
+                                <li class="mb-1">凡於12/1-12/7購買愛心週活動頁商品，邀您一同參與愛心捐，本活動最高捐結帳金額20%贈與非營利組織。 </li>
 
                                 <li class="mb-1">活動期間每筆訂單將獲得結帳總金額10%購物金的消費回饋。會員可選擇該筆訂單的消費回饋10%購物金，(1) 10%購物金全部保留在自己帳戶中，或(2) 5%轉作「愛心捐」+ 保留5%購物金，或(3) 10%轉作「愛心捐」。</li>
 
@@ -668,15 +714,17 @@
 
                                 <ol>
 
-                                  <li class="mb-1">11/1-11/7凡購買指定商品，刷聯邦信用卡購買即贈100元購物金。每購買一個商品加贈一次。指定商品： <a href="/productboard/product/P231016000001" class="text-light border-bottom" target="_blank" >【勝崎生鮮】美國安格斯藍帶牛排 </a>、<a href="/productboard/product/P230918000004" class="text-light border-bottom" target="_blank" >【Joyoung九陽】可口可樂多功能煎烤盤</a>、<a href="/productboard/product/P230925000019" class="text-light border-bottom" target="_blank" >【日本製】DRIPO咖啡焙煎所黑咖啡</a>。 </li>
+                                  <li class="mb-1">12/1-12/7 刷聯邦卡購買任一件愛心品送7-11超商CITY CAFE一杯。</li>
 
-                                    <li class="mb-1">回饋購物金將於11/30前發送至yesgogogo平台會員帳戶內。 </li>
-                                    <li class="mb-1">1購物金=1元，可於下次消費折抵結帳金額25%。購物金可至會員中心的「我的優惠券」→「購物金回饋」內查詢明細。 </li>
+                                    <li class="mb-1">本活動限定使用聯邦信用卡消費付款，排除Visa金融卡、LINE pay、ATM轉帳之交易。 </li>
+                                    <li class="mb-1">贈品回饋將於 12/31 前發送CITY CAFE的兌換簡訊至會員手機內。可憑兌換簡訊於全台7-11超商兌換中杯美式咖啡或四季春青茶或經典紅茶，冰/熱不限、即換即用，全台7-11超商通用。 </li>
+                                    <li class="mb-1">活動期間每會員限回饋一次。 </li>
+                                    <li class="mb-1">參加上述活動者須為完成訂單始符合認列資格，若因訂單取消、退貨、非商品瑕疵之換貨，則該筆訂單不得要求入列計算。 </li>
 
                                 </ol>
-                             <div class=" mb-1 fs-5">【點擊捐贈與中華育幼兒童關懷協會】</div>
+                             <div class=" mb-1 fs-5">【點擊捐贈與乳癌防治基金會】</div>
                              <ol>
-                                <li class="mb-1">2023/11/1-11/7於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與中華育幼兒童關懷協會。點擊捐贈與金額最高上限$10,000。</li>
+                                <li class="mb-1">2023/12/1-12/7 於google聯播網點擊進入yesgogogo愛心週活動頁，瀏覽愛心週活動，每點擊1次yesgogogo捐1元，本月點擊捐贈與乳癌防治基金會。點擊捐贈與金額最高上限$10,000。</li>
                                 <li class="mb-1">點擊捐以點擊進站的有效流量計算點擊數。(排除無效流量，例如:自動點擊工具、對用戶毫無意義的連續二次點擊等)。</li>
                              </ol>
 
@@ -851,7 +899,6 @@ export default {
         await window.localStorage.removeItem('clickHeight')
       }
     }
-
   },
 
   mounted () {
