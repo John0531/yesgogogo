@@ -521,6 +521,7 @@ export default {
   },
   updated () {
     this.checkLocalHeight()
+    console.log(123)
   }
 }
 </script>
